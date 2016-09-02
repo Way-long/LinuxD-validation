@@ -1,0 +1,375 @@
+Encoders:
+id	crtc	type	possible crtcs	possible clones	
+50	49	DAC	0x00000008	0x0000000f
+52	47	TMDS	0x00000002	0x0000000f
+54	0	TMDS	0x00000004	0x0000000f
+56	46	LVDS	0x00000001	0x0000000f
+
+Connectors:
+id	encoder	status		name		size (mm)	modes	encoders
+51	50	connected	VGA-1          	0x0		5	50
+  modes:
+	name refresh (Hz) hdisp hss hse htot vdisp vss vse vtot)
+  1024x768 60 1024 1048 1184 1344 768 771 777 806 flags: nhsync, nvsync; type: driver
+  800x600 60 800 840 968 1056 600 601 605 628 flags: phsync, pvsync; type: driver
+  800x600 56 800 824 896 1024 600 601 603 625 flags: phsync, pvsync; type: driver
+  848x480 60 848 864 976 1088 480 486 494 517 flags: phsync, pvsync; type: driver
+  640x480 60 640 656 752 800 480 490 492 525 flags: nhsync, nvsync; type: driver
+  props:
+	1 EDID:
+		flags: immutable blob
+		blobs:
+
+		value:
+	2 DPMS:
+		flags: enum
+		enums: On=0 Standby=1 Suspend=2 Off=3
+		value: 0
+53	52	connected	HDMI-A-1       	480x270		12	52
+  modes:
+	name refresh (Hz) hdisp hss hse htot vdisp vss vse vtot)
+  1920x1080 60 1920 2008 2052 2200 1080 1084 1089 1125 flags: phsync, pvsync; type: preferred, driver
+  1600x900 60 1600 1624 1704 1800 900 901 904 1000 flags: phsync, pvsync; type: driver
+  1280x1024 75 1280 1296 1440 1688 1024 1025 1028 1066 flags: phsync, pvsync; type: driver
+  1280x1024 60 1280 1328 1440 1688 1024 1025 1028 1066 flags: phsync, pvsync; type: driver
+  1152x864 75 1152 1216 1344 1600 864 865 868 900 flags: phsync, pvsync; type: driver
+  1024x768 75 1024 1040 1136 1312 768 769 772 800 flags: phsync, pvsync; type: driver
+  1024x768 60 1024 1048 1184 1344 768 771 777 806 flags: nhsync, nvsync; type: driver
+  800x600 75 800 816 896 1056 600 601 604 625 flags: phsync, pvsync; type: driver
+  800x600 60 800 840 968 1056 600 601 605 628 flags: phsync, pvsync; type: driver
+  640x480 75 640 656 720 840 480 481 484 500 flags: nhsync, nvsync; type: driver
+  640x480 60 640 656 752 800 480 490 492 525 flags: nhsync, nvsync; type: driver
+  720x400 70 720 738 846 900 400 412 414 449 flags: nhsync, pvsync; type: driver
+  props:
+	1 EDID:
+		flags: immutable blob
+		blobs:
+
+		value:
+			00ffffffffffff0010ac9ea0424c3131
+			0a19010380301b78ea2755a3544f9e27
+			115054a54b00714f8180a9c0d1c00101
+			010101010101023a801871382d40582c
+			4500dd0c1100001e000000ff004d3943
+			4e5635333531314c420a000000fc0044
+			454c4c204532323134480a20000000fd
+			00384c1e5311000a2020202020200081
+	2 DPMS:
+		flags: enum
+		enums: On=0 Standby=1 Suspend=2 Off=3
+		value: 0
+55	0	disconnected	HDMI-A-2       	0x0		0	54
+  props:
+	1 EDID:
+		flags: immutable blob
+		blobs:
+
+		value:
+	2 DPMS:
+		flags: enum
+		enums: On=0 Standby=1 Suspend=2 Off=3
+		value: 0
+57	56	connected	LVDS-1         	210x158		1	56
+  modes:
+	name refresh (Hz) hdisp hss hse htot vdisp vss vse vtot)
+  1024x768 60 1024 1044 1180 1340 768 771 777 806 flags: ; type: preferred, driver
+  props:
+	1 EDID:
+		flags: immutable blob
+		blobs:
+
+		value:
+	2 DPMS:
+		flags: enum
+		enums: On=0 Standby=1 Suspend=2 Off=3
+		value: 0
+
+CRTCs:
+id	fb	pos	size
+46	80	(0,0)	(1024x768)
+  1024x768 60 1024 1044 1180 1340 768 771 777 806 flags: ; type: preferred, driver
+  props:
+47	80	(0,0)	(1920x1080)
+  1920x1080 60 1920 2008 2052 2200 1080 1084 1089 1125 flags: phsync, pvsync; type: preferred, driver
+  props:
+48	0	(0,0)	(0x0)
+   0 0 0 0 0 0 0 0 0 flags: ; type: 
+  props:
+49	80	(0,0)	(1024x768)
+  1024x768 60 1024 1048 1184 1344 768 771 777 806 flags: nhsync, nvsync; type: driver
+  props:
+
+Planes:
+id	crtc	fb	CRTC x,y	x,y	gamma size	possible crtcs
+26	46	80	0,0		0,0	0       	0x00000001
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 1
+27	0	0	0,0		0,0	0       	0x00000001
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+28	0	0	0,0		0,0	0       	0x00000001
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+29	0	0	0,0		0,0	0       	0x00000001
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+30	0	0	0,0		0,0	0       	0x00000001
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+31	47	80	0,0		0,0	0       	0x00000002
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 1
+32	0	0	0,0		0,0	0       	0x00000002
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+33	0	0	0,0		0,0	0       	0x00000002
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+34	0	0	0,0		0,0	0       	0x00000002
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+35	0	0	0,0		0,0	0       	0x00000002
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+36	0	0	0,0		0,0	0       	0x00000004
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 1
+37	0	0	0,0		0,0	0       	0x00000004
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+38	0	0	0,0		0,0	0       	0x00000004
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+39	0	0	0,0		0,0	0       	0x00000004
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+40	0	0	0,0		0,0	0       	0x00000004
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+41	49	80	0,0		0,0	0       	0x00000008
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 1
+42	0	0	0,0		0,0	0       	0x00000008
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+43	0	0	0,0		0,0	0       	0x00000008
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+44	0	0	0,0		0,0	0       	0x00000008
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+45	0	0	0,0		0,0	0       	0x00000008
+  formats: RGB8 AR12 XR12 AR15 XR15 RG16 BG24 RG24 BA24 BX24 AR24 XR24 UYVY VYUY YUYV YVYU NV12 NV21 NV16 NV61 YU12 YV12 YU16 YV16 YU24 YV24
+  props:
+	5 type:
+		flags: immutable enum
+		enums: Overlay=0 Primary=1 Cursor=2
+		value: 0
+	23 alpha:
+		flags: range
+		values: 0 255
+		value: 255
+	25 zpos:
+		flags: range
+		values: 1 7
+		value: 1
+
+Frame buffers:
+id	size	pitch
+

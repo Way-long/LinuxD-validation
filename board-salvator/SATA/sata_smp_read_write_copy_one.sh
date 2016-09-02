@@ -1,0 +1,59 @@
+#!/bin/bash
+# sata device driver autotest shell-script
+
+set -e
+#set -x
+
+if [ $# -lt 3 ]; then
+    echo "usage : $(basename $0) SOURCE_PATH DESTINATION_PATH FILE_SIZE"
+    exit 1
+fi
+
+SRC_DIR="$1"
+DST_DIR="$2"
+FILE_SIZE="$3"
+
+echo "read write ${FILE_SIZE}M file from $SRC_DIR to $DST_DIR"
+
+# write test
+echo "create data ${FILE_SIZE}mb on $SRC_DIR"
+dd if=/dev/urandom of=${SRC_DIR}/file_${FILE_SIZE}mb bs=1M count=${FILE_SIZE}
+
+if ! [ -f ${SRC_DIR}/file_${FILE_SIZE}mb ];then
+	eval $FAIL_MEG
+	exit 1
+fi	
+
+echo "copy data from $SRC_DIR to $DST_DIR"
+cp ${SRC_DIR}/file_${FILE_SIZE}mb $DST_DIR
+
+sync
+
+if ! cmp ${SRC_DIR}/file_${FILE_SIZE}mb ${DST_DIR}/file_${FILE_SIZE}mb;then
+	eval $FAIL_MEG
+	exit 1
+fi
+
+rm -rf ${SRC_DIR}/*
+rm -rf ${DST_DIR}/*
+
+#read test
+echo "create ${FILE_SIZE}mb data on $DST_DIR"
+dd if=/dev/urandom of=${DST_DIR}/file_${FILE_SIZE}mb bs=1M count=${FILE_SIZE}
+
+if ! [ -f ${DST_DIR}/file_${FILE_SIZE}mb ];then
+	eval $FAIL_MEG
+	exit 1
+fi
+
+echo "copy data from $DST_DIR to $SRC_DIR"
+cp ${DST_DIR}/file_${FILE_SIZE}mb $SRC_DIR
+
+sync
+
+if ! cmp ${SRC_DIR}/file_${FILE_SIZE}mb ${DST_DIR}/file_${FILE_SIZE}mb;then
+	eval $FAIL_MEG
+	exit 1
+fi
+
+eval $PASS_MEG

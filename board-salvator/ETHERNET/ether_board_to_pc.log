@@ -1,0 +1,129 @@
+root@linaro-nano:~# iperf -c 172.16.1.205 -u -b 10M
+------------------------------------------------------------
+Client connecting to 172.16.1.205, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  160 KByte (default)
+------------------------------------------------------------
+[  5] local 172.16.1.215 port 60465 connected with 172.16.1.205 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  5]  0.0-10.0 sec  11.9 MBytes  9.98 Mbits/sec
+[  5] Sent 8499 datagrams
+[  5] Server Report:
+[  5]  0.0-10.0 sec  11.9 MBytes  9.98 Mbits/sec   0.242 ms    0/ 8498 (0%)
+[  5]  0.0-10.0 sec  1 datagrams received out-of-order
+root@linaro-nano:~# iperf -c 172.16.1.205 -u -b 20M
+------------------------------------------------------------
+Client connecting to 172.16.1.205, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  160 KByte (default)
+------------------------------------------------------------
+[  5] local 172.16.1.215 port 46616 connected with 172.16.1.205 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  5]  0.0-10.0 sec  23.8 MBytes  20.0 Mbits/sec
+[  5] Sent 17008 datagrams
+[  5] Server Report:
+[  5]  0.0-20.2 sec  23.8 MBytes  9.91 Mbits/sec   0.245 ms    0/17007 (0%)
+[  5]  0.0-20.2 sec  1 datagrams received out-of-order
+root@linaro-nano:~# iperf -c 172.16.1.205 -u -b 30M
+------------------------------------------------------------
+Client connecting to 172.16.1.205, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  160 KByte (default)
+------------------------------------------------------------
+[  5] local 172.16.1.215 port 58754 connected with 172.16.1.205 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  5]  0.0-10.0 sec  35.7 MBytes  30.0 Mbits/sec
+[  5] Sent 25491 datagrams
+[  5] Server Report:
+[  5]  0.0-30.3 sec  35.7 MBytes  9.88 Mbits/sec   0.266 ms    0/25491 (0%)
+root@linaro-nano:~# iperf -c 172.16.1.205 -u -b 50M
+------------------------------------------------------------
+Client connecting to 172.16.1.205, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  160 KByte (default)
+------------------------------------------------------------
+[  5] local 172.16.1.215 port 40934 connected with 172.16.1.205 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  5]  0.0-10.0 sec  58.9 MBytes  49.3 Mbits/sec
+[  5] Sent 41980 datagrams
+[  5] Server Report:
+[  5]  0.0-40.5 sec  58.9 MBytes  12.2 Mbits/sec   0.362 ms    0/41979 (0%)
+[  5]  0.0-40.5 sec  1 datagrams received out-of-order
+root@linaro-nano:~# iperf -c 172.16.1.205 -u -b 100M
+------------------------------------------------------------
+Client connecting to 172.16.1.205, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  160 KByte (default)
+------------------------------------------------------------
+[  5] local 172.16.1.215 port 58906 connected with 172.16.1.205 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  5]  0.0-10.0 sec  74.2 MBytes  62.2 Mbits/sec
+[  5] Sent 52936 datagrams
+[  5] Server Report:
+[  5]  0.0-50.6 sec  74.2 MBytes  12.3 Mbits/sec   0.563 ms    0/52935 (0%)
+[  5]  0.0-50.6 sec  1 datagrams received out-of-order
+root@linaro-nano:~# iperf -c 172.16.1.205 -u -b 200M
+------------------------------------------------------------
+Client connecting to 172.16.1.205, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  160 KByte (default)
+------------------------------------------------------------
+[  5] local 172.16.1.215 port 34635 connected with 172.16.1.205 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  5]  0.0-10.0 sec  86.9 MBytes  72.9 Mbits/sec
+[  5] Sent 62004 datagrams
+[  5] Server Report:
+[  5]  0.0-60.8 sec  86.9 MBytes  12.0 Mbits/sec   0.498 ms    0/62003 (0%)
+[  5]  0.0-60.8 sec  1 datagrams received out-of-order
+root@linaro-nano:~# iperf -c 172.16.1.205 -u -b 300M
+------------------------------------------------------------
+Client connecting to 172.16.1.205, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  160 KByte (default)
+------------------------------------------------------------
+[  5] local 172.16.1.215 port 55913 connected with 172.16.1.205 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  5]  0.0-10.0 sec  92.7 MBytes  77.7 Mbits/sec
+[  5] Sent 66101 datagrams
+[  5] Server Report:
+[  5]  0.0-70.9 sec  92.7 MBytes  11.0 Mbits/sec   0.656 ms    0/66100 (0%)
+[  5]  0.0-70.9 sec  1 datagrams received out-of-order
+root@linaro-nano:~# iperf -c 172.16.1.205 -u -b 500M
+------------------------------------------------------------
+Client connecting to 172.16.1.205, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  160 KByte (default)
+------------------------------------------------------------
+[  5] local 172.16.1.215 port 57682 connected with 172.16.1.205 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  5]  0.0-10.0 sec  95.6 MBytes  80.2 Mbits/sec
+[  5] Sent 68220 datagrams
+[  5] Server Report:
+[  5]  0.0-81.1 sec  95.6 MBytes  9.89 Mbits/sec   0.658 ms    0/68219 (0%)
+[  5]  0.0-81.1 sec  1 datagrams received out-of-order
+root@linaro-nano:~# iperf -c 172.16.1.205 -u -b 1000M
+------------------------------------------------------------
+Client connecting to 172.16.1.205, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  160 KByte (default)
+------------------------------------------------------------
+[  5] local 172.16.1.215 port 55822 connected with 172.16.1.205 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  5]  0.0-10.0 sec  95.6 MBytes  80.2 Mbits/sec
+[  5] Sent 68182 datagrams
+[  5] Server Report:
+[  5]  0.0-91.3 sec  95.6 MBytes  8.79 Mbits/sec   0.337 ms    0/68181 (0%)
+[  5]  0.0-91.3 sec  1 datagrams received out-of-order
+root@linaro-nano:~# iperf -c 172.16.1.205 -u -b 2000M
+------------------------------------------------------------
+Client connecting to 172.16.1.205, UDP port 5001
+Sending 1470 byte datagrams
+UDP buffer size:  160 KByte (default)
+------------------------------------------------------------
+[  5] local 172.16.1.215 port 59496 connected with 172.16.1.205 port 5001
+[ ID] Interval       Transfer     Bandwidth
+[  5]  0.0-10.0 sec  95.6 MBytes  80.2 Mbits/sec
+[  5] Sent 68211 datagrams
+[  5] Server Report:
+[  5]  0.0-101.4 sec  95.6 MBytes  7.91 Mbits/sec   0.657 ms    0/68210 (0%)
+[  5]  0.0-101.4 sec  1 datagrams received out-of-order
