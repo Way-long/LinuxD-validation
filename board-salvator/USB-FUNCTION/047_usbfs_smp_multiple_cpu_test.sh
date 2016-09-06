@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 # usb function device driver autotest shell-script
 
 set -e
 #set -x
 
-echo "\n**************USB FUNCTION PING BOARD TO PC********************\n"
+echo "\n******************USB FUNCTION SMP TEST********************\n"
 
 #modprobe device
 $CMD_SSH <<ENDSSH
@@ -34,7 +34,14 @@ sleep 2
 # setting and ping network on board
 $CMD_SSH <<ENDSSH
 exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_usbfs.sh usbfs_setting_network_on_board.sh
-exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_usbfs.sh usbfs_check_ping_on_board.sh
+
+taskset -c 0 $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_usbfs.sh usbfs_check_ping_on_board.sh &
+
+taskset -c 1 $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_usbfs.sh usbfs_check_ping_on_board.sh &
+
+taskset -c 2 $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_usbfs.sh usbfs_check_ping_on_board.sh &
+
+taskset -c 3 $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_usbfs.sh usbfs_check_ping_on_board.sh
 
 ENDSSH
 

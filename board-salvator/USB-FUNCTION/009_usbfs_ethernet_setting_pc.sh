@@ -1,37 +1,35 @@
 #!/bin/bash
+# usb function device driver autotest shell-script
 
 set -e
 #set -x
 
-echo "USB FUNCTION ETHERNET SETTING"
+echo "\n**************USB FUNCTION ETHERNET SETTING ON PC**************\n"
 
 #modprobe device
 $CMD_SSH <<ENDSSH
 
-modprobe g_ether
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_modprobe.sh g_ether
 
 ENDSSH
 
-sleep 2
+sleep 5
 
-ifconfig -a > log.txt
+echo "ON PC:"
 
-usb0=`grep usb0 log.txt | tail -n 1 | cut -c-4  | sed 's/[[:space:]]//g'` 
-
-if [ "$usb0" == "usb0" ]; then
-	echo "TEST PASSED"
-else
-	echo "TEST FAILED"
-	exit "$?"
+if ifconfig -a | grep $USBFS_ETHER_INTERFACE;then
+	eval $PASS_MEG
+else	
+    eval $FAIL_MEG
 fi
 
-rm -rf log.txt
-
-sleep 5
+sleep 2
 
 #rmmod device
 $CMD_SSH <<ENDSSH
 
-rmmod g_ether
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_rmmod.sh g_ether
 
 ENDSSH
+
+echo "\n***************************************************************\n"

@@ -1,40 +1,55 @@
 #!/bin/bash
+# usb function device driver autotest shell-script
 
 set -e
 #set -x
 
-echo "USB FUNCTION G_ZERO TEST"
+echo "\n************USB FUNCTION ZERO WRITE CONTROL TEST***********\n"
 
 $CMD_SSH <<ENDSSH
 
-modprobe usb_f_ss_lb ctrl_maxpacket=64
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_modprobe.sh usb_f_ss_lb isoc_maxpacket=512
 
-modprobe g_zero
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_modprobe.sh g_zero
 
 ENDSSH
 
-sudo mount --bind /dev/bus /proc/bus
+if ! sudo mount --bind /dev/bus /proc/bus;then
+	echo "mount bus device error"
+	eval $FAIL_MEG
+	exit 1
+fi	
 
 sleep 5
 
-lsusb > log.txt
+lsusb
 
-bus=`grep Gadget log.txt | tail -1 | cut -d s -f2 | cut -d D -f1 | sed 's/[[:space:]]//g'` 
+lsusb > $LOGFILE
 
-dev=`grep Gadget log.txt | tail -1 | cut -d c -f2 | cut -d I -f1 | sed 's/[[:space:]]//g' | cut -c 2-4`
+bus=`grep Gadget $LOGFILE | tail -1 | cut -d s -f2 | cut -d D -f1 | sed 's/[[:space:]]//g'` 
 
-./testusb -D /proc/bus/usb/$bus/$dev -t 14 -c 100 -s 256 -v 1
+dev=`grep Gadget $LOGFILE | tail -1 | cut -d c -f2 | cut -d I -f1 | sed 's/[[:space:]]//g' | cut -c 2-4`
 
-if [ "$?" -eq "0" ]; then
+echo $bus 
+
+echo $dev
+
+if $(dirname $0)/testusb -D /proc/bus/usb/${bus}/${dev} -t 14 -c 100 -s 256 -v 1;then
 	eval $PASS_MEG
 else
 	eval $FAIL_MEG
 fi
 
-umount /proc/bus
+if ! umount /proc/bus;then
+	echo "umount bus device error"
+fi	
+
+rm -rf $LOGFILE
 
 $CMD_SSH <<ENDSSH
 
-rmmod g_zero
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_rmmod.sh g_zero
 
 ENDSSH
+
+echo "\n***********************************************************\n"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # usb function device driver autotest shell-script
 
 set -e
@@ -9,25 +9,27 @@ echo "\n**********************USB FUNCTION SERIAL SETTING**************\n"
 #modprobe device
 $CMD_SSH <<ENDSSH
 
-modprobe g_serial
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_modprobe.sh g_serial
 
 ENDSSH
 
-sleep 2
+sleep 5
 
-if ! ls /dev/ttyACM0 | grep "ttyACM0";then
+cmd="ls /dev/ttyACM0"
+echo $cmd
+
+if ! $cmd | grep "ttyACM0";then
+	eval $PASS_MEG
+else	
 	eval $FAIL_MEG
-	exit 1
 fi	
 
-eval $PASS_MEG
-
-sleep 5
+sleep 2
 
 #rmmod device
 $CMD_SSH <<ENDSSH
 
-rmmod g_serial
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_rmmod.sh g_serial
 
 ENDSSH
 

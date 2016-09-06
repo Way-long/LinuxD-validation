@@ -1,13 +1,16 @@
-#!/bin/bash
+#!/bin/sh
 # usb function device driver autotest shell-script
 
 set -e
 #set -x
 
-sshpass -p $PASSWD_BOARD ssh -o StrictHostKeyChecking=no root@$IP_BOARD <<ENDSSH
+cmd="cat /dev/ttyGS0 >> $LOGFILE"
+echo $cmd
 
-modprobe g_serial
+$CMD_SSH <<ENDSSH
 
-cat /dev/ttyGS0 > log.txt & sleep 5
+eval $cmd & sleep 5
+
+exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_usbfs.sh usbfs_check_serial_on_board.sh
 
 ENDSSH

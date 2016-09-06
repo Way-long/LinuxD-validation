@@ -1,4 +1,5 @@
 #!/bin/sh
+# usb function device driver autotest shell-script
 
 set -a
 #set -x
@@ -167,12 +168,12 @@ sleep 3
 ;;
 
 47)
-$(dirname $0)/exec_usbfs.sh 047_smp_multiple_cpu_test.sh 1
+$(dirname $0)/exec_usbfs.sh 047_usbfs_smp_multiple_cpu_test.sh 1
 sleep 3
 ;;
 
 48)
-$(dirname $0)/exec_usbfs.sh 048_stress_cpu.sh 1
+$(dirname $0)/exec_usbfs.sh 048_usbfs_stress_cpu.sh 1
 sleep 3
 ;;
 

@@ -1,30 +1,71 @@
-#!/bin/bash
+#!/bin/sh
+# usb function device driver autotest shell-script
 
 set -e
 #set -x
 
-echo "USB FUNCTION ETHERNET PING FROM PC TO BOARD"
+echo "\n**************USB FUNCTION PING PC TO BOARD********************\n"
 
 #modprobe device
 $CMD_SSH <<ENDSSH
 
-modprobe g_ether
-
-ifconfig usb0 192.168.0.1 broadcast 192.168.1.255 up
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_modprobe.sh g_ether
 
 ENDSSH
 
-ifconfig usb0 192.168.0.2 broadcast 192.168.1.255 up
+sleep 5
 
-sleep 3
-
-ping -c 10 190.168.0.1
-
-#modprobe device
 $CMD_SSH <<ENDSSH
 
-rmmod g_ether
+ifconfig usb0 $IP_ADDRESS_BOARD broadcast $USBFS_BROAD_CAST up
 
 ENDSSH
 
-$(dirname $0)/refresh_ethernet.sh 
+sleep 2
+
+if ! sudo ifconfig usb0 $IP_ADDRESS_PC broadcast $USBFS_BROAD_CAST up;then
+	echo "setting ip address for PC error"
+	eval $FAIL_MEG
+	exit 1
+fi
+sleep 2
+
+# setting network on board
+$CMD_SSH <<ENDSSH
+
+exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_usbfs.sh usbfs_setting_network_on_board.sh
+
+ENDSSH
+
+cmd="ping -c 10 $IP_ADDRESS_BOARD >> $LOGFILE"
+echo $cmd
+if ! eval $cmd;then
+    echo "ping error."
+    eval $FAIL_MEG
+	exit 1
+fi
+
+cat $LOGFILE
+
+LOG=`cat $LOGFILE`
+
+rm -rf $LOGFILE
+
+if ! echo $LOG | grep "received, 0% packet loss" > /dev/null ;then 
+	echo "packet loss error"
+	eval $FAIL_MEG
+	exit 1
+fi
+
+eval $PASS_MEG
+
+sleep 2
+
+#rmmod device
+$CMD_SSH <<ENDSSH
+
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_rmmod.sh g_ether
+
+ENDSSH
+
+echo "\n***************************************************************\n"

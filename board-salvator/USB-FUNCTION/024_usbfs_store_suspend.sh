@@ -1,55 +1,31 @@
 #!/bin/bash
+# usb function device driver autotest shell-script
 
 set -e
 #set -x
 
-echo "USB FUNCTION STORE GATAGET SUSPEND TEST"
+echo "\n************USB FUNCTION GADGET STORAGE SUSPEND TEST*******\n"
 
 #modprobe device
 $CMD_SSH <<ENDSSH
 
-mount -t tmpfs -o size=400m tmpfs /tmp
-
-dd if=/dev/zero of=/tmp/tmp.img bs=1M count=350
-
-yes | mkfs.ext3 -L storage /tmp/tmp.img
-
-modprobe g_mass_storage file=/tmp/tmp.img
-
-echo enabled > /sys/devices/platform/soc/e6e88000.serial/tty/ttySC0/power/wakeup
-;;
-
-
-echo mem > /sys/power/state
+eval $PREPARE_SUSPEND
+eval $CMD_SUSPEND &
 
 ENDSSH
 
-#prepare storage memory
-sleep 5 
+sleep 5
 
-mkdir -p $PC_FOLDER
+eval $CMD_RESUME
 
-dd if=/dev/urandom of=$PC_FOLDER/file-300m bs=1M count=300
+echo "COPY FROM BOARD => PC"
 
-cp $PC_FOLDER/file-300m $STORAGE_FOLDER
+$(dirname $0)/016_usbfs_store_copy_from_pc_to_sto_100M.sh
 
-cmp $PC_FOLDER/file-300m $STORAGE_FOLDER/file-300m
+sleep 5
 
-if [ "$?" -eq "0" ]; then
-	echo "TEST PASSED"
-else
-	echo "TEST FAILED"
-	exit "$?"
-fi
+echo "COPY FROM PC => BOARD"
 
-rm -rf $PC_FOLDER
-rm -rf $STORAGE_FOLDER/*
+$(dirname $0)/019_usbfs_store_copy_from_sto_to_pc_100M.sh
 
-#rmmod device
-$CMD_SSH <<ENDSSH
-
-rmmod g_mass_storage
-
-umount /tmp
-
-ENDSSH
+echo "\n***************************************************************\n"

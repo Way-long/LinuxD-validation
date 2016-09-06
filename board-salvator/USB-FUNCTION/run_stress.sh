@@ -4,8 +4,8 @@
 set -e
 #set -x
 
-sshpass -p $PASSWD_BOARD ssh -o StrictHostKeyChecking=no root@$IP_BOARD <<ENDSSH
+$CMD_SSH <<ENDSSH
 
-stress --cpu $CPU_NUMBER --io 8 --vm 4 --vm-bytes 20M --timeout 1800s
+stress --cpu $CPU_NUMBER --io $(($CPU_NUMBER + $CPU_NUMBER)) --vm $CPU_NUMBER --vm-bytes 20M --timeout 3600s &
 
 ENDSSH

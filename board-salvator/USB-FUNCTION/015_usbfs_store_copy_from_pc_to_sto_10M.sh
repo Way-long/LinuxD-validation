@@ -1,11 +1,12 @@
 #!/bin/bash
+# usb function device driver autotest shell-script
 
 set -e
 #set -x
 
-echo "USB FUNCTION STORE GATAGET COPY"
+echo "\n*********USB FUNCTION COPY 10MB FROM PC TO BOARD***********\n"
 
-#modprobe device
+# prepare and modprobe device
 $CMD_SSH <<ENDSSH
 
 mount -t tmpfs -o size=400m tmpfs /tmp
@@ -14,36 +15,30 @@ dd if=/dev/zero of=/tmp/tmp.img bs=1M count=350
 
 yes | mkfs.ext3 -L storage /tmp/tmp.img
 
-modprobe g_mass_storage file=/tmp/tmp.img
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_modprobe.sh g_mass_storage file=/tmp/tmp.img
 
 ENDSSH
 
-#prepare storage memory
-sleep 5 
+sleep 5
 
-mkdir -p $PC_FOLDER
-
-dd if=/dev/urandom of=$PC_FOLDER/file-10m bs=1M count=10
-
-cp $PC_FOLDER/file-10m $STORAGE_FOLDER
-
-cmp $PC_FOLDER/file-10m $STORAGE_FOLDER/file-10m
-
-if [ "$?" -eq "0" ]; then
-	echo "TEST PASSED"
-else
-	echo "TEST FAILED"
-	exit "$?"
+if ! ls /media/${PCNAME}/ | grep "storage";then
+	eval $FAIL_MEG
+	exit 1
 fi
 
-rm -rf $PC_FOLDER
-rm -rf $STORAGE_FOLDER/*
+echo $PCPASSWORD | sudo chown ${PCNAME}:${PCNAME} /media/${PCNAME}/storage > /dev/null 2>&1
+
+$(dirname $0)/usbfs_copy_data.sh $PC_FOLDER $STORAGE_FOLDER 10
+
+sleep 2
 
 #rmmod device
-sshpass -p $PASSWD_BOARD ssh -o StrictHostKeyChecking=no root@$IP_BOARD <<ENDSSH
+$CMD_SSH <<ENDSSH
 
-rmmod g_mass_storage
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_rmmod.sh g_mass_storage
 
 umount /tmp
 
 ENDSSH
+
+echo "\n***********************************************************\n"

@@ -1,29 +1,31 @@
-#!/bin/bash
+#!/bin/sh
+# usb function device driver autotest shell-script
 
-set -e
+set -a
 #set -x
 
-echo "USB FUNCTION SERIAL TEST"
+echo "\n*****************USB FUNCTION SERIAL SUSPEND TEST**************\n"
 
 #modprobe device
 $CMD_SSH <<ENDSSH
 
-echo enabled > /sys/devices/platform/soc/e6e88000.serial/tty/ttySC0/power/wakeup
-;;
-
-echo mem > /sys/power/state
+eval $PREPARE_SUSPEND
+eval $CMD_SUSPEND &
 
 ENDSSH
 
-sleep 2
+sleep 5
+
+eval $CMD_RESUME
 
 echo "BOARD => PC"
 
-$(dirname $0)/usbfs_serial_board_to_pc.sh
+$(dirname $0)/004_usbfs_serial_board_to_pc.sh
 
 sleep 5
 
 echo "PC => BOARD"
 
-$(dirname $0)/usbfs_serial_pc_to_board.sh
+$(dirname $0)/005_usbfs_serial_pc_to_board.sh
 
+echo "\n***************************************************************\n"

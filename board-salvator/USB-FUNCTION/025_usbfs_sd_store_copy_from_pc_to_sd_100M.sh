@@ -1,49 +1,49 @@
-#!/bin/bash
+#!/bin/sh
+# usb function device driver autotest shell-script
 
 set -e
 #set -x
 
-echo "USB FUNCTION STORE SD COPY"
+echo "\n*********USB FUNCTION SD COPY 100MB FROM PC TO BOARD*******\n"
 
-rm -rf $MEDIA_FOLDER/*
+echo "Please insert SD card into CN14(SD3) before test this item."
 
-#modprobe device
+sleep 5
+
+# modprobe device
 $CMD_SSH <<ENDSSH
 
-sh /root/create-partion-ext3-system-SD1.sh
-
-modprobe g_mass_storage file=/dev/mmcblk1p1
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_modprobe.sh g_mass_storage file=/dev/mmcblk1p1
 
 ENDSSH
 
-#prepare storage memory
-sleep 5 
+sleep 5
 
-SD_FOLDER=`ls $MEDIA_FOLDER`
+MOUNT=`df | tail -n1`
+SD_DIR=`echo "${MOUNT##* }"`
 
-mkdir -p $PC_FOLDER
-rm -rf $SD_FOLDER/*
-
-dd if=/dev/urandom of=$PC_FOLDER/file-100m bs=1M count=100
-
-cp $PC_FOLDER/file-100m $MEDIA_FOLDER/$SD_FOLDER
-
-cmp $PC_FOLDER/file-100m $MEDIA_FOLDER/$SD_FOLDER/file-100m
-
-if [ "$?" -eq "0" ]; then
-	eval $PASS_MEG
-else
+#check device existed.
+if ! [ -d $SD_DIR ];then
+	echo "SD card not found"
 	eval $FAIL_MEG
+	exit 1
 fi
 
-rm -rf $PC_FOLDER
-rm -rf $SD_FOLDER/*
+echo $PCPASSWORD | sudo chown ${PCNAME}:${PCNAME} $SD_DIR > /dev/null 2>&1
+
+$(dirname $0)/usbfs_copy_data.sh $PC_FOLDER $SD_DIR 100
+
+sleep 2
+
+rm -rf $SD_DIR/*
+
+sync
 
 #rmmod device
 $CMD_SSH <<ENDSSH
 
-rmmod g_mass_storage
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_rmmod.sh g_mass_storage
 
 ENDSSH
 
-rm -rf $MEDIA_FOLDER/*
+echo "\n***********************************************************\n"

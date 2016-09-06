@@ -9,9 +9,11 @@ GATEWAY="192.168.1.1"						# gateway internet
 NETMASK="255.255.255.0"						# netmask internet
 PCNAME="duclm"        					    # name of host pc 
 PCPASSWORD="jinso"      					# password of host pc
-SHELL_SOURCE_CODE="/home/H3_shell_script/board-salvator"	# location shell script on board
 PC_FOLDER="/home/duclm/host_pc"			    # folder on host pc for test copy data
 CPU_NUMBER=4					   			# number of cpu
+
+# location shell script on board
+SHELL_SOURCE_CODE="/home/H3_shell_script/board-salvator"
 
 # ssh command
 CMD_SSH="ssh root@$IPBOARD"

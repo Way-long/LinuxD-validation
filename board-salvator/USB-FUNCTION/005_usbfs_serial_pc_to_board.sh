@@ -1,33 +1,28 @@
-#!/bin/bash
+#!/bin/sh
+# usb function device driver autotest shell-script
 
 set -e
 #set -x
 
-echo "\n**********************USB FUNCTION SERIAL TEST*****************\n"
+echo "\n************USB FUNCTION SERIAL TEST FROM PC TO BOARD**********\n"
 
-rm -rf /dev/ttyACM0
-
-sleep 5
-
+#modprobe device
 $CMD_SSH <<ENDSSH
 
-modprobe g_serial
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_modprobe.sh g_serial
 
 ENDSSH
 
 sleep 5
 
-$(dirname $0)/listen_from_board.sh & $(dirname $0)/input_from_pc.sh
+$(dirname $0)/listen_from_board.sh & $(dirname $0)/input_from_pc.sh 
 
 sleep 2
 
+#rmmod device
 $CMD_SSH <<ENDSSH
 
-cat log.txt
-
-rm -rf log.txt
-
-rmmod g_serial
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_rmmod.sh g_serial
 
 ENDSSH
 

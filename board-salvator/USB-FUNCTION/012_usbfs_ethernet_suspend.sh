@@ -1,36 +1,31 @@
-#!/bin/bash
+#!/bin/sh
+# usb function device driver autotest shell-script
 
-set -e
+set -a
 #set -x
 
-echo "USB FUNCTION ETHERNET SUSPEND"
+echo "\n*****************USB FUNCTION ETHER SUSPEND TEST***************\n"
 
 #modprobe device
 $CMD_SSH <<ENDSSH
 
-echo enabled > /sys/devices/platform/soc/e6e88000.serial/tty/ttySC0/power/wakeup
-;;
-
-
-echo mem > /sys/power/state
-
-modprobe g_ether
-
-ifconfig usb0 192.168.0.1 broadcast 192.168.1.255 up
+eval $PREPARE_SUSPEND
+eval $CMD_SUSPEND &
 
 ENDSSH
 
-ifconfig usb0 192.168.0.2 broadcast 192.168.1.255 up
+sleep 5
 
-sleep 3
+eval $CMD_RESUME
 
-ping -c 10 190.168.0.1
+echo "PING BOARD => PC"
 
-#modprobe device
-$CMD_SSH <<ENDSSH
+$(dirname $0)/010_usbfs_ethernet_ping_board_pc.sh
 
-rmmod g_ether
+sleep 5
 
-ENDSSH
+echo "PING PC => BOARD"
 
-$(dirname $0)/refresh_ethernet.sh 
+$(dirname $0)/011_usbfs_ethernet_ping_pc_board.sh
+
+echo "\n***************************************************************\n"

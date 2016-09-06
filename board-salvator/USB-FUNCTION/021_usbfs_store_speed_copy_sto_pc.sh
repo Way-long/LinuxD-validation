@@ -1,11 +1,12 @@
 #!/bin/bash
+# usb function device driver autotest shell-script
 
 set -e
 #set -x
 
-echo "USB FUNCTION STORE GATAGET SETTING"
+echo "\n******USB FUNCTION SPEED COPY 100MB FROM PC TO BOARD*******\n"
 
-#modprobe device
+# prepare and modprobe device
 $CMD_SSH <<ENDSSH
 
 mount -t tmpfs -o size=400m tmpfs /tmp
@@ -14,41 +15,30 @@ dd if=/dev/zero of=/tmp/tmp.img bs=1M count=350
 
 yes | mkfs.ext3 -L storage /tmp/tmp.img
 
-modprobe g_mass_storage file=/tmp/tmp.img
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_modprobe.sh g_mass_storage file=/tmp/tmp.img
 
 ENDSSH
 
-#prepare storage memory
-sleep 5 
+sleep 5
 
-mkdir -p $PC_FOLDER
-
-echo "READ SPEED"
-
-dd if=/dev/urandom of=$STORAGE_FOLDER/file-100m bs=1M count=100
-
-time cp $STORAGE_FOLDER/file-100m $PC_FOLDER
-
-echo "WRITE SPEED"
-
-dd if=/dev/urandom of=$PC_FOLDER/afile-100m bs=1M count=100
-
-time cp $PC_FOLDER/afile-100m $STORAGE_FOLDER
-
-if [ "$?" -eq "0" ]; then
-	eval $PASS_MEG
-else
+if ! ls /media/${PCNAME}/ | grep "storage";then
 	eval $FAIL_MEG
+	exit 1
 fi
 
-rm -rf $PC_FOLDER
-rm -rf $STORAGE_FOLDER/*
+echo $PCPASSWORD | sudo chown ${PCNAME}:${PCNAME} /media/${PCNAME}/storage > /dev/null 2>&1
+
+$(dirname $0)/usbfs_speed_copy_data.sh $PC_FOLDER $STORAGE_FOLDER 100
+
+sleep 2
 
 #rmmod device
 $CMD_SSH <<ENDSSH
 
-rmmod g_mass_storage
+$SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_rmmod.sh g_mass_storage
 
 umount /tmp
 
 ENDSSH
+
+echo "\n***********************************************************\n"
