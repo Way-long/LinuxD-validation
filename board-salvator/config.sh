@@ -13,7 +13,7 @@ PC_FOLDER="/home/duclm/host_pc"			    # folder on host pc for test copy data
 CPU_NUMBER=4					   			# number of cpu
 
 # location shell script on board
-SHELL_SOURCE_CODE="/home/H3_shell_script/board-salvator"
+SHELL_SOURCE_CODE="/home/SALVATOR_SHELL/board-salvator"
 
 # ssh command
 CMD_SSH="ssh root@$IPBOARD"
