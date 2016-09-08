@@ -1,4 +1,5 @@
 1.背景：
+	
 	現在人ソ LinuxチームではLinux評価のときに、手動とShell Scriptsを使って評価を行っております。
 	Shell ScriptsはメインはGEN2のLAGERボードとKOELSCHボード、GEN3のSALVATOR-X(H3)向けでそれぞれに作りました。
 	現在のUpstream評価でよく使っております。これ以外のボードで動かせることができるかもしれませんが、この場合は保証しません。
@@ -9,16 +10,24 @@
 	本書ではSCRIPTSの基本的な使い方と構成を説明致します。
 	
 2.SCRIPTSに必要な実施環境説明：
+
 2.1	テスト環境準備：
+
   ・テストツールInstall：評価するために、PCLで要求しているツールなどあれば、そのツールをインストールする必要です
   ・ テスト項目に必要なCONFIGがあれば、評価する前に実施する必要です。
+
 2.2	SSH環境準備：
+
   ・ON BOARD: SSH serverをインストールする。例：#apt-get install openssh-server
   ・ON PC: SSH clientをインストールする。例：$sudo apt-get install openssh-client
+
 2.3	SCRIPTSの構成：
-現在、GEN3とGEN2向けのSCRIPTSの置く場所はボードのRootfsです。
-Scriptのアクセス方法はConsoleのシリアルとSSH経路でアクセスすることです。
+
+	現在、GEN3とGEN2向けのSCRIPTSの置く場所はボードのRootfsです。
+	Scriptのアクセス方法はConsoleのシリアルとSSH経路でアクセスすることです。
+
 2.3.1	全体のファイル構成としては以下になります：
+  
   1) 各ドライバ評価用のScripts：各ドライバを評価するためのScripts。(Exp: USB-HOST、USB-FUNCTION、SDHI,...)
   2)  commonのScripts：　各ドライバが使っている共通なScripts。(commonフォルダにあります)。
   3)  config.sh:　テスト実行環境に合わせて設定するためのファイルです。
@@ -27,13 +36,15 @@ Scriptのアクセス方法はConsoleのシリアルとSSH経路でアクセス�
   5)　Updated_history.txt: 各Scriptの更新した内容や歴史を記入するファイル。(最初のバージョンにはこのファイルがありません)
 
 2.3.2	各ドライバのScripts(USB-HOST、SDHI...)のファイル構成は以下になります：
+  
   1) 0x_index.shまたは_index.sh：実際にテストを行うときに連続的に実行するscriptです。(全項目を実施する自動テスト可能なscript）
   2) xx_ファイル名.sh：PCLの各テスト項目で、xx_はPCLのテスト項目番号の意味です
   3) その他のファイル名.sh：実施するScriptsに必要なライブラリやSubscriptsです。
 	
 2.4	SCRIPTSの基本的な使い方：
-  基本的にはBoardから実施することではなく、HOST-PCからScriptsファイルがあるフォルダにアクセスして直接に実行することになります。
-  例：PCで操作： $cd /tftpf/192.168.1.9/root/Script/SDHI/
+  
+	基本的にはBoardから実施することではなく、HOST-PCからScriptsファイルがあるフォルダにアクセスして直接に実行することになります。
+	例：PCで操作： $cd /tftpf/192.168.1.9/root/Script/SDHI/
 	このSDHIフォルダから直接にScriptsを実行する。
 	1) 0x_index.sh：全項目をテストするときに連続的に実行するscriptです。
 	  (自動テスト可能な全機能を実施するscriptファイル）
