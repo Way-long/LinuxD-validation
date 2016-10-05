@@ -7,7 +7,7 @@ IPSERVER="192.168.1.205"   					# ipaddress of host pc
 GATEWAY="192.168.1.1"						# gateway internet
 NETMASK="255.255.255.0"						# netmask internet
 PCNAME="duclm"        					    # name of host pc 
-PCPASSWORD="****"      						# password of host pc
+PCPASSWORD="Lethanhson12"      					# password of host pc
 PC_FOLDER="/home/duclm/host_pc"			    # folder on host pc for test copy data
 CPU_NUMBER=4					   			# number of cpu
 

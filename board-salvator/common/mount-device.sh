@@ -45,9 +45,9 @@ $(dirname $0)/mount-quiet.sh $DEV_DIR $USB2_CH2_INTERRUPT sd*
 ;;
 
 # CN11 USB3 (board salvator not supported)
-#"/mnt/usb3")
-#$(dirname $0)/mount-quiet.sh $DEV_DIR ee0c0100.usb sd*
-#;;
+"/mnt/usb3")
+$(dirname $0)/mount-quiet.sh $DEV_DIR $USB3_INTERRUPT sd*
+;;
 
 # RAM
 "/tmp/temp")

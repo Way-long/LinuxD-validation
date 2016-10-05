@@ -287,12 +287,17 @@ sleep 3
 ;;
 
 63)
-$(dirname $0)/exec_sdhi.sh 063_sdhi_suspend_inside_write_data.sh 1
+$(dirname $0)/exec_sdhi.sh 063_sdhi_suspend_before_write_data.sh 1
 sleep 3
 ;;
 
 64)
-$(dirname $0)/exec_sdhi.sh 064_sdhi_suspend_inside_read_data.sh 1
+$(dirname $0)/exec_sdhi.sh 064_sdhi_suspend_before_read_data.sh 1
+sleep 3
+;;
+
+65)
+$(dirname $0)/exec_sdhi.sh 065_sdhi_suspend_inside_write_data.sh 1
 sleep 3
 ;;
 

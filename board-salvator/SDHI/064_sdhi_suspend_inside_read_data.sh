@@ -1,16 +1,14 @@
 #!/bin/bash
-# sata device driver autotest shell-script
+# sdhi device driver autotest shell-script
 
-set -e
+set -a
 #set -x
 
 echo "\n*************************SUSPEND INSIDE COPY DATA***********************\n"
 
-eval $PREPARE_SUSPEND
-
 $CMD_SSH <<ENDSSH
-
-	$(dirname $0)/exec_sdhi.sh 020_sdhi_read_sdhi0_to_ram_100MB.sh
+	
+	eval $PREPARE_SUSPEND
 
 	sleep 1
 
@@ -24,7 +22,7 @@ eval $CMD_RESUME
 
 $CMD_SSH <<ENDSSH
 
-	$(dirname $0)/exec_sdhi.sh 020_sdhi_read_sdhi0_to_ram_100MB.sh
+	exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_sdhi.sh 020_sdhi_read_sdhi0_to_ram_100MB.sh
 	
 ENDSSH
 
