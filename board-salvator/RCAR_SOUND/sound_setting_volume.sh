@@ -2,7 +2,7 @@
 # sound device driver autotest shell-script
 
 set -e
-#set -x
+#set -x  
 
 amixer set 'DVC Out Mute' off;
 amixer set 'DVC In Mute' off;

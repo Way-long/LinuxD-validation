@@ -4,7 +4,7 @@
 set -a
 #set -x
 
-echo "\n******************** SMP TEST MULTIPLE CPU *****************************\n"
+echo "\n************** SMP TEST MULTIPLE CPU MULTIPLE SD CARD ******************\n"
 
 CARD1_DIR="$SD1_DIR"
 CARD2_DIR="$SD2_DIR"

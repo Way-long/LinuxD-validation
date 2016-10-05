@@ -6,6 +6,6 @@ set -e
 
 echo "\n************************CHECK DMESG AFTER START THE BOARD***************\n"
 
-$(dirname $0)/../common/dmesg-multiple.sh "$DRIVER $INTERRUPT"
+$(dirname $0)/../common/dmesg-multiple.sh "$DRIVER $SOUND_INTERRUPT"
 
 echo "\n************************************************************************\n"

@@ -84,6 +84,8 @@ total_time="$(echo  $time_cp + $time_umount | bc )"
 
 speed="$(echo   367 / $total_time | bc -l)"
 
+sync
+
 echo "root@linaro-nano:~# umount $RAM_DIR/"
 umount $RAM_DIR/
 

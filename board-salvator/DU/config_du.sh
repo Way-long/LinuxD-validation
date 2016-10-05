@@ -6,7 +6,7 @@
 
 #dma interrupt
 DRIVER="rcar-du"							# display unit driver name of renesas
-INTERRUPT="feb00000.display"				# display unit driver interrupt
+DU_INTERRUPT="feb00000.display"				# display unit driver interrupt
 
 FILE_IMAGE="image.bmp"						# image file test
 

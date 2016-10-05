@@ -21,20 +21,34 @@ if [ "$CPU_NUMBER" -gt 1 ];then
 	CPU_NUM=0
 	while [ "$CPU_NUM" -lt "$(($CPU_NUMBER - 1))" ]
 	do
-		if [ "$j" = "0" ];then
-			taskset -c 0 $(dirname $0)/sdhi_smp_read_write_copy_one.sh $RAM_DIR $CARD1_DIR $(($i+10)) &
+		case "$j" in
+		0)
+			
+	    	cmd="taskset -c 0 $(dirname $0)/sdhi_smp_read_write_copy_one.sh $RAM_DIR $CARD1_DIR $(($i+10)) &"
+		    echo $cmd
+
+		    eval $cmd
 	    	j=1
-		fi
+		;;
 
-		if [ "$j" = "1" ];then
-			taskset -c 0 $(dirname $0)/sdhi_smp_read_write_copy_one.sh $RAM_DIR $CARD2_DIR $(($i+10)) &
+		1)
+			cmd="taskset -c 0 $(dirname $0)/sdhi_smp_read_write_copy_one.sh $RAM_DIR $CARD2_DIR $(($i+10)) &"
+		    echo $cmd
+
+		    eval $cmd
+
 	    	j=0
-		fi
-
+		;;
+		esac
+	    
 	    i=$(($i+10))
 	    CPU_NUM=$(($CPU_NUM+1))
-	done
+		
+	done	
 
-	taskset -c $(($CPU_NUMBER - 1)) $(dirname $0)/sdhi_smp_read_write_copy_one.sh $RAM_DIR $CARD2_DIR 10
+	cmd="taskset -c 0 $(dirname $0)/sdhi_smp_read_write_copy_one.sh $RAM_DIR $CARD2_DIR 10"
+	echo $cmd
+
+	eval $cmd
 
 fi

@@ -6,6 +6,6 @@ set -e
 
 echo "\n***************CHECK DMESG AFTER START THE BOARD***************\n"
 
-$(dirname $0)/../common/dmesg.sh "$DRIVER ${INTERRUPT}: 1 sensor probed"
+$(dirname $0)/../common/dmesg.sh "$DRIVER ${THERMAL_INTERRUPT}: 1 sensor probed"
 
 echo "\n***************************************************************\n"

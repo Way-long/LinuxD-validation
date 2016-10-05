@@ -17,8 +17,7 @@ sleep 3
 ;;
 
 7)
-$(dirname $0)/exec_sdhi.sh 007_sdhi_create_partion_ext3_system_SD1.sh 
-$(dirname $0)/exec_sdhi.sh 007_sdhi_create_partion_ext3_system_SD2.sh
+$(dirname $0)/exec_sdhi.sh 007_sdhi_create_partion_ext3_system.sh
 sleep 3
 ;;
 

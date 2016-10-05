@@ -1,7 +1,7 @@
 #!/bin/sh
 # mount devices
 
-set -e
+set -a
 #set -x
 
 if [ $# -ne 1 ]; then
@@ -16,32 +16,32 @@ case "$DEV_DIR" in
 
 # CN13 SD0
 "/mnt/sd0")
-$(dirname $0)/mount-quiet.sh $DEV_DIR ee100000.sd mmcblk*
+$(dirname $0)/mount-quiet.sh $DEV_DIR $SDHI_INTERRUPT_0 mmcblk*
 ;;
 
 # CN14 SD3
 "/mnt/sd1")
-$(dirname $0)/mount-quiet.sh $DEV_DIR ee160000.sd mmcblk*
+$(dirname $0)/mount-quiet.sh $DEV_DIR $SDHI_INTERRUPT_1 mmcblk*
 ;;
 
 # CN8 SATA
 "/mnt/hd0")
-$(dirname $0)/mount-quiet.sh $DEV_DIR ee300000.sata sd*
+$(dirname $0)/mount-quiet.sh $DEV_DIR $SATA_INTERRUPT sd*
 ;;
 
 # CN8 SATA
 "/mnt/hd1")
-$(dirname $0)/mount-quiet.sh $DEV_DIR ee300000.sata sd* 1
+$(dirname $0)/mount-quiet.sh $DEV_DIR $SATA_INTERRUPT sd* 1
 ;;
 
 # CN10 LOW:USB2_1
 "/mnt/usb2")
-$(dirname $0)/mount-quiet.sh $DEV_DIR ee0a0100.usb sd*
+$(dirname $0)/mount-quiet.sh $DEV_DIR $USB2_CH1_INTERRUPT sd*
 ;;
 
 # CN10 UP:USB2_2
 "/mnt/usb2c2")
-$(dirname $0)/mount-quiet.sh $DEV_DIR ee0c0100.usb sd*
+$(dirname $0)/mount-quiet.sh $DEV_DIR $USB2_CH2_INTERRUPT sd*
 ;;
 
 # CN11 USB3 (board salvator not supported)

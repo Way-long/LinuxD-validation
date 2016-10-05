@@ -76,6 +76,8 @@ if ! rm -r $SRC_DIR/*; then
         exit 1
 fi
 
+sync;
+
 $(dirname $0)/../common/umount-device.sh $RAM_DIR
 $(dirname $0)/../common/umount-device.sh $SRC_DIR
 

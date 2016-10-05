@@ -57,7 +57,7 @@ if [ ! -d "$(dirname $0)/data" ]; then
 fi
 
 # check source code run from HOST PC
-if pwd | grep "tftpboot" > /dev/null ;then
+if ! uname -a | grep "linaro-nano" > /dev/null ;then
 	
 	#create folder on HOST PC
 	  	for SIZE_DATA in "1" "50" "10" "15" "20" "25" "350"; do

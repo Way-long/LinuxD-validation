@@ -11,6 +11,18 @@ SDHI_INTERRUPT_1="ee160000.sd"				# interrupt of sdhi 2
 DRIVER_PATH="SDHI"							# path driver for run test
 LOGFILE="storage.txt"						# log file name
 
-# sdhi device for connected
-DEVICE_SD1="/dev/mmcblk0"					
-DEVICE_SD2="/dev/mmcblk1"
+############################################################
+# get device dev
+
+# only get dev if run on board
+if uname -a | grep "linaro-nano" > /dev/null ;then
+
+	DEVICE_PATH0=`find /sys/devices/platform/soc/${SDHI_INTERRUPT_0}/* -name "mmcblk*" | sed -n 1p`
+
+	DEVICE_PATH1=`find /sys/devices/platform/soc/${SDHI_INTERRUPT_1}/* -name "mmcblk*" | sed -n 1p`
+
+	DEVICE_SD0=`echo $DEVICE_PATH0 | tr '/' '\n' | tail -1`
+
+	DEVICE_SD1=`echo $DEVICE_PATH1 | tr '/' '\n' | tail -1`
+
+fi

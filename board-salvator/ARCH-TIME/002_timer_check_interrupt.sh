@@ -6,6 +6,6 @@ set -e
 
 echo "\n*********************CHECK INTERRUPT AFTER START THE BOARD**************\n"
 
-exec $(dirname $0)/../common/proc-interrupts-multiple.sh "$DRIVER"
+exec $(dirname $0)/../common/proc-interrupts-multiple.sh "$INTERRUPT"
 
 echo "\n************************************************************************\n"

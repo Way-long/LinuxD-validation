@@ -6,6 +6,6 @@ set -e
 
 echo "\n************CHECK INTERRUPT AFTER START THE BOARD**************\n"
 
-$(dirname $0)/../common/proc-interrupts.sh "$INTERRUPT"
+$(dirname $0)/../common/proc-interrupts.sh "$THERMAL_INTERRUPT"
 
 echo "\n***************************************************************\n"

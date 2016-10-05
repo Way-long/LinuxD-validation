@@ -1,10 +1,15 @@
 #!/bin/sh
-# timer device driver autotest shell-script
+# sdhi device driver autotest shell-script
 
 set -a
 #set -x
 
 . $(dirname $0)/config_sdhi.sh
+
+sync;
+
+# unmount all device if pre-item has error.
+$(dirname $0)/umount_all_device.sh
 
 SHELL_SCRIPT_FILE="$1"
 ONLY_RUN_FROM_PC="$2"

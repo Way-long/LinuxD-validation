@@ -6,6 +6,6 @@ set -e
 
 echo "\n*********************CHECK INTERRUPT AFTER START THE BOARD**************\n"
 
-$(dirname $0)/../common/proc-interrupts-multiple.sh "$INTERRUPT" 
+$(dirname $0)/../common/proc-interrupts-multiple.sh "$DU_INTERRUPT" 
 
 echo "\n************************************************************************\n"

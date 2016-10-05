@@ -14,10 +14,6 @@ CARD=`echo $SRC_DIR | tail -1 | cut -d d -f2`
 
 INTERRUPT=$(eval "echo \"\$SDHI_INTERRUPT_${CARD}\"")
 
-echo $SRC_DIR
-echo $CARD
-echo $INTERRUPT
-
 if ! $(dirname $0)/../common/unbind-bind.sh "$DRIVER" "$INTERRUPT";then
     eval $FAIL_MEG
     exit 1

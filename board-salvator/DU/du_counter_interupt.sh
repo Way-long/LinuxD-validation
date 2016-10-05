@@ -19,7 +19,7 @@ sleep 3
 
 get_counter_interrupt () {
 
-    words=(`exec $(dirname $0)/../common/proc-interrupts-quiet.sh "$INTERRUPT"`)
+    words=(`exec $(dirname $0)/../common/proc-interrupts-quiet.sh "$DU_INTERRUPT"`)
 
     echo ${words[1]}    
 }

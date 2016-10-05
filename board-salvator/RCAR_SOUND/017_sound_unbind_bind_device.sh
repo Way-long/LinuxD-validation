@@ -6,7 +6,7 @@ set -e
 
 echo "\n***********************SOUND UNBIND BIND DEVICE TEST********************\n"
 
-if ! $(dirname $0)/../common/unbind-bind.sh "$DRIVER" "$INTERRUPT";then
+if ! $(dirname $0)/../common/unbind-bind.sh "$DRIVER" "$SOUND_INTERRUPT";then
 	eval $FAIL_MEG
 	exit 1
 fi

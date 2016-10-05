@@ -6,7 +6,7 @@ set -a
 
 echo "\n**************************SATA TEST BLOCK OVER SEEK*********************\n"
 
-fdisk -l ${DEVICE_SD1}p1 > $LOGFILE
+fdisk -l /dev/${DEVICE_SD0}p1 > $LOGFILE
 
 fil=$LOGFILE
 
@@ -21,9 +21,12 @@ fi
 
 seek_ok=$(($seek - 1))
 
-dd if=/dev/zero of=${DEVICE_SD1}p1 bs=$xbs count=1 seek=${seek_ok}
+cmd="dd if=/dev/zero of=/dev/${DEVICE_SD0}p1 bs=$xbs count=1 seek=${seek_ok}"
+echo $cmd
 
-if [ "$?" = "0" ]; then
+eval $cmd
+
+if eval $cmd; then
 	eval $PASS_MEG
 else
 	eval $FAIL_MEG

@@ -19,6 +19,6 @@ eval $CMD_RESUME
 
 $CMD_SSH <<ENDSSH
 
-exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_ethernet.sh ethernet_ping_network.sh
+exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_ethernet.sh 004_ether_ping_network.sh
 
 ENDSSH

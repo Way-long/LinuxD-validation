@@ -1,14 +1,13 @@
 #!/bin/sh
 
 #**************************Change config below for each user ***********************
-
 # config environment for test
 IPBOARD="192.168.1.215"     				# ipaddress of board
 IPSERVER="192.168.1.205"   					# ipaddress of host pc
 GATEWAY="192.168.1.1"						# gateway internet
 NETMASK="255.255.255.0"						# netmask internet
 PCNAME="duclm"        					    # name of host pc 
-PCPASSWORD="jinso"      					# password of host pc
+PCPASSWORD="Lethanhson12"      				# password of host pc
 PC_FOLDER="/home/duclm/host_pc"			    # folder on host pc for test copy data
 CPU_NUMBER=4					   			# number of cpu
 
@@ -53,7 +52,6 @@ USB2_CH2_NAME="usb2 ch2"					# name of usb 2.0 ch2
 USB2_CH2_DIR="/mnt/usb2c2"					# directory for mount usb 2.0 ch2
 USB3_NAME="usb3"							# name of usb 3.0
 USB3_DIR="/mnt/usb3"						# directory for mount usb 3.0
-
 
 # Color for print screen
 COLOR_RED='\033[0;31m' 						# red color

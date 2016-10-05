@@ -6,7 +6,7 @@ set -a
 
 echo "\n****************************SATA TEST LAST BLOCK***************************\n"
 
-fdisk -l ${DEVICE_SD1}p1 > $LOGFILE
+fdisk -l /dev/${DEVICE_SD0}p1 > $LOGFILE
 
 fil=$LOGFILE
 
@@ -19,9 +19,10 @@ xbs=`grep Units $fil | tail -1 | cut -d = -f3 | cut -d = -f2 |cut -d b -f1 | tr 
 
 fi
 
-dd if=/dev/zero of=${DEVICE_SD1}p1 bs=$xbs count=1 seek=$seek
+cmd="dd if=/dev/zero of=/dev/${DEVICE_SD0}p1 bs=$xbs count=1 seek=$seek"
+echo $cmd
 
-if [ "$?" = "0" ]; then
+if eval $cmd; then
 	eval $FAIL_MEG
 else
 	eval $PASS_MEG

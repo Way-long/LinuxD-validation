@@ -8,7 +8,7 @@ echo "\n*********************CHECK INTERRUPT COUTER TIMER TEST *****************
 
 get_counter_interrupt () {
 
-    words=(`exec $(dirname $0)/../common/proc-interrupts-quiet.sh "$DRIVER"`)
+    words=(`exec $(dirname $0)/../common/proc-interrupts-quiet.sh "$INTERRUPT"`)
 
     echo ${words[1]}    
 }

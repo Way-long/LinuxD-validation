@@ -6,7 +6,7 @@ set -e
 
 echo "\n**********************UNBIND BIND THERMAL DRIVER***************\n"
 
-if ! $(dirname $0)/../common/unbind-bind.sh "$DRIVER" "$INTERRUPT";then
+if ! $(dirname $0)/../common/unbind-bind.sh "$DRIVER" "$THERMAL_INTERRUPT";then
         echo "TEST FAILED"
         exit 1
 fi

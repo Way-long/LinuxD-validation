@@ -4,7 +4,7 @@
 . $(dirname $0)/../config.sh
 
 DRIVER="usbfs"								# ethernet driver name of renesas
-INTERRUPT="e6590000.usb"					# interrupt of ethernet
+USBFS_INTERRUPT="e6590000.usb"				# interrupt of ethernet
 DRIVER_PATH="USB-FUNCTION"					# path driver for run test		
 LOGFILE="usbfs.txt"						 	# log file name
 

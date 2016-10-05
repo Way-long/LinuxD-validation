@@ -16,7 +16,7 @@ sleep 5
 eval $CMD_RESUME
 
 # Ping the Board -> the host PC
-if ping -c 20 -I $INTERFACE $GOOGLE > /dev/null & eval $CMD_SUSPEND; then
+if ping -c 20 -I $INTERFACE $GOOGLE & eval $CMD_SUSPEND; then
 	eval $PASS_MEG
 else
 	eval $FAIL_MEG

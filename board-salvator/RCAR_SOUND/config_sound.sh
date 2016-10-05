@@ -8,7 +8,7 @@ set -a
 
 # config file shell script
 DRIVER="rcar_sound"				    # rcar sound driver name of renesas
-INTERRUPT="ec500000.sound"          # interrupt of rcar sound
+SOUND_INTERRUPT="ec500000.sound"    # interrupt of rcar sound
 DRIVER_PATH="RCAR_SOUND"			# path driver for run test						
 LOGFILE="dma.txt"					# log file
 
