@@ -7,6 +7,7 @@ set -a
 case "$1" in
 
 1)
+echo "1)"
 $(dirname $0)/exec_du.sh 001_du_check_dmesg.sh
 sleep 3
 ;;

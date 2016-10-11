@@ -7,7 +7,7 @@ IPSERVER="192.168.1.205"   					# ipaddress of host pc
 GATEWAY="192.168.1.1"						# gateway internet
 NETMASK="255.255.255.0"						# netmask internet
 PCNAME="duclm"        					    # name of host pc 
-PCPASSWORD="Lethanhson12"      					# password of host pc
+PCPASSWORD="jinso2016"      				# password of host pc
 PC_FOLDER="/home/duclm/host_pc"			    # folder on host pc for test copy data
 CPU_NUMBER=4					   			# number of cpu
 
@@ -63,3 +63,5 @@ COLOR_NO='\033[0m' 							# No Color
 # print message command
 PASS_MEG="echo -e '\n${COLOR_GREEN}TEST PASSED${COLOR_NO}\n'"
 FAIL_MEG="echo -e '\n${COLOR_RED}TEST FAILED${COLOR_NO}\n'"
+
+#exit function

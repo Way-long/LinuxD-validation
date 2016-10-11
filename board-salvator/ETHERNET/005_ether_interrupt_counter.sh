@@ -40,9 +40,9 @@ echo "After interrupt CPU0: $cpu0_after"
 
 
 if [ $cpu0_before -ge $cpu0_after ]; then
-        echo "Interrupt cound is not increasing"
+    eval $FAIL_MEG
 else 
-        echo "TEST PASSED"
+    eval $PASS_MEG
 fi
 
 echo "\n************************************************************************\n"

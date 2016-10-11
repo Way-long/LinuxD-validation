@@ -15,7 +15,7 @@ for bw in "1" "10" "50" "100" "500" "1000" "2000"; do
 
 	if cat $LOGFILE | grep "read failed: Connection refused" ;then
 
-		echo "\n {TEST FAILED} \n"
+		eval $FAIL_MEG
 		rm -rf $LOGFILE
 		exit 1
 	fi	
@@ -23,4 +23,4 @@ for bw in "1" "10" "50" "100" "500" "1000" "2000"; do
 done
 
 rm -rf $LOGFILE
-echo "\n {TEST PASSED} \n"
+eval $PASS_MEG

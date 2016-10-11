@@ -24,9 +24,7 @@ if [ "$CPU_NUMBER" -gt 1 ];then
 		if [ "$j" = "0" ];then
 			taskset -c $CPU_NUM $(dirname $0)/usb_smp_read_write_copy_one.sh $RAM_DIR $CARD1_DIR $(($i+10)) &
 	    	j=1
-		fi
-
-		if [ "$j" = "1" ];then
+		else
 			taskset -c $CPU_NUM $(dirname $0)/usb_smp_read_write_copy_one.sh $RAM_DIR $CARD2_DIR $(($i+10)) &
 	    	j=0
 		fi

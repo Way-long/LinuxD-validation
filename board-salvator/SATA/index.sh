@@ -17,7 +17,7 @@ sleep 3
 ;;
 
 3)
-$(dirname $0)/exec_sata.sh 003_sata_check_hard_disk_speed.sh 
+$(dirname $0)/exec_sata.sh 003_sata_check_hard_disk_speed.sh
 sleep 3
 ;;
 

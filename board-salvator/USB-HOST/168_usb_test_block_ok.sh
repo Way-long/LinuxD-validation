@@ -1,12 +1,12 @@
 #!/bin/sh
-# sdhi device driver autotest shell-script
+# usb device driver autotest shell-script
 
 set -a
 #set -x
 
 echo "\n***************************USB TEST BLOCK OVER SEEK*********************\n"
 
-fdisk -l ${DEVICE_SD1}p1 > $LOGFILE
+fdisk -l ${DEVICE_USB2C1}1 > $LOGFILE
 
 fil=$LOGFILE
 
@@ -21,9 +21,10 @@ fi
 
 seek_ok=$(($seek - 1))
 
-dd if=/dev/zero of=${DEVICE_SD1}p1 bs=$xbs count=1 seek=${seek_ok}
+cmd="dd if=/dev/zero of=${DEVICE_USB2C1}1 bs=$xbs count=1 seek=${seek_ok}"
+echo $cmd
 
-if [ "$?" = "0" ]; then
+if eval $cmd; then
 	eval $PASS_MEG
 else
 	eval $FAIL_MEG

@@ -1,7 +1,7 @@
 #!/bin/sh
 # ethernet device driver autotest shell-script
 
-set -e
+set -a
 #set -x
 
 if [ $# -gt 1 ]; then
@@ -51,14 +51,15 @@ END_SCRIPT
 
 echo "end tranfer data file"
 
-if grep -i "Transfer complete" $LOGFILE >/dev/null;then
+if cat $LOGFILE | grep -i "Transfer complete" > /dev/null;then
 	eval $PASS_MEG
 else
+	cat $LOGFILE
 	eval $FAIL_MEG
 fi 
 
-if [ -f $LOGFILE ];then
-    rm -rf $LOGFILE
-fi
+# if [ -f $LOGFILE ];then
+#     rm -rf $LOGFILE
+# fi
 
 rm -rf /tmp/*
