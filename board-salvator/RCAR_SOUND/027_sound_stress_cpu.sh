@@ -6,6 +6,9 @@ set -e
 
 echo "\n***************************STRESS CPU TEST******************************\n"
 
+# setting volume to test
+$(dirname $0)/sound_setting_volume.sh > /dev/null
+
 # Run stress
 stress --cpu $CPU_NUMBER --io $(($CPU_NUMBER + $CPU_NUMBER)) --vm $CPU_NUMBER --vm-bytes 20M --timeout 3600s &
 

@@ -6,6 +6,9 @@ set -e
 
 echo "\n***********************CTR+C AFTER APLAY FILE SOUND*********************\n"
 
+# setting volume to test
+$(dirname $0)/sound_setting_volume.sh > /dev/null
+
 #record file sound
 cmd="arecord -f cd -t wav $RECORD_WAV_FILE -d 60"
 echo $cmd

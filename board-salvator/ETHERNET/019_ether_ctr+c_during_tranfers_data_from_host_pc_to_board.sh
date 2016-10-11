@@ -1,14 +1,14 @@
 #!/bin/sh
 # ethernet device driver autotest shell-script
 
-set -e
+set -a
 #set -x
 
 echo "\n*************Ctr_C DURING TRANFER DATA FROM HOST PC TO BOARD**********\n"
 
 eval $MOUNT_RAM
 
-for size in "350"; do
+size="350"
 
 #check file on host pc
 ftp -inv $IPSERVER > $LOGFILE 2>&1 <<END_SCRIPT
@@ -42,8 +42,6 @@ END_SCRIPT
 
 	echo "re-tranfer file ${size}MB"
 	$(dirname $0)/ftp_get_pc_to_board_data.sh $size
-
-done
 
 eval $UNMOUNT_RAM
 

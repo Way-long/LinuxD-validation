@@ -6,6 +6,9 @@ set -e
 
 echo "\n**********************RECORD FILE SOUND REPEATLY************************\n"
 
+# setting volume to test
+$(dirname $0)/sound_setting_volume.sh > /dev/null
+
 for i in $(seq 1 5);
 do
 	cmd="arecord -c 2 -f S16_LE -t wav -r 44100 $(dirname $0)/record${i}.wav -d 60"

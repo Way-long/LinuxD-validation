@@ -6,6 +6,9 @@ set -e
 
 echo "\n***********************APLAY AND KILL APLAY WHILE RECORD****************\n"
 
+# setting volume to test
+$(dirname $0)/sound_setting_volume.sh > /dev/null
+
 cmd="arecord -f cd -t wav $RECORD_WAV_FILE"
 echo $cmd
 

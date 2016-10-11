@@ -49,6 +49,8 @@ ftp -inv $IPSERVER > $LOGFILE 2>&1 <<END_SCRIPT
 
 END_SCRIPT
 
+cat $LOGFILE
+
 echo "end tranfer data file"
 
 if cat $LOGFILE | grep -i "Transfer complete" > /dev/null;then
@@ -58,8 +60,8 @@ else
 	eval $FAIL_MEG
 fi 
 
-# if [ -f $LOGFILE ];then
-#     rm -rf $LOGFILE
-# fi
+if [ -f $LOGFILE ];then
+    rm -rf $LOGFILE
+fi
 
 rm -rf /tmp/*

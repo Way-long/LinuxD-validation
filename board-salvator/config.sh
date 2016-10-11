@@ -9,7 +9,7 @@ NETMASK="255.255.255.0"						# netmask internet
 PCNAME="duclm"        					    # name of host pc 
 PCPASSWORD="jinso2016"      				# password of host pc
 PC_FOLDER="/home/duclm/host_pc"			    # folder on host pc for test copy data
-CPU_NUMBER=4					   			# number of cpu
+CPU_NUMBER=2					   			# number of cpu
 
 # location shell script on board
 SHELL_SOURCE_CODE="/home/SALVATOR_SHELL/board-salvator"

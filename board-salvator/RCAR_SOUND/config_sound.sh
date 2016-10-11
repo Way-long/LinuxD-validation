@@ -27,6 +27,3 @@ BR_24000="24000"
 BR_32000="32000"
 BR_44100="44100"
 BR_48000="48000"
-
-# setting volume to test
-$(dirname $0)/sound_setting_volume.sh > /dev/null

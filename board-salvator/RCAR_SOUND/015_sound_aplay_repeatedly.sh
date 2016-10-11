@@ -6,6 +6,9 @@ set -e
 
 echo "\n***********************APLAY FILE SOUND REPEATLY************************\n"
 
+# setting volume to test
+$(dirname $0)/sound_setting_volume.sh > /dev/null
+
 # record to aplay file 
 for i in $(seq 1 5);
 do

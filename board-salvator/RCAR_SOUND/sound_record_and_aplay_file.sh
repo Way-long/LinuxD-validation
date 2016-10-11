@@ -11,7 +11,10 @@ fi
 
 BIT_RATE="$1"
 
-cmd="arecord -D hw:0,0 -f s16_le -t wav -c 2 -r $BIT_RATE -d 360 $RECORD_WAV_FILE"
+# setting volume to test
+$(dirname $0)/sound_setting_volume.sh > /dev/null
+
+cmd="arecord -D hw:0,0 -f s16_le -t wav -c 2 -r $BIT_RATE -d 60 $RECORD_WAV_FILE"
 echo $cmd
 
 if ! eval $cmd ; then

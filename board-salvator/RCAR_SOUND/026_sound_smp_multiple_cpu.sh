@@ -6,6 +6,9 @@ set -e
 
 echo "\n*******************SMP MULTIPLE CPU RECORD AND APLAY********************\n"
 
+# setting volume to test
+$(dirname $0)/sound_setting_volume.sh > /dev/null
+
 # Multiple cpu test
 for ((N=0;N<CPU_NUMBER;N++))
 do 
