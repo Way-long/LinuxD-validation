@@ -17,35 +17,6 @@ else
 	SIZE_DATA=300
 fi
 
-LOGFILE=`echo $SIZE_DATA$LOGFILE`
-
-echo "prepare data for test"
-
-#check file on host pc
-ftp -inv $IPSERVER > $LOGFILE 2>&1 <<END_SCRIPT
-
-quote USER $PCNAME
-quote PASS $PCPASSWORD
-
-ls $PC_FOLDER
-
-quit
-
-END_SCRIPT
-#---------
-
-if grep -i "file-${SIZE_DATA}mb" $LOGFILE >/dev/null;then
-	echo "prepare data successfully"
-else
-	echo "prepare data not successfully"
-	eval $FAIL_MEG
-	exit 1;	
-fi
-
-if [ -f $LOGFILE ];then
-    rm -rf $LOGFILE
-fi 
-
 echo "login server PC and tranfer data file"
 
 ftp -inv $IPSERVER > $LOGFILE 2>&1 <<END_SCRIPT

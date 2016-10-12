@@ -6,12 +6,7 @@ set -a
 
 echo "\n*************Ctr_C DURING TRANFER DATA FROM HOST PC TO BOARD**********\n"
 
-mkdir -p $RAM_DIR
-
-# Mount ram
-$(dirname $0)/../common/mount-device.sh $RAM_DIR
-
-size="350"
+echo "prepare data for test"
 
 #check file on host pc
 ftp -inv $IPSERVER > $LOGFILE 2>&1 <<END_SCRIPT
@@ -26,25 +21,35 @@ quit
 END_SCRIPT
 #---------
 
-	if grep -i "file-${size}mb" $LOGFILE >/dev/null;then
-		echo "prepare data successfully"
-	else
-		echo "prepare data not successfully"
-		eval $FAIL_MEG
-		break;	
-	fi
-
+if grep -i "file-${SIZE_DATA}mb" $LOGFILE >/dev/null;then
+	echo "prepare data successfully"
+else
+	echo "prepare data not successfully please create data on host pc"
 	rm -rf $LOGFILE
+	eval $FAIL_MEG
+	exit 1;	
+fi
 
-	echo "tranfer file ${size}MB"
-	$(dirname $0)/ftp_get_pc_to_board_data.sh $size & sleep 10;
+if [ -f $LOGFILE ];then
+    rm -rf $LOGFILE
+fi 
 
-	$(dirname $0)/../common/ctr_c.sh "ftp -inv"
+mkdir -p $RAM_DIR
 
-	sleep 5
+# Mount ram
+$(dirname $0)/../common/mount-device.sh $RAM_DIR
 
-	echo "re-tranfer file ${size}MB"
-	$(dirname $0)/ftp_get_pc_to_board_data.sh $size
+size="350"
+
+echo "tranfer file ${size}MB"
+$(dirname $0)/ftp_get_pc_to_board_data.sh $size & sleep 10;
+
+$(dirname $0)/../common/ctr_c.sh "ftp -inv"
+
+sleep 5
+
+echo "re-tranfer file ${size}MB"
+$(dirname $0)/ftp_get_pc_to_board_data.sh $size
 
 # Umount ram
 $(dirname $0)/../common/umount-device.sh $RAM_DIR
