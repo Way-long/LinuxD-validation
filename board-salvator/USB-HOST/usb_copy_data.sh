@@ -36,6 +36,8 @@ $(dirname $0)/../common/write-common.sh \
 
 sync
 
+sleep 10
+
 # Umount src_dir and dst_dir
 $(dirname $0)/../common/umount-device.sh $SRC_DIR
 $(dirname $0)/../common/umount-device.sh $DST_DIR

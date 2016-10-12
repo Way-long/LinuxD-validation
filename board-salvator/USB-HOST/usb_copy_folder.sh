@@ -54,6 +54,8 @@ cp -r ${SRC_DIR}/stage1 $DST_DIR
 
 sync
 
+sleep 10
+
 if cmp ${SRC_DIR}${TEMP_DIR}/file-50mb ${DST_DIR}${TEMP_DIR}/file-50mb;then
 	eval $PASS_MEG
 else
