@@ -15,19 +15,19 @@ for size in "1" "50" "350"; do
 
 	rm -rf $RAM_DIR/*
 	
-	echo "prepare data for test"
+	echo "prepare data for test file-${size}mb"
 
 	if ! [ -f "$(dirname $0)/data/file-${size}mb" ]; then
-		dd if=/dev/urandom of=/tmp/file-${size}mb bs=1M count=${size}
+		dd if=/dev/urandom of=${RAM_DIR}/file-${size}mb bs=1M count=${size}
 	else
-		cp $(dirname $0)/data/file-${size}mb $RAM_DIR
+		cp $(dirname $0)/data/file-${size}mb ${RAM_DIR}/
 		sync
 	fi
 
-	if [ -f "/tmp/file-${size}mb" ];then
-		echo "prepare data successfully"
+	if [ -f "${RAM_DIR}/file-${size}mb" ];then
+		echo "prepare data file-${size}mb successfully"
 	else
-		echo "prepare data not successfully"
+		echo "prepare data file-${size}mb not successfully"
 		eval $FAIL_MEG
 		exit 1;	
 	fi

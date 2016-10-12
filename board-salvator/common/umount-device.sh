@@ -1,7 +1,7 @@
 #!/bin/bash
 # umount devices
 
-echo "Umount devices"
+echo "umount devices"
 
 set -e
 #set -x
@@ -12,10 +12,21 @@ fi
 
 DEV_DIR="$1"
 
-# Umount device
-
-if umount ${DEV_DIR}/;then
-        echo "Device $DEV_DIR have umounted"
+# umount device
+if [ "$DEV_DIR" == "$RAM_DIR" ];then
+	while(true)
+	do
+		if ! df | grep "$RAM_DIR" > /dev/null;then 
+			break;
+		fi
+		umount $RAM_DIR		
+	done
 else
-        echo "Device $DEV_DIR umount is error" >&2
+	
+	if umount ${DEV_DIR};then
+	    echo "Device $DEV_DIR have umounted"
+	else
+	    echo "Device $DEV_DIR umount is error" >&2
+	fi
+
 fi

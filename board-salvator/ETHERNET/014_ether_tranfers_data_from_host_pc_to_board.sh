@@ -31,9 +31,9 @@ END_SCRIPT
 #---------
 
 	if grep -i "file-${size}mb" $LOGFILE >/dev/null;then
-		echo "prepare data successfully"
+		echo "prepare data file-${size}mb successfully"
 	else
-		echo "prepare data not successfully please create data on host pc"
+		echo "prepare data file-${size}mb not successfully please create data on host pc"
 		rm -rf $LOGFILE
 		eval $FAIL_MEG
 		exit 1;	

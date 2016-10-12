@@ -1,7 +1,7 @@
 #!/bin/sh
 # ethernet device driver autotest shell-script
 
-set -e
+set -a
 #set -x
 
 echo "\n******************** SMP CONCURRENT ACCESS TEST ************************\n"

@@ -24,7 +24,7 @@ ftp -inv $IPSERVER > $LOGFILE 2>&1 <<END_SCRIPT
 	quote USER $PCNAME
 	quote PASS $PCPASSWORD
 
-	get $PC_FOLDER/file-${SIZE_DATA}mb /tmp/file-${SIZE_DATA}mb 
+	get $PC_FOLDER/file-${SIZE_DATA}mb ${RAM_DIR}/file-${SIZE_DATA}mb 
 
 	quit
 

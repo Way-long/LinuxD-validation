@@ -16,13 +16,13 @@ size="350"
 echo "prepare data for test"
 
 if ! [ -f "$(dirname $0)/data/file-${size}mb" ]; then
-	dd if=/dev/urandom of=/tmp/file-${size}mb bs=1M count=${size}
+	dd if=/dev/urandom of=${RAM_DIR}/file-${size}mb bs=1M count=${size}
 else
-	cp $(dirname $0)/data/file-${size}mb /tmp
+	cp $(dirname $0)/data/file-${size}mb $RAM_DIR
 	sync
 fi
 
-if [ -f "/tmp/file-${size}mb" ];then
+if [ -f "${RAM_DIR}/file-${size}mb" ];then
 	echo "prepare data successfully"
 else
 	echo "prepare data not successfully"

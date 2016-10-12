@@ -24,7 +24,7 @@ ftp -inv $IPSERVER > $LOGFILE 2>&1 <<END_SCRIPT
 	quote USER $PCNAME
 	quote PASS $PCPASSWORD
 
-	put /tmp/file-${SIZE_DATA}mb $PC_FOLDER/file-${SIZE_DATA}mb
+	put ${RAM_DIR}/file-${SIZE_DATA}mb $PC_FOLDER/file-${SIZE_DATA}mb
 
 	quit
 
@@ -43,5 +43,3 @@ fi
 if [ -f $LOGFILE ];then
     rm -rf $LOGFILE
 fi
-
-rm -rf /tmp/*

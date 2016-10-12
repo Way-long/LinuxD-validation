@@ -56,7 +56,7 @@ fi
 if ! uname -a | grep "linaro-nano" > /dev/null ;then
 	
 	#create folder on HOST PC
-	  	for SIZE_DATA in "1" "50" "10" "15" "20" "25" "350"; do
+	  	for SIZE_DATA in "1" "30" "40" "50" "60" "100" "350"; do
 			#create file to copy data
 			if [ ! -f "${PC_FOLDER}/file-${SIZE_DATA}mb" ]; then
 				echo "please wait during creating file $SIZE_DATA on HOST PC for fisrt time"
