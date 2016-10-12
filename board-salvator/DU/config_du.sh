@@ -18,6 +18,9 @@ DRIVER_PATH="DU"							# path driver for run test
 LOG_DRM="du_log.txt"						# log file name
 LOGFILE="du.txt"
 
+SDHI_INTERRUPT_0="ee100000.sd"				# interrupt of sdhi 1
+SDHI_INTERRUPT_1="ee160000.sd"				# interrupt of sdhi 2
+
 # command support for reset screen 
 RESET_COMMAND="fbset -xres 800 -yres 600 -laced 0;fbset -xres 640 -yres 480 -laced 0"
 

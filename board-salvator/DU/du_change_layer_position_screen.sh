@@ -16,7 +16,7 @@ eval $RESET_COMMAND
 
 sleep 3
 
-for offset in "20" "150" "250" "668"; do
+for offset in "20" "150" "250"; do
 
     cmd="modetest -M rcar-du -d -s ${DISPLAY_MONITOR}@${DU_MONITOR}:1024x768@XR24 -P ${DU_MONITOR}:400x200+${offset}+${offset}@XR24 >> $LOGFILE 2>&1"
     echo $cmd
@@ -40,5 +40,27 @@ for offset in "20" "150" "250" "668"; do
     sleep 3
 
 done
+
+cmd="modetest -M rcar-du -d -s ${DISPLAY_MONITOR}@${DU_MONITOR}:1024x768@XR24 -P ${DU_MONITOR}:400x200+668+468@XR24 >> $LOGFILE 2>&1"
+echo $cmd
+
+$(dirname $0)/du_restore.sh &
+
+eval $cmd
+
+LOG=`cat $LOGFILE`
+
+rm -rf $LOGFILE
+
+if echo $LOG | grep "fail" > /dev/null;then
+    echo "Can not change layer position x=668 y=468"
+    eval $FAIL_MEG
+    exit 1
+fi
+
+eval $RESET_COMMAND
+
+sleep 3
+
 
 eval $PASS_MEG

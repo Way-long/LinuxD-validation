@@ -32,5 +32,3 @@ else
 fi
 
 $(dirname $0)/../common/umount-device.sh $FLD_NAME
-
-rm -rf $FLD_NAME
