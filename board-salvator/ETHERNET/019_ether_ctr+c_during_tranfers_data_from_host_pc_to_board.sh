@@ -51,6 +51,8 @@ sleep 5
 echo "re-tranfer file ${size}MB"
 $(dirname $0)/ftp_get_pc_to_board_data.sh $size
 
+sync
+
 # Umount ram
 $(dirname $0)/../common/umount-device.sh $RAM_DIR
 

@@ -48,6 +48,8 @@ END_SCRIPT
 
 done
 
+sync
+
 # Umount ram
 $(dirname $0)/../common/umount-device.sh $RAM_DIR
 

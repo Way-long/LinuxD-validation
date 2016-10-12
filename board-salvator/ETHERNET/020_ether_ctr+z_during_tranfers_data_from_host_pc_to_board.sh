@@ -46,6 +46,8 @@ $(dirname $0)/ftp_get_pc_to_board_data.sh $size & sleep 10;
 
 $(dirname $0)/../common/ctr_z.sh "ftp -inv"
 
+sync
+
 # Umount ram
 $(dirname $0)/../common/umount-device.sh $RAM_DIR
 

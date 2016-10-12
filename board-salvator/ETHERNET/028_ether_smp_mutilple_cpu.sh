@@ -17,6 +17,8 @@ $(dirname $0)/../common/wait_process.sh "/bin/sh ./ftp" > /dev/null
 
 sleep 5
 
+sync
+
 # Umount ram
 $(dirname $0)/../common/umount-device.sh $RAM_DIR
 
