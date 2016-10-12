@@ -13,12 +13,14 @@ $(dirname $0)/../common/mount-device.sh $RAM_DIR
 
 for size in "1" "50" "350"; do
 
+	rm -rf $RAM_DIR/*
+	
 	echo "prepare data for test"
 
 	if ! [ -f "$(dirname $0)/data/file-${size}mb" ]; then
 		dd if=/dev/urandom of=/tmp/file-${size}mb bs=1M count=${size}
 	else
-		cp $(dirname $0)/data/file-${size}mb /tmp
+		cp $(dirname $0)/data/file-${size}mb $RAM_DIR
 		sync
 	fi
 
