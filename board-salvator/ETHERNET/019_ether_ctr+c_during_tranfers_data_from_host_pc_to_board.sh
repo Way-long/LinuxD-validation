@@ -6,6 +6,13 @@ set -a
 
 echo "\n*************Ctr_C DURING TRANFER DATA FROM HOST PC TO BOARD**********\n"
 
+mkdir -p $RAM_DIR
+
+# Mount ram
+$(dirname $0)/../common/mount-device.sh $RAM_DIR
+
+size="350"
+
 echo "prepare data for test"
 
 #check file on host pc
@@ -21,7 +28,7 @@ quit
 END_SCRIPT
 #---------
 
-if grep -i "file-${SIZE_DATA}mb" $LOGFILE >/dev/null;then
+if grep -i "file-${size}mb" $LOGFILE >/dev/null;then
 	echo "prepare data successfully"
 else
 	echo "prepare data not successfully please create data on host pc"
@@ -32,14 +39,7 @@ fi
 
 if [ -f $LOGFILE ];then
     rm -rf $LOGFILE
-fi 
-
-mkdir -p $RAM_DIR
-
-# Mount ram
-$(dirname $0)/../common/mount-device.sh $RAM_DIR
-
-size="350"
+fi
 
 echo "tranfer file ${size}MB"
 $(dirname $0)/ftp_get_pc_to_board_data.sh $size & sleep 10;
