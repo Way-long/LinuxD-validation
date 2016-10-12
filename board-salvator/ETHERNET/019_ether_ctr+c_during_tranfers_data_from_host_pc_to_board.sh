@@ -42,7 +42,7 @@ if [ -f $LOGFILE ];then
 fi
 
 echo "tranfer file ${size}MB"
-$(dirname $0)/ftp_get_pc_to_board_data.sh $size & sleep 10;
+$(dirname $0)/ftp_get_pc_to_board_data.sh $size > /dev/null & sleep 10;
 
 $(dirname $0)/../common/ctr_c.sh "ftp -inv"
 

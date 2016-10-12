@@ -31,7 +31,7 @@ else
 fi
 
 echo "tranfer file ${size}MB"
-$(dirname $0)/ftp_put_board_to_pc_data.sh $size & sleep 10;
+$(dirname $0)/ftp_put_board_to_pc_data.sh $size > /dev/null & sleep 10;
 
 $(dirname $0)/../common/ctr_c.sh "ftp -inv"
 
