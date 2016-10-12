@@ -6,6 +6,8 @@ set -e
 
 echo "\n******************** SMP CONCURRENT ACCESS TEST ************************\n"
 
+mkdir -p $RAM_DIR
+
 # Mount ram
 $(dirname $0)/../common/mount-device.sh $RAM_DIR
 
@@ -17,5 +19,7 @@ sleep 5
 
 # Umount ram
 $(dirname $0)/../common/umount-device.sh $RAM_DIR
+
+rm -rf $RAM_DIR
 
 echo "\n************************************************************************\n"

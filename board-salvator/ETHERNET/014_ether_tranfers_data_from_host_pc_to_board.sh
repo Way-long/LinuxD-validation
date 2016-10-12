@@ -6,6 +6,8 @@ set -e
 
 echo "\n*****************TRANFERS DATA FROM HOST PC TO BOARD******************\n"
 
+mkdir -p $RAM_DIR
+
 # Mount ram
 $(dirname $0)/../common/mount-device.sh $RAM_DIR
 
@@ -22,5 +24,7 @@ done
 
 # Umount ram
 $(dirname $0)/../common/umount-device.sh $RAM_DIR
+
+rm -rf $RAM_DIR
 
 echo "\n*********************************************************************\n"

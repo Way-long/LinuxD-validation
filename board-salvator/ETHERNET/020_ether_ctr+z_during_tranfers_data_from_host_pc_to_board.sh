@@ -6,6 +6,8 @@ set -a
 
 echo "\n*************Ctr_Z DURING TRANFER DATA FROM BOARD TO HOST PC**********\n"
 
+mkdir -p $RAM_DIR
+
 # Mount ram
 $(dirname $0)/../common/mount-device.sh $RAM_DIR
 
@@ -36,5 +38,7 @@ $(dirname $0)/../common/ctr_z.sh "ftp -inv"
 
 # Umount ram
 $(dirname $0)/../common/umount-device.sh $RAM_DIR
+
+rm -rf $RAM_DIR
 
 echo "\n**********************************************************************\n"
