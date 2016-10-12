@@ -56,7 +56,6 @@ echo "end tranfer data file"
 if cat $LOGFILE | grep -i "Transfer complete" > /dev/null;then
 	eval $PASS_MEG
 else
-	cat $LOGFILE
 	eval $FAIL_MEG
 fi 
 

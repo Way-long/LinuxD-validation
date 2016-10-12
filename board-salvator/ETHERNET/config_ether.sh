@@ -14,10 +14,6 @@ DRIVER_PATH="ETHERNET"						# path driver for run test
 GOOGLE="google.co.jp"						# google site link
 LOGFILE="ether_log.txt"						# log file name
 
-# suport command
-MOUNT_RAM="mount -t tmpfs -o size=400m tmpfs /tmp"
-UNMOUNT_RAM="umount /tmp"
-
 # # install tool on board for test 
 # if ! pwd | grep "tftpboot" > /dev/null ;then
 

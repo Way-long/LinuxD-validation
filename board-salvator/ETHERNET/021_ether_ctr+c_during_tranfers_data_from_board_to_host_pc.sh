@@ -6,7 +6,8 @@ set -a
 
 echo "\n*************Ctr_C DURING TRANFER DATA FROM BOARD TO HOST PC**********\n"
 
-eval $MOUNT_RAM
+# Mount ram
+$(dirname $0)/../common/mount-device.sh $RAM_DIR
 
 size="350"
 
@@ -36,6 +37,7 @@ sleep 5
 echo "re-tranfer file ${size}MB"
 $(dirname $0)/ftp_put_board_to_pc_data.sh $size
 
-eval $UNMOUNT_RAM
+# Umount ram
+$(dirname $0)/../common/umount-device.sh $RAM_DIR
 
 echo "\n**********************************************************************\n"

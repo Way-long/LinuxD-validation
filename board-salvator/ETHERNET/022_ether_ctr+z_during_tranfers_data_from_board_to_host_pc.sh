@@ -6,7 +6,8 @@ set -a
 
 echo "\n*************Ctr_Z DURING TRANFER DATA FROM BOARD TO HOST PC**********\n"
 
-eval $MOUNT_RAM
+# Mount ram
+$(dirname $0)/../common/mount-device.sh $RAM_DIR
 
 size="350"
 
@@ -32,6 +33,7 @@ $(dirname $0)/ftp_put_board_to_pc_data.sh $size & sleep 10;
 
 $(dirname $0)/../common/ctr_z.sh "ftp -inv"
 
-eval $UNMOUNT_RAM
+# Umount ram
+$(dirname $0)/../common/umount-device.sh $RAM_DIR
 
 echo "\n**********************************************************************\n"
