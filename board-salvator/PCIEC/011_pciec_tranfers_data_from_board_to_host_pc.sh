@@ -6,25 +6,30 @@ set -e
 
 echo "\n*****************TRANFERS DATA FROM BOARD TO HOST PC******************\n"
 
-eval $MOUNT_RAM
+mkdir -p $RAM_DIR
+
+# Mount ram
+$(dirname $0)/../common/mount-device.sh $RAM_DIR
 
 for size in "1" "50" "350"; do
 
-	echo "prepare data for test"
+	rm -rf $RAM_DIR/*
+	
+	echo "prepare data for test file-${size}mb"
 
 	if ! [ -f "$(dirname $0)/data/file-${size}mb" ]; then
-		dd if=/dev/urandom of=/tmp/file-${size}mb bs=1M count=${size}
+		dd if=/dev/urandom of=${RAM_DIR}/file-${size}mb bs=1M count=${size}
 	else
-		cp $(dirname $0)/data/file-${size}mb /tmp
+		cp $(dirname $0)/data/file-${size}mb ${RAM_DIR}/
 		sync
 	fi
 
-	if [ -f "/tmp/file-${size}mb" ];then
-		echo "prepare data successfully"
+	if [ -f "${RAM_DIR}/file-${size}mb" ];then
+		echo "prepare data file-${size}mb successfully"
 	else
-		echo "prepare data not successfully"
+		echo "prepare data file-${size}mb not successfully"
 		eval $FAIL_MEG
-		break;	
+		exit 1;	
 	fi
 
 	echo "tranfer file ${size}MB"
@@ -32,6 +37,11 @@ for size in "1" "50" "350"; do
 
 done
 
-eval $UNMOUNT_RAM
+sync
+
+# Umount ram
+$(dirname $0)/../common/umount-device.sh $RAM_DIR
+
+rm -rf $RAM_DIR
 
 echo "\n**********************************************************************\n"

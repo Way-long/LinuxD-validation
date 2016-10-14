@@ -1,7 +1,7 @@
 #!/bin/sh
-# pciec device driver autotest shell-script
+# ethernet device driver autotest shell-script
 
-set -e
+set -a
 #set -x
 
 if [ $# -gt 1 ]; then
@@ -24,20 +24,22 @@ ftp -inv $IPSERVER > $LOGFILE 2>&1 <<END_SCRIPT
 	quote USER $PCNAME
 	quote PASS $PCPASSWORD
 
-	put /tmp/file-${SIZE_DATA}mb $PC_FOLDER/file-${SIZE_DATA}mb
+	put ${RAM_DIR}/file-${SIZE_DATA}mb $PC_FOLDER/file-${SIZE_DATA}mb
 
 	quit
 
 END_SCRIPT
 
+cat $LOGFILE
+
 echo "end tranfer data file"
 
-if grep -i "Transfer complete" $LOGFILE >/dev/null;then
+if cat $LOGFILE | grep -i "Transfer complete" > /dev/null;then
 	eval $PASS_MEG
 else
 	eval $FAIL_MEG
 fi 
 
-rm $LOGFILE
-
-rm -rf /tmp/*
+if [ -f $LOGFILE ];then
+    rm -rf $LOGFILE
+fi

@@ -1,14 +1,19 @@
 #!/bin/sh
 # pciec device driver autotest shell-script
 
-set -e
+set -a
 #set -x
 
 echo "\n*************Ctr_C DURING TRANFER DATA FROM HOST PC TO BOARD**********\n"
 
-eval $MOUNT_RAM
+mkdir -p $RAM_DIR
 
-for size in "350"; do
+# Mount ram
+$(dirname $0)/../common/mount-device.sh $RAM_DIR
+
+size="350"
+
+echo "prepare data for test"
 
 #check file on host pc
 ftp -inv $IPSERVER > $LOGFILE 2>&1 <<END_SCRIPT
@@ -23,28 +28,34 @@ quit
 END_SCRIPT
 #---------
 
-	if grep -i "file-${size}mb" $LOGFILE >/dev/null;then
-		echo "prepare data successfully"
-	else
-		echo "prepare data not successfully"
-		eval $FAIL_MEG
-		break;	
-	fi
-
+if grep -i "file-${size}mb" $LOGFILE >/dev/null;then
+	echo "prepare data successfully"
+else
+	echo "prepare data not successfully please create data on host pc"
 	rm -rf $LOGFILE
+	eval $FAIL_MEG
+	exit 1;	
+fi
 
-	echo "tranfer file ${size}MB"
-	$(dirname $0)/ftp_get_pc_to_board_data.sh $size & sleep 10;
+if [ -f $LOGFILE ];then
+    rm -rf $LOGFILE
+fi
 
-	$(dirname $0)/../common/ctr_c.sh "ftp -inv"
+echo "tranfer file ${size}MB"
+$(dirname $0)/ftp_get_pc_to_board_data.sh $size > /dev/null & sleep 10;
 
-	sleep 5
+$(dirname $0)/../common/ctr_c.sh "ftp -inv"
 
-	echo "re-tranfer file ${size}MB"
-	$(dirname $0)/ftp_get_pc_to_board_data.sh $size
+sleep 5
 
-done
+echo "re-tranfer file ${size}MB"
+$(dirname $0)/ftp_get_pc_to_board_data.sh $size
 
-eval $UNMOUNT_RAM
+sync
+
+# Umount ram
+$(dirname $0)/../common/umount-device.sh $RAM_DIR
+
+rm -rf $RAM_DIR
 
 echo "\n*********************************************************************\n"

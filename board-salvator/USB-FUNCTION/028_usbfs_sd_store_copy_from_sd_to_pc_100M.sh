@@ -29,7 +29,7 @@ if ! [ -d $SD_DIR ];then
 	exit 1
 fi
 
-echo $PCPASSWORD | sudo chown ${PCNAME}:${PCNAME} $SD_DIR > /dev/null 2>&1
+echo $PCPASSWORD | sudo chmod 777 $SD_DIR > /dev/null 2>&1
 
 $(dirname $0)/usbfs_copy_data.sh $SD_DIR $PC_FOLDER 100
 
