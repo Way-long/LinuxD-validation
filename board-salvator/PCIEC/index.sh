@@ -182,13 +182,13 @@ sleep 3
 
 40)
 echo "40)"
-$(dirname $0)/exec_pciec.sh 040_ether_smp_mutilple_cpu.sh
+$(dirname $0)/exec_pciec.sh 040_pciec_smp_mutilple_cpu.sh
 sleep 3
 ;;
 
 41)
 echo "41)"
-$(dirname $0)/exec_pciec.sh 041_ether_stress_cpu.sh
+$(dirname $0)/exec_pciec.sh 041_pciec_stress_cpu.sh
 sleep 3
 ;;
 
