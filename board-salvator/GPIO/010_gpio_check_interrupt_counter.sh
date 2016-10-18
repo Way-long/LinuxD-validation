@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 set -e
 #set -x
@@ -19,17 +19,17 @@ OK=0
 
 echo "export port gpio"
 # set gpio port
-echo $GPIO_NUM_1 > /sys/class/gpio/export
-echo $GPIO_NUM_2 > /sys/class/gpio/export
+echo $GPIO_PORT_1 > /sys/class/gpio/export
+echo $GPIO_PORT_2 > /sys/class/gpio/export
 
 echo "set gpio port"
 #count up
-echo low > /sys/class/gpio/gpio${GPIO_NUM_2}/direction
-echo rising > /sys/class/gpio/gpio${GPIO_NUM_1}/edge
+echo low > /sys/class/gpio/gpio${GPIO_PORT_2}/direction
+echo rising > /sys/class/gpio/gpio${GPIO_PORT_1}/edge
 
 INT_1=$( get_counter_interrupt )
 
-echo 1 > /sys/class/gpio/gpio${GPIO_NUM_2}/value
+echo 1 > /sys/class/gpio/gpio${GPIO_PORT_2}/value
 
 INT_2=$( get_counter_interrupt )
 
@@ -41,8 +41,8 @@ OK=$(($OK + 1))
 
 sleep 2
 
-echo 0 > /sys/class/gpio/gpio${GPIO_NUM_2}/value
-echo 1 > /sys/class/gpio/gpio${GPIO_NUM_2}/value
+echo 0 > /sys/class/gpio/gpio${GPIO_PORT_2}/value
+echo 1 > /sys/class/gpio/gpio${GPIO_PORT_2}/value
 
 INT_3=$( get_counter_interrupt )
 
@@ -55,7 +55,7 @@ OK=$(($OK + 1))
 sleep 2
 
 #count down
-echo falling > /sys/class/gpio/gpio${GPIO_NUM_1}/edge
+echo falling > /sys/class/gpio/gpio${GPIO_PORT_1}/edge
 
 INT_4=$( get_counter_interrupt )
 
@@ -68,7 +68,7 @@ OK=$(($OK + 1))
 sleep 2
 
 #count both
-echo both > /sys/class/gpio/gpio${GPIO_NUM_1}/edge
+echo both > /sys/class/gpio/gpio${GPIO_PORT_1}/edge
 
 INT_5=$( get_counter_interrupt )
 
@@ -80,10 +80,10 @@ OK=$(($OK + 1))
 
 sleep 2
 
-echo 1 > /sys/class/gpio/gpio${GPIO_NUM_2}/value
-echo 0 > /sys/class/gpio/gpio${GPIO_NUM_2}/value
+echo 1 > /sys/class/gpio/gpio${GPIO_PORT_2}/value
+echo 0 > /sys/class/gpio/gpio${GPIO_PORT_2}/value
 
-INT_5=$( get_counter_interrupt )
+INT_6=$( get_counter_interrupt )
 
 if [ $INT_6 -eq  $INT_5 ]; then    
     echo "CPU0 Interrupt cound is not increasing"
@@ -97,7 +97,7 @@ fi
 
 echo "unexport port gpio"
 #unset gpio port
-echo $GPIO_NUM_1 > /sys/class/gpio/unexport
-echo $GPIO_NUM_2 > /sys/class/gpio/unexport
+echo $GPIO_PORT_1 > /sys/class/gpio/unexport
+echo $GPIO_PORT_2 > /sys/class/gpio/unexport
 
 echo "\n***********************************************************************\n"

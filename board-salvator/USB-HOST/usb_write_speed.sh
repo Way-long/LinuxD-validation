@@ -5,14 +5,13 @@ set -a
 #set -x
 
 if [ $# -lt 1 ]; then
-    echo "usage : $(basename $0) SDHI_DIRECTORY"
+    echo "usage : $(basename $0) SDHI_DIRECTORY DEVICE"
     exit 1
 fi
 
 SRC_DIR="$1"
 
-CARD=`echo "${SRC_DIR: -1}"`
-DEVICE="/dev/mmcblk${CARD}p1"
+DEVICE="$2"
 
 echo "root@linaro-nano:~# mkdir -p $RAM_DIR"
 mkdir -p $RAM_DIR

@@ -32,4 +32,10 @@ if uname -a | grep "linaro-nano" > /dev/null ;then
 
 	DEVICE_USB3=`echo $DEVICE_PATH2 | tr '/' '\n' | tail -1`
 
+	DEVICE_USB2C1_PART1=`echo $DEVICE_PATH0 | tr '/' '\n' | tail -2`
+
+	DEVICE_USB2C2_PART1=`echo $DEVICE_PATH1 | tr '/' '\n' | tail -2`
+
+	DEVICE_USB3_PART1=`echo $DEVICE_PATH2 | tr '/' '\n' | tail -2`
+
 fi
