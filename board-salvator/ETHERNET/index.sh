@@ -100,13 +100,13 @@ sleep 3
 
 16)
 echo "16)"
-$(dirname $0)/exec_ethernet.sh 016_ether_ping_after_suspend.sh
+$(dirname $0)/exec_ethernet.sh 016_ether_ping_after_suspend.sh 1
 sleep 3
 ;;
 
 17)
 echo "17)"
-$(dirname $0)/exec_ethernet.sh 017_ether_ping_during_suspend.sh
+$(dirname $0)/exec_ethernet.sh 017_ether_ping_during_suspend.sh 1
 sleep 3
 ;;
 

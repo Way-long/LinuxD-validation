@@ -6,7 +6,9 @@ set -e
 
 echo "\n*************************SUSPEND INSIDE COPY DATA***********************\n"
 
-eval $PREPARE_SUSPEND
+if ! eval $PREPARE_SUSPEND;then
+	exit 1
+else	
 
 $CMD_SSH <<ENDSSH
 

@@ -4,8 +4,8 @@
 set -a
 #set -x
 
-if [ $# -lt 1 ]; then
-    echo "usage : $(basename $0) SDHI_DIRECTORY DEVICE"
+if [ $# -lt 2 ]; then
+    echo "usage : $(basename $0) USB_DIRECTORY DEVICE"
     exit 1
 fi
 
@@ -22,8 +22,8 @@ mkdir -p $SRC_DIR
 echo "root@linaro-nano:~# mount -t tmpfs -o size=400M tmpfs $RAM_DIR"
 mount -t tmpfs -o size=400M tmpfs $RAM_DIR
 
-echo "root@linaro-nano:~# mount $DEVICE $SRC_DIR"
-mount $DEVICE $SRC_DIR
+echo "root@linaro-nano:~# mount /dev/$DEVICE $SRC_DIR"
+mount /dev/$DEVICE $SRC_DIR
 
 echo "root@linaro-nano:~# dd if=/dev/urandom of=$RAM_DIR/file-350mb bs=1M count=350"
 dd if=/dev/urandom of=$RAM_DIR/file-350mb bs=1M count=350

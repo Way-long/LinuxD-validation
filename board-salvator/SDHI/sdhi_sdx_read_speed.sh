@@ -10,9 +10,8 @@ if [ $# -lt 2 ]; then
 fi
 
 SRC_DIR="$1"
-SDHI_DEVICE="$2"
 
-DEVICE="/dev/${SDHI_DEVICE}p1"
+DEVICE="$2"
 
 echo "root@linaro-nano:~# mkdir -p $RAM_DIR"
 mkdir -p $RAM_DIR
@@ -23,8 +22,8 @@ mkdir -p $SRC_DIR
 echo "root@linaro-nano:~# mount -t tmpfs -o size=400M tmpfs $RAM_DIR"
 mount -t tmpfs -o size=400M tmpfs $RAM_DIR
 
-echo "root@linaro-nano:~# mount $DEVICE $SRC_DIR"
-mount $DEVICE $SRC_DIR
+echo "root@linaro-nano:~# mount /dev/$DEVICE $SRC_DIR"
+mount /dev/$DEVICE $SRC_DIR
 
 echo "root@linaro-nano:~# dd if=/dev/urandom of=$SRC_DIR/file-350mb bs=1M count=350"
 dd if=/dev/urandom of=$SRC_DIR/file-350mb bs=1M count=350

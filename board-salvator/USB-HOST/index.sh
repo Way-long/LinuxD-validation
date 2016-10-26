@@ -212,7 +212,7 @@ sleep 3
 ;;
 
 45)
-$(dirname $0)/exec_usb.sh 045_usb2.0ch2-suspend.sh
+$(dirname $0)/exec_usb.sh 045_usb2.0ch2-suspend.sh 1
 sleep 3
 ;;
 

@@ -27,12 +27,13 @@ mkfs.ext3 ${DEVICE_USB2C2}3 > /dev/null 2>&1
 
 for ((  i = 1 ;  i <= 3;  i++  ))
 do
-	if [ -e "/dev/sda$i" ]; then
+	if [ -e "/dev/${DEVICE_USB2C2}$i" ]; then
 		if [ "$i" = "3" ] ; then
-			echo "CREATE PARTITION SUCCESS"
+			eval $PASS_MEG
 		fi	
 	else
-		echo "CREATE PARTITION FAILED"
+		echo "${DEVICE_USB2C2}$i not exits" 
+		eval $FAIL_MEG
 		break
 	fi		
 
