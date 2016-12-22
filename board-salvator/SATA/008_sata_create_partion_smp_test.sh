@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # sata device driver autotest shell-script
 
 echo "\n*********CREATING PARTITION AND MAKING FILE SYSTEM FOR SATA*************\n"
