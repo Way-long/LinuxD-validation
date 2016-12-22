@@ -6,6 +6,6 @@ set -e
 
 echo "\n*************************SIMULTANEOUSLY COPY INNER**********************\n"
 
-$(dirname $0)/sata_simultaneously_copy_inner_sata.sh 200
+$(dirname $0)/sata_simultaneously_copy_inner_sata.sh $HDD_DIR $HDD_DIR1 200
 
 echo "\n************************************************************************\n"

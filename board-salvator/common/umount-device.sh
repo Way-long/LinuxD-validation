@@ -16,6 +16,7 @@ DEV_DIR="$1"
 if [ "$DEV_DIR" == "$RAM_DIR" ];then
 	while(true)
 	do
+		sleep 1
 		if ! df | grep "$RAM_DIR" > /dev/null;then 
 			break;
 		fi

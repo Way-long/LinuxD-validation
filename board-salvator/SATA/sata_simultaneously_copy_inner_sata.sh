@@ -1,111 +1,115 @@
 #!/bin/sh
 # sata device driver autotest shell-script
 
-set -e
+set -a
 #set -x
 
-if [ $# -lt 1 ]; then
-    echo "usage : $(basename $0) FILE_SIZE"
+if [ $# -lt 3 ]; then
+    echo "usage : $(basename $0) SRC_DIRECTORY DST_DIRECTORY FILE_SIZE"
     exit 1
 fi
 
-SIZE="$1"
-FILE_NAME="/file-$SIZE$UNIT"
+SRC_DIR="$1"
+DST_DIR="$2"
 
-mkdir -p $HDD_DIR
-mkdir -p $HDD_DIR1
+SIZE="$3"
+FILE_NAME="file-$SIZE$UNIT"
 
-# Mount HD0, HD1 on rootfs. 
+mkdir -p $SRC_DIR
+mkdir -p $DST_DIR
+
+# Mount the device
 echo "Mount the devices on rootfs..."
-if ! $(dirname $0)/../common/mount-device.sh $HDD_DIR > /dev/null; then
-    echo "Could not mount a HD0 card storage"
-    rm -rf $HDD_DIR
-    exit 1
-fi
-if ! $(dirname $0)/../common/mount-device.sh $HDD_DIR1 > /dev/null; then
-    echo "Could not mount a HD1 card storage"
-    rm -rf $HDD_DIR1
+if ! $(dirname $0)/../common/mount-device.sh $DST_DIR > /dev/null; then
+    echo "Could not mount $DST_DIR"
+    eval $FAIL_MEG
     exit 1
 fi
 
-# Make data on HD0 HD1
-echo "Please wait while program make data on HD0 HD1..."
-if ! $(dirname $0)/../common/read_write_data.py $SOURCE $HDD_DIR $SIZE $LOGFILE; then
-    echo "Prepare the data on HD0 failed"
+if ! $(dirname $0)/../common/mount-device.sh $SRC_DIR > /dev/null; then
+    echo "Could not mount $SRC_DIR"
+    eval $FAIL_MEG
     exit 1
 fi
 
-if ! $(dirname $0)/../common/read_write_data.py $SOURCE $HDD_DIR1 $SIZE $LOGFILE; then
-    echo "Prepare the data on HD1 failed"
+# Clear data for test
+if [ "$(ls -A $SRC_DIR)" ]; then
+    rm -r $SRC_DIR/* 
+fi
+
+if [ "$(ls -A $DST_DIR)" ]; then
+    rm -r $DST_DIR/* 
+fi
+
+# Make data for test
+echo "Please wait while program make data on $SRC_DIR and $DST_DIR..."
+
+if ! dd if=/dev/urandom of=${DST_DIR}/${FILE_NAME}-DST bs=1M count=$SIZE ;then
+    echo "Prepare the data on $DST_DIR failed"
+    eval $FAIL_MEG
+    exit 1
+fi
+
+if ! dd if=/dev/urandom of=${SRC_DIR}/${FILE_NAME}-SRC bs=1M count=$SIZE ;then
+    echo "Prepare the data on $SRC_DIR failed"
+    eval $FAIL_MEG
     exit 1
 fi
 
 sync;
 
-if [ -f $LOGFILE ]; then
-    rm -r $LOGFILE
-fi
-sleep 1 
-
-echo "Writing/Reading data between HD0 and HD1 simultaneously..."
-
-if $(dirname $0)/../common/read_write_simultaneously.py $HDD_DIR$FILE_NAME \
-$HDD_DIR1$FILE_NAME$SD_NAME0 $HDD_DIR1$FILE_NAME $HDD_DIR$FILE_NAME$SD_NAME1 $SIZE ; then
-    echo "Write/read the data between HD0 and HD1 has finished"
-else
-    echo "Write/read the data between HD0 and HD1 has failed"
-    exit 1
-fi
-# To ensure that the writing data has been finished.
-if ! $(dirname $0)/../common/umount-device.sh $HDD_DIR > /dev/null; then
-    echo "Could not umount the HD0 card"
-    exit 1
-fi
-if ! $(dirname $0)/../common/umount-device.sh $HDD_DIR1 > /dev/null; then
-    echo "Could not umount the HD1 card"
-    exit 1
-fi
-
-# Re-mount
-if ! $(dirname $0)/../common/mount-device.sh $HDD_DIR > /dev/null; then
-    echo "Could not re-mount the HD0 card"
-    exit 1
-fi
-if ! $(dirname $0)/../common/mount-device.sh $HDD_DIR1 > /dev/null; then
-    echo "Could not re-mount the HD1 card"
-    exit 1
-fi
-
-echo "Confirm the copied data"
-if cmp $HDD_DIR1$FILE_NAME $HDD_DIR$FILE_NAME$SD_NAME1; then
-    if cmp $HDD_DIR$FILE_NAME $HDD_DIR1$FILE_NAME$SD_NAME0; then
-        eval $PASS_MEG
-    else
-        eval $FAIL_MEG
-    fi
-else
+# Check data after created
+if ! [ -f ${DST_DIR}/${FILE_NAME}-DST ];then
+    echo "${DST_DIR}/${FILE_NAME}-DST not exited"
     eval $FAIL_MEG
-fi
+    exit 1
+fi    
 
-# Clean before finish work
-if rm -r $HDD_DIR/*; then
-    if ! $(dirname $0)/../common/umount-device.sh $HDD_DIR > /dev/null; then
-        echo "Could not umount the HD0 card"
-        exit 1
-    fi
-    rm -r $HDD_DIR/
-else
-    echo "Could not remove data out of HD0"
+if ! [ -f ${SRC_DIR}/${FILE_NAME}-SRC ];then
+    echo "${SRC_DIR}/${FILE_NAME}-SRC not exited"
+    eval $FAIL_MEG
+    exit 1
+fi 
+
+sync;
+
+# copy data
+echo "simultaneously copy data"
+cp ${DST_DIR}/${FILE_NAME}-DST $SRC_DIR & cp ${SRC_DIR}/${FILE_NAME}-SRC $DST_DIR
+
+sync;
+
+# confirm data
+echo "Confirm the copied data"
+
+if ! cmp ${DST_DIR}/${FILE_NAME}-DST $SRC_DIR/${FILE_NAME}-DST; then
+    eval $FAIL_MEG
     exit 1
 fi
 
-if rm -r $HDD_DIR1/*; then
-    if ! $(dirname $0)/../common/umount-device.sh $HDD_DIR1 > /dev/null; then
-        echo "Could not umount the HD1 card"
-        exit 1
-    fi
-    rm -r $HDD_DIR1/
-else
-    echo "Could not remove data out of HD1"
+if ! cmp ${DST_DIR}/${FILE_NAME}-SRC $SRC_DIR/${FILE_NAME}-SRC; then
+    eval $FAIL_MEG
     exit 1
 fi
+
+eval $PASS_MEG
+
+# unmount  device
+if ! $(dirname $0)/../common/umount-device.sh $DST_DIR > /dev/null; then
+    echo "Could not umount the ${DST_DIR}"
+fi
+
+if ! $(dirname $0)/../common/umount-device.sh $SRC_DIR > /dev/null; then
+    echo "Could not umount the ${SRC_DIR}"
+fi
+
+# Clear data for test
+if [ "$(ls -A $SRC_DIR)" ]; then
+    rm -r $SRC_DIR/* 
+fi
+
+if [ "$(ls -A $DST_DIR)" ]; then
+    rm -r $DST_DIR/* 
+fi
+
+sync
