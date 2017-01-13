@@ -6,8 +6,8 @@ set -a
 
 echo "\n******************** SMP TEST MULTIPLE CPU *****************************\n"
 
-CARD1_DIR="$SD1_DIR"
-CARD2_DIR="$SD2_DIR"
+CARD1_DIR="$USB2_DIR"
+CARD2_DIR="$USB2_CH2_DIR"
 
 mkdir -p $RAM_DIR
 mkdir -p $CARD1_DIR

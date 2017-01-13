@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # usb device driver autotest shell-script
 
 set -a
@@ -6,7 +6,7 @@ set -a
 
 echo "\n*****************************USB TEST LAST BLOCK***************************\n"
 
-fdisk -l ${DEVICE_USB2C1}1 > $LOGFILE
+fdisk -l /dev/${DEVICE_USB2C1}1 > $LOGFILE 2>&1
 
 fil=$LOGFILE
 
@@ -19,7 +19,9 @@ xbs=`grep Units $fil | tail -1 | cut -d = -f3 | cut -d = -f2 |cut -d b -f1 | tr 
 
 fi
 
-cmd="dd if=/dev/zero of=${DEVICE_USB2C1}1 bs=$xbs count=1 seek=$seek"
+seek_over=$(($seek + 0))
+
+cmd="dd if=/dev/zero of=/dev/${DEVICE_USB2C1}1 bs=$xbs count=1 seek=${seek_over}"
 echo $cmd
 
 if eval $cmd; then

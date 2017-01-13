@@ -1,7 +1,7 @@
 #!/bin/bash
 # usb device driver autotest shell-script
 
-set -e
+set -a
 #set -x
 
 echo "\n************************WRITE DATA USB2.0 to USB3.0*********************\n"

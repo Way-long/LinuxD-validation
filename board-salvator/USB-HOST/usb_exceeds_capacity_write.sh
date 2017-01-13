@@ -5,7 +5,7 @@ set -e
 #set -x
 
 if [ $# -lt 1 ]; then
-    echo "usage : $(basename $0) SDHI_DIRECTORY"
+    echo "usage : $(basename $0) USB_DIRECTORY"
     exit 1
 fi
 

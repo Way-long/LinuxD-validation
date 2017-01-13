@@ -317,7 +317,7 @@ sleep 3
 ;;
 
 75)
-$(dirname $0)/exec_usb.sh 075_usb3.0-suspend.sh
+$(dirname $0)/exec_usb.sh 075_usb3.0-suspend.sh 1
 sleep 3
 ;;
 

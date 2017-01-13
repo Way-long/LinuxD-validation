@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # usb device driver autotest shell-script
 
 set -a
@@ -6,7 +6,7 @@ set -a
 
 echo "\n***************************USB TEST BLOCK OVER SEEK*********************\n"
 
-fdisk -l ${DEVICE_USB2C1}1 > $LOGFILE
+fdisk -l /dev/${DEVICE_USB2C1}1 > $LOGFILE 2>&1
 
 fil=$LOGFILE
 
@@ -21,7 +21,7 @@ fi
 
 seek_over=$(($seek + 1))
 
-cmd="dd if=/dev/zero of=${DEVICE_USB2C1}1 bs=$xbs count=1 seek=${seek_over}"
+cmd="dd if=/dev/zero of=/dev/${DEVICE_USB2C1}1 bs=$xbs count=1 seek=${seek_over}"
 echo $cmd
 
 if eval $cmd; then

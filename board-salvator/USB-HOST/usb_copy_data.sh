@@ -1,7 +1,7 @@
 #!/bin/bash
 # sata device driver autotest shell-script
 
-set -e
+set -a
 #set -x
 
 if [ $# -lt 3 ]; then
@@ -22,6 +22,10 @@ echo "writing direct: ${SRC_DIR}->${DST_DIR}"
 # Mount src_dir and dst_dir
 $(dirname $0)/../common/mount-device.sh $SRC_DIR
 $(dirname $0)/../common/mount-device.sh $DST_DIR
+
+# Clear data before test
+rm -rf $SRC_DIR/*
+rm -rf $DST_DIR/*
 
 #Setting HD0 have data
 if [ "$HAS_DATA" = "1" ];then

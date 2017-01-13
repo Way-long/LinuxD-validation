@@ -15,7 +15,7 @@ while [ $(( $(date +%s) - 3600 )) -lt $START ]; do
     for i in $(seq 1 100);
     do
 
-        $(dirname $0)/sdhi_copy_data.sh $RAM_DIR $USB3_DIR 350
+        $(dirname $0)/usb_copy_data.sh $RAM_DIR $USB3_DIR 350
 
     done
 

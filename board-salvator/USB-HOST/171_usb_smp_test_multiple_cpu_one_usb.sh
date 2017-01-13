@@ -6,7 +6,7 @@ set -a
 
 echo "\n******************** SMP TEST MULTIPLE CPU *****************************\n"
 
-SRC_DIR="$SD1_DIR"
+SRC_DIR="$USB2_DIR"
 
 mkdir -p $RAM_DIR
 mkdir -p $SRC_DIR
