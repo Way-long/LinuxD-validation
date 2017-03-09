@@ -20,4 +20,4 @@ if [ "$OK" = "$#" ]; then
 	eval $PASS_MEG
 else
 	eval $FAIL_MEG
-fi	
+fi

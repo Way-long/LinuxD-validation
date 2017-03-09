@@ -18,7 +18,7 @@ sleep 5
 cmd="ls /dev/ttyACM0"
 echo $cmd
 
-if ! $cmd | grep "ttyACM0";then
+if $cmd | grep "ttyACM0";then
 	eval $PASS_MEG
 else	
 	eval $FAIL_MEG

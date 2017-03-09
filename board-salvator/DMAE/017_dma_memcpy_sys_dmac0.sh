@@ -4,7 +4,7 @@
 set -e
 #set -x
 
-echo "\n***********************MEMCOPY DATA TRANFERS TEST***********************\n"
+echo "\n***********************MEMCOPY DATA TRANFERS TEST SYSDMAC0**************\n"
 
 if ! modprobe dmatest;then
 	echo "Please load module before test this item"

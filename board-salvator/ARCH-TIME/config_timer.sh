@@ -8,3 +8,4 @@ DRIVER="arch_timer"							# timer driver name of renesas
 INTERRUPT="arch_timer"						# timer driver interrupt
 
 DRIVER_PATH="ARCH-TIME"						# path driver for run test	
+LOGFILE="timer.txt"

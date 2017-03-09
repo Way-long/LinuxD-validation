@@ -1,8 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 # usb function device driver autotest shell-script
 
 set -e
 #set -x
+
+echo "11212" > test.log
 
 RANDOM=`echo $RANDOM | tr '[0-9]' '[a-zA-Z]'`
 

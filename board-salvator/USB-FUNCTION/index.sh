@@ -175,6 +175,12 @@ $(dirname $0)/exec_usbfs.sh 031_usbfs_sd_store_speed_copy_sd_pc.sh 1
 sleep 3
 ;;
 
+32)
+echo "32)"
+$(dirname $0)/exec_usbfs.sh 032_usbfs_sd_store_speed_copy_pc_sd.sh 1
+sleep 3
+;;
+
 37)
 echo "37)"
 $(dirname $0)/exec_usbfs.sh 037_usbfs_gzero_write_control.sh 1

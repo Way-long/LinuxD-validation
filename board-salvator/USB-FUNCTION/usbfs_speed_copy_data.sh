@@ -32,6 +32,8 @@ if ! eval $cmd ;then
 	exit 1
 fi
 
+sync
+
 # Copy data
 echo "copying ${FILE_SIZE}M file from ${SRC_DIR} to ${DST_DIR}"
 

@@ -240,6 +240,7 @@ $(dirname $0)/exec_du.sh 038_du_change_layer_position_from_hdmi1_to_du2.sh
 ;;
 
 39)
+echo "39)"
 $(dirname $0)/exec_du.sh 039_du_change_layer_position_from_rgb_to_du3.sh
 sleep 3
 ;;

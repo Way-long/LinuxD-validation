@@ -4,6 +4,8 @@
 set -e
 #set -x
 
+echo "checklog" > $SHELL_SOURCE_CODE/$DRIVER_PATH/loglog.txt
+
 echo "ON BOARD:"
 
 if ! ifconfig -a | grep $USBFS_ETHER_INTERFACE;then

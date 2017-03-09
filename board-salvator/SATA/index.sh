@@ -204,81 +204,81 @@ $(dirname $0)/exec_sata.sh 033_sata_unbind_bind_write_data.sh
 sleep 3
 ;;
 
-34)
-echo "34)"
-$(dirname $0)/exec_sata.sh 034_sata_suspend_inside_write_data.sh 1
-sleep 3
-;;
-
 35)
 echo "35)"
-$(dirname $0)/exec_sata.sh 035_sata_suspend_inside_read_data.sh 1
+$(dirname $0)/exec_sata.sh 035_sata_suspend_before_write_data.sh 1
 sleep 3
 ;;
 
 36)
 echo "36)"
-$(dirname $0)/exec_sata.sh 036_sata_suspend_while_write_data.sh 1
+$(dirname $0)/exec_sata.sh 036_sata_suspend_before_read_data.sh 1
 sleep 3
 ;;
 
 37)
 echo "37)"
-$(dirname $0)/exec_sata.sh 037_sata_suspend_while_read_data.sh 1
+$(dirname $0)/exec_sata.sh 037_sata_suspend_while_write_data.sh 1
 sleep 3
 ;;
 
-40)
-echo "40)"
-$(dirname $0)/exec_sata.sh 040_sata_ctrc_write_data.sh
+38)
+echo "38)"
+$(dirname $0)/exec_sata.sh 038_sata_suspend_while_read_data.sh 1
 sleep 3
 ;;
 
 41)
 echo "41)"
-$(dirname $0)/exec_sata.sh 041_sata_ctrz_write_data.sh
+$(dirname $0)/exec_sata.sh 041_sata_ctrc_write_data.sh
 sleep 3
 ;;
 
 42)
 echo "42)"
-$(dirname $0)/exec_sata.sh 042_sata_test_block_over_seek.sh
+$(dirname $0)/exec_sata.sh 042_sata_ctrz_write_data.sh
 sleep 3
 ;;
 
 43)
 echo "43)"
-$(dirname $0)/exec_sata.sh 043_sata_test_block_ok.sh
+$(dirname $0)/exec_sata.sh 043_sata_test_block_over_seek.sh
 sleep 3
 ;;
 
 44)
 echo "44)"
-$(dirname $0)/exec_sata.sh 044_sata_test_block_by_last_block.sh
+$(dirname $0)/exec_sata.sh 044_sata_test_block_ok.sh
 sleep 3
 ;;
 
 45)
 echo "45)"
-$(dirname $0)/exec_sata.sh 045_sata_test_block_over_count.sh
+$(dirname $0)/exec_sata.sh 045_sata_test_block_by_last_block.sh
 sleep 3
 ;;
 
 46)
 echo "46)"
-$(dirname $0)/exec_sata.sh 046_sata_smp_test_multiple_cpu.sh
+$(dirname $0)/exec_sata.sh 046_sata_test_block_over_count.sh
 sleep 3
 ;;
 
 47)
 echo "47)"
-$(dirname $0)/exec_sata.sh 047_sata_write_ram_to_sata_100_times.sh
+$(dirname $0)/exec_sata.sh 047_sata_smp_test_multiple_cpu.sh
 sleep 3
 ;;
 
 48)
 echo "48)"
-$(dirname $0)/exec_sata.sh 048_sata_read_sata_to_ram_100_times.sh
+$(dirname $0)/exec_sata.sh 048_sata_write_ram_to_sata_100_times.sh
+sleep 3
+;;
+
+49)
+echo "49)"
+$(dirname $0)/exec_sata.sh 049_sata_read_sata_to_ram_100_times.sh
 sleep 3
 ;;
 

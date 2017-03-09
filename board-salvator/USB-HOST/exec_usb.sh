@@ -11,6 +11,9 @@ ONLY_RUN_FROM_PC="$2"
 
 echo -e "\n ${BEGIN_TIMER} \n"
 
+NUMBER=`echo "$SHELL_SCRIPT_FILE" | cut -f1 -d"_"`
+echo "$NUMBER)"
+
 # check source code run from HOST PC
 if pwd | grep "tftpboot" > /dev/null ;then 
 

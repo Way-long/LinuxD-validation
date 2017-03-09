@@ -126,69 +126,69 @@ $(dirname $0)/exec_pciec.sh 024_pciec_setting_s10_half_off.sh
 sleep 3
 ;;
 
-31)
-echo "31)"
-$(dirname $0)/exec_pciec.sh 031_pciec_ctr+c_during_tranfers_data_from_board_to_host_pc.sh
-sleep 3
-;;
-
-32)
-echo "32)"
-$(dirname $0)/exec_pciec.sh 032_pciec_ctr+c_during_tranfers_data_from_host_pc_to_board.sh
-sleep 3
-;;
-
 33)
 echo "33)"
-$(dirname $0)/exec_pciec.sh 033_pciec_ctr+z_during_tranfers_data_from_board_to_host_pc.sh
+$(dirname $0)/exec_pciec.sh 033_pciec_ctr+c_during_tranfers_data_from_board_to_host_pc.sh
 sleep 3
 ;;
 
 34)
 echo "34)"
-$(dirname $0)/exec_pciec.sh 034_pciec_ctr+z_during_tranfers_data_from_host_pc_to_board.sh
+$(dirname $0)/exec_pciec.sh 034_pciec_ctr+c_during_tranfers_data_from_host_pc_to_board.sh
 sleep 3
 ;;
 
 35)
 echo "35)"
-$(dirname $0)/exec_pciec.sh 035_pciec_classA_check_ipadress.sh
+$(dirname $0)/exec_pciec.sh 035_pciec_ctr+z_during_tranfers_data_from_board_to_host_pc.sh
 sleep 3
 ;;
 
 36)
 echo "36)"
-$(dirname $0)/exec_pciec.sh 036_pciec_classB_check_ipadress.sh
+$(dirname $0)/exec_pciec.sh 036_pciec_ctr+z_during_tranfers_data_from_host_pc_to_board.sh
 sleep 3
 ;;
 
 37)
 echo "37)"
-$(dirname $0)/exec_pciec.sh 037_pciec_classC_check_ipadress.sh
+$(dirname $0)/exec_pciec.sh 037_pciec_classA_check_ipadress.sh
 sleep 3
 ;;
 
 38)
 echo "38)"
-$(dirname $0)/exec_pciec.sh 038_pciec_classD_check_ipadress.sh
+$(dirname $0)/exec_pciec.sh 038_pciec_classB_check_ipadress.sh
 sleep 3
 ;;
 
 39)
 echo "39)"
-$(dirname $0)/exec_pciec.sh 039_pciec_classE_check_ipadress.sh
+$(dirname $0)/exec_pciec.sh 039_pciec_classC_check_ipadress.sh
 sleep 3
 ;;
 
 40)
 echo "40)"
-$(dirname $0)/exec_pciec.sh 040_pciec_smp_mutilple_cpu.sh
+$(dirname $0)/exec_pciec.sh 040_pciec_classD_check_ipadress.sh
 sleep 3
 ;;
 
 41)
 echo "41)"
-$(dirname $0)/exec_pciec.sh 041_pciec_stress_cpu.sh
+$(dirname $0)/exec_pciec.sh 041_pciec_classE_check_ipadress.sh
+sleep 3
+;;
+
+42)
+echo "42)"
+$(dirname $0)/exec_pciec.sh 042_pciec_smp_mutilple_cpu.sh
+sleep 3
+;;
+
+43)
+echo "43)"
+$(dirname $0)/exec_pciec.sh 043_pciec_stress_cpu.sh
 sleep 3
 ;;
 

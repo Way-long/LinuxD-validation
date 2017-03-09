@@ -9,7 +9,7 @@ echo "\n**************************RECORD FILE SOUND*****************************
 # setting volume to test
 $(dirname $0)/sound_setting_volume.sh > /dev/null
 
-cmd="arecord -D hw:0,0 -f cd -t wav $(dirname $0)/data/$RECORD_WAV_FILE -d 60"
+cmd="arecord -D hw:0,0 -f cd -t wav $RECORD_WAV_FILE -d 60"
 echo $cmd
 
 if ! eval $cmd ; then

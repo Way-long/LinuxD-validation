@@ -31,7 +31,7 @@ fi
 
 echo $PCPASSWORD | sudo chmod 777 $SD_DIR > /dev/null 2>&1
 
-$(dirname $0)/usbfs_speed_copy_data.sh $PC_FOLDER $SD_DIR 100
+$(dirname $0)/usbfs_speed_copy_data.sh $SD_DIR $PC_FOLDER 100
 
 sleep 2
 

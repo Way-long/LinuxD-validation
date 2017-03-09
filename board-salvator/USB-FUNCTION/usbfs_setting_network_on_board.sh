@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # usb function device driver autotest shell-script
 
 set -e

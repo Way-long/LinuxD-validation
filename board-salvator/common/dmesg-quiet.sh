@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # dmesg-quiet.sh
 #
 # Simple dmesg based feature test (quiet variant)
@@ -11,7 +11,7 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; version 2 of the License.
 
-set -e
+set -a
 #set -x
 
 if [ $# -ne 1 ]; then
@@ -24,6 +24,7 @@ PATTERN="$1"
 #echo "dmesg feature test for '$PATTERN'"
 
 if ! dmesg | grep "$PATTERN"; then
-	echo "error: not matched" >&2
+	eval $FAIL_MEG
+	echo "error: $PATTERN not matched" >&2
 	exit 1
 fi

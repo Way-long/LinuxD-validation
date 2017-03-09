@@ -28,6 +28,12 @@ mount /dev/$DEVICE $SRC_DIR
 echo "root@linaro-nano:~# dd if=/dev/urandom of=$SRC_DIR/file-350mb bs=1M count=350"
 dd if=/dev/urandom of=$SRC_DIR/file-350mb bs=1M count=350
 
+umount $SRC_DIR
+
+sleep 1
+
+mount /dev/$DEVICE $SRC_DIR
+
 echo "root@linaro-nano:~# time cp $SRC_DIR/file-350mb $RAM_DIR; time umount $SRC_DIR"
 { time cp $SRC_DIR/file-350mb $RAM_DIR; } 2> log_cp.txt
 { time umount $SRC_DIR; } 2> log_unmount.txt

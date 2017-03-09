@@ -6,13 +6,13 @@ IPBOARD="192.168.1.215"     				# ipaddress of board
 IPSERVER="192.168.1.205"   					# ipaddress of host pc
 GATEWAY="192.168.1.1"						# gateway internet
 NETMASK="255.255.255.0"						# netmask internet
-PCNAME="pcname"        					    # name of host pc 
+PCNAME="*******"        					# name of host pc 
 PCPASSWORD="*********"      				# password of host pc
 PC_FOLDER="/home/duclm/host_pc"			    # folder on host pc for test copy data
 CPU_NUMBER=4					   			# number of cpu
 
 # location shell script on board
-SHELL_SOURCE_CODE="/home/SALVATOR_SHELL/board-salvator"
+SHELL_SOURCE_CODE="/root/SALVATOR_SHELL/board-salvator"
 
 # ssh command
 CMD_SSH="ssh root@$IPBOARD"
@@ -65,3 +65,6 @@ PASS_MEG="echo -e '\n${COLOR_GREEN}TEST PASSED${COLOR_NO}\n'"
 FAIL_MEG="echo -e '\n${COLOR_RED}TEST FAILED${COLOR_NO}\n'"
 
 #exit function
+
+SDHI_INTERRUPT_0="ee100000.sd"				# interrupt of sdhi 1
+SDHI_INTERRUPT_1="ee160000.sd"				# interrupt of sdhi 2

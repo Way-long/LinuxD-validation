@@ -9,7 +9,7 @@ echo "\n***************************APLAY FILE SOUND*****************************
 # setting volume to test
 $(dirname $0)/sound_setting_volume.sh > /dev/null
 
-cmd="aplay $(dirname $0)/data/$APLAY_WAV_FILE -d 20"
+cmd="aplay $APLAY_WAV_FILE -d 20"
 echo $cmd
 
 if ! eval $cmd ; then

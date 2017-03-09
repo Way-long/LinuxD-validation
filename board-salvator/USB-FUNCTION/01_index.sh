@@ -10,7 +10,7 @@ echo "|                          TEST USB_FUNCTION DRIVER                       
 echo "================================================================================="
 
 echo "1)********************** usb function dmesg feature test ************************"
-$(dirname $0)/001_dmesg.sh 
+$(dirname $0)/001_dmesg.sh
 sleep 3
 
 echo "2)**************************** usb function interrupts **************************"

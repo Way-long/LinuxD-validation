@@ -17,7 +17,7 @@ if [ ! -z "$IPERF_PROCESS_ID" -a "$IPERF_PROCESS_ID" != " " ]; then
 	for i in $(echo $IPERF_PROCESS_ID | tr " " "\n")
 	do
 	    echo "$i"	
-	    if ! kill -9 $i;then
+	    if ! kill -13 $i;then
 	  	    echo "can not kill process of $1"
 	  	    exit 1
 	    fi
