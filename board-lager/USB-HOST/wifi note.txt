@@ -1,0 +1,16 @@
+root@linaro-nano:~# cat /etc/wpa_supplicant.conf 
+network={
+            ssid="W01_0CD6BD1E6756"
+             psk="d6m84fyreanngq4"
+}
+
+
+
+===============================
+
+ifconfig wlan0 up
+iwlist wlan0 scanning
+wpa_supplicant -B -iwlan0 -c/etc/wpa_supplicant.conf -Dwext
+dhclient wlan0
+ping 192.168.100.1
+

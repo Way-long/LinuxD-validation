@@ -1,0 +1,26 @@
+
+
+
+>17
+stty -F /dev/ttySC0 speed 38400 cs8 -cstopb
+stty -F /dev/ttySC1 speed 38400 cs8 -cstopb;cat /dev/ttySC1
+
+
+>18
+stty -F /dev/ttySC0 speed 57600 cs8 -cstopb
+stty -F /dev/ttySC1 speed 57600 cs8 -cstopb;cat /dev/ttySC1
+
+
+>19
+stty -F /dev/ttySC0 speed 115200 cs8 -cstopb
+stty -F /dev/ttySC1 speed 115200 cs8 -cstopb;cat /dev/ttySC1
+
+
+>20
+stty -F /dev/ttySC0 speed 230400 cs8 -cstopb
+stty -F /dev/ttySC1 speed 230400 cs8 -cstopb;cat /dev/ttySC1
+
+
+>21
+stty -F /dev/ttySC0 speed 460800 cs8 -cstopb
+stty -F /dev/ttySC1 speed 460800 cs8 -cstopb;cat /dev/ttySC1

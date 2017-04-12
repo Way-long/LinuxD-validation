@@ -1,0 +1,50 @@
+CONFIG_SUSPEND = y    (default)
+  │Symbol: SUSPEND [=y]                                                                               │  
+  │ Type  : boolean                                                                                   │  
+  │ Prompt: Suspend to RAM and standby                                                                │  
+  │   Location:                                                                                       │  
+  │ (1) -> Power management options                                                                   │  
+  │   Defined at kernel/power/Kconfig:1                                                               │  
+  │   Depends on: ARCH_SUSPEND_POSSIBLE [=y]                                                          │  
+  │                                                                                                   │  
+  │                                                                                                   │  
+  │ Symbol: ARCH_SUSPEND_POSSIBLE [=y]                                                                │  
+  │ Type  : boolean                                                                                   │  
+  │   Defined at arch/arm/Kconfig:2158                                                                │  
+  │   Depends on: CPU_ARM920T [=n] || CPU_ARM926T [=n] || CPU_FEROCEON [=n] || CPU_SA1100 [=n] || CPU │  
+  │                                                                                                   │  
+  │                                                                                                   │  
+  │ Symbol: ARM_CPU_SUSPEND [=y]                                                                      │  
+  │ Type  : boolean                                                                                   │  
+  │   Defined at arch/arm/Kconfig:2163                                                                │  
+  │   Selected by: ARCH_MXC [=n] && PM [=y] || SOC_IMX23 [=n] && PM [=y] || SOC_IMX28 [=n] && PM [=y] │  
+  │                                                                                                   │  
+  │                                                                                                   │  
+
+ 
+CONFIG_GPIO_SYSFS = y
+  │ Symbol: GPIO_SYSFS [=n]                                                                           │  
+  │ Type  : boolean                                                                                   │  
+  │ Prompt: /sys/class/gpio/... (sysfs interface)                                                     │  
+  │   Location:                                                                                       │  
+  │     -> Device Drivers                                                                             │  
+  │ (1)   -> GPIO Support (GPIOLIB [=y])                                                              │  
+  │   Defined at drivers/gpio/Kconfig:73                                                              │  
+  │   Depends on: GPIOLIB [=y] && SYSFS [=y]                                                          │  
+  │   Selected by: MACH_MIOA701 [=n] && ARCH_PXA [=n]  
+
+LEDS_GPIO = n 
+  │ Symbol: LEDS_GPIO [=y]                                                                            │  
+  │ Type  : tristate                                                                                  │  
+  │ Prompt: LED Support for GPIO connected LEDs                                                       │  
+  │   Location:                                                                                       │  
+  │     -> Device Drivers                                                                             │  
+  │ (1)   -> LED Support (NEW_LEDS [=y])                                                              │  
+  │   Defined at drivers/leds/Kconfig:206                                                             │  
+  │   Depends on: NEW_LEDS [=y] && LEDS_CLASS [=y] && (GPIOLIB [=y] || COMPILE_TEST [=n])             │  
+  │                                                                                                   │  
+  │                                                                                                   │  
+  │ Symbol: LEDS_GPIO_REGISTER [=n]                                                                   │  
+  │ Type  : boolean                                                                                   │  
+  │   Defined at drivers/leds/Kconfig:1                                                               │  
+  │   Selected by: EP93XX_SOC_COMMON [=n] && ARCH_EP93XX [=n] || MACH_IMX27_VISSTRIM_M10 [=n] && ARCH

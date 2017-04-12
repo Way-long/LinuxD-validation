@@ -1,0 +1,4 @@
+SCIF_INTERRUPT_01="e6e60000.serial"
+SCIF_INTERRUPT_02="e6e68000.serial"
+CPU_NUMBER=1
+DRIVER="rcar_sound"

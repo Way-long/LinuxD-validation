@@ -1,0 +1,1 @@
+du -b $1 | awk '{print $1}'

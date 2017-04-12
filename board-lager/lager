@@ -1,0 +1,22 @@
+
+ram="-t tmpfs -o size=500M tmpfs"
+ram350="-t tmpfs -o size=350M tmpfs"
+ram500="-t tmpfs -o size=500M tmpfs"
+ram1000="-t tmpfs -o size=1000M tmpfs"
+
+mmc="/dev/mmcblk0p1"
+
+usb="/dev/sda1"
+usba="/dev/sda1"
+usbb="/dev/sdb1"
+usb2dot0="/dev/sda1"
+usb3dot0="/dev/sdb1"
+
+hd="/dev/sda1"
+hd0="/dev/sda1"
+hd1="/dev/sda2"
+
+sd="/dev/mmcblk1p1"
+sd0="/dev/mmcblk1p1"
+sd1="/dev/mmcblk2p1"
+sd2="/dev/mmcblk2p1"

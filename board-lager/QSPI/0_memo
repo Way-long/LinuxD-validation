@@ -1,0 +1,68 @@
+CONFIG_SUSPEND = y    (default)
+  │ Symbol: SUSPEND [=y]                                                                              │  
+  │ Type  : boolean                                                                                   │  
+  │ Prompt: Suspend to RAM and standby                                                                │  
+  │   Location:                                                                                       │  
+  │ (1) -> Power management options                                                                   │  
+  │   Defined at kernel/power/Kconfig:1                                                               │  
+  │   Depends on: ARCH_SUSPEND_POSSIBLE [=y]                                                          │  
+  │                                                                                                   │  
+  │                                                                                                   │  
+  │ Symbol: ARCH_SUSPEND_POSSIBLE [=y]                                                                │  
+  │ Type  : boolean                                                                                   │  
+  │   Defined at arch/arm/Kconfig:2158                                                                │  
+  │   Depends on: CPU_ARM920T [=n] || CPU_ARM926T [=n] || CPU_FEROCEON [=n] || CPU_SA1100 [=n] || CPU │  
+  │                                                                                                   │  
+  │                                                                                                   │  
+  │ Symbol: ARM_CPU_SUSPEND [=y]                                                                      │  
+  │ Type  : boolean                                                                                   │  
+  │   Defined at arch/arm/Kconfig:2163                                                                │  
+  │   Selected by: ARCH_MXC [=n] && PM [=y] || SOC_IMX23 [=n] && PM [=y] || SOC_IMX28 [=n] && PM [=y] │  
+  │
+ 
+
+ 
+CONFIG_MTD_BLOCK = y      (default)
+  │ Symbol: MTD_BLOCK [=y]                                                                            │  
+  │ Type  : tristate                                                                                  │  
+  │ Prompt: Caching block device access to MTD devices                                                │  
+  │   Location:                                                                                       │  
+  │     -> Device Drivers                                                                             │  
+  │ (1)   -> Memory Technology Device (MTD) support (MTD [=y])                                        │  
+  │   Defined at drivers/mtd/Kconfig:166                                                              │  
+  │   Depends on: MTD [=y] && BLOCK [=y]                                                              │  
+  │   Selects: MTD_BLKDEVS [=y]                                                                       │
+
+
+
+CONFIG_MISC_FILESYSTEMS = y
+  │ Symbol: MISC_FILESYSTEMS [=n]                                                                     │  
+  │ Type  : boolean                                                                                   │  
+  │ Prompt: Miscellaneous filesystems                                                                 │  
+  │   Location:                                                                                       │  
+  │     -> File systems                                                                               │  
+  │   Defined at fs/Kconfig:184                                                                       │
+
+
+
+
+CONFIG_JFFS2_FS = y
+  │ CONFIG_JFFS2_FS:                                                                                  │  
+  │                                                                                                   │  
+  │ JFFS2 is the second generation of the Journalling Flash File System                               │  
+  │ for use on diskless embedded devices. It provides improved wear                                   │  
+  │ levelling, compression and support for hard links. You cannot use                                 │  
+  │ this on normal block devices, only on 'MTD' devices.                                              │  
+  │                                                                                                   │  
+  │ Further information on the design and implementation of JFFS2 is                                  │  
+  │ available at <http://sources.redhat.com/jffs2/>.                                                  │  
+  │                                                                                                   │  
+  │ Symbol: JFFS2_FS [=n]                                                                             │  
+  │ Type  : tristate                                                                                  │  
+  │ Prompt: Journalling Flash File System v2 (JFFS2) support                                          │  
+  │   Location:                                                                                       │  
+  │     -> File systems                                                                               │  
+  │       -> Miscellaneous filesystems (MISC_FILESYSTEMS [=y])                                        │  
+  │   Defined at fs/jffs2/Kconfig:1                                                                   │  
+  │   Depends on: MISC_FILESYSTEMS [=y] && MTD [=y]                                                   │  
+  │   Selects: CRC32 [=y]                                                                             │

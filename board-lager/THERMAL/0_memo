@@ -1,0 +1,49 @@
+CPU_THERMAL = y    (default)
+  │ Symbol: CPU_THERMAL [=y]                                                                          │  
+  │ Type  : boolean                                                                                   │  
+  │ Prompt: generic cpu cooling support                                                               │  
+  │   Location:                                                                                       │  
+  │     -> Device Drivers                                                                             │  
+  │ (1)   -> Generic Thermal sysfs driver (THERMAL [=y])                                              │  
+  │   Defined at drivers/thermal/Kconfig:127                                                          │  
+  │   Depends on: THERMAL [=y] && CPU_FREQ [=y] && THERMAL_OF [=y]                                    │  
+  │
+
+
+
+RCAR_THERMAL = y    (default)
+  │ Symbol: RCAR_THERMAL [=y]                                                                         │  
+  │ Type  : tristate                                                                                  │  
+  │ Prompt: Renesas R-Car thermal driver                                                              │  
+  │   Location:                                                                                       │  
+  │     -> Device Drivers                                                                             │  
+  │ (1)   -> Generic Thermal sysfs driver (THERMAL [=y])                                              │  
+  │   Defined at drivers/thermal/Kconfig:201                                                          │  
+  │   Depends on: THERMAL [=y] && (ARCH_SHMOBILE [=y] || COMPILE_TEST [=n]) && HAS_IOMEM [=y]         │  
+  │                                                                                                   │  
+
+
+
+HWMON = y
+  │ Symbol: HWMON [=n]                                                                                │  
+  │ Type  : tristate                                                                                  │  
+  │ Prompt: Hardware Monitoring support                                                               │  
+  │   Location:                                                                                       │  
+  │ (1) -> Device Drivers                                                                             │  
+  │   Defined at drivers/hwmon/Kconfig:5                                                              │  
+  │   Depends on: HAS_IOMEM [=y]                                                                      │  
+  │   Selected by: SHARPSL_PM_MAX1111 [=n] && ARCH_PXA [=n] || TIGON3 [=n] && NETDEVICES [=y] && ETHE │  
+  │ 
+
+
+
+THERMAL_HWMON = y    (default)
+  │ Symbol: THERMAL_HWMON [=y]                                                                        │  
+  │ Type  : boolean                                                                                   │  
+  │ Prompt: Expose thermal sensors as hwmon device                                                    │  
+  │   Location:                                                                                       │  
+  │     -> Device Drivers                                                                             │  
+  │ (1)   -> Generic Thermal sysfs driver (THERMAL [=y])                                              │  
+  │   Defined at drivers/thermal/Kconfig:18                                                           │  
+  │   Depends on: THERMAL [=y] && (HWMON [=y]=y || HWMON [=y]=THERMAL [=y])                           │  
+  │

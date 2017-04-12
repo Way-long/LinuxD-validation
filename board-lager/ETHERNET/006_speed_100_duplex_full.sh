@@ -1,0 +1,1 @@
+$(dirname $0)/check_speed_duplex.sh 100 full

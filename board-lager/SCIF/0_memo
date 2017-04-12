@@ -1,0 +1,38 @@
+CONFIG_SH_DMAE_BASE = y		(default)
+  │ Symbol: SH_DMAE_BASE [=y]                                                                         │  
+  │ Type  : boolean                                                                                   │  
+  │ Prompt: Renesas SuperH DMA Engine support                                                         │  
+  │   Location:                                                                                       │  
+  │     -> Device Drivers                                                                             │  
+  │ (1)   -> DMA Engine support (DMADEVICES [=y])                                                     │  
+  │   Defined at drivers/dma/sh/Kconfig:13                                                            │  
+  │   Depends on: DMADEVICES [=y] && (SUPERH || ARCH_SHMOBILE [=y] || COMPILE_TEST [=n]) && (!SUPERH  │  
+  │   Selects: RENESAS_DMA [=y]                                                                       │  
+  
+  
+  
+CONFIG_SERIAL_SH_SCI_DMA = y
+  │ Symbol: SERIAL_SH_SCI_DMA [=n]                                                                    │  
+  │ Type  : boolean                                                                                   │  
+  │ Prompt: DMA support                                                                               │  
+  │   Location:                                                                                       │  
+  │     -> Device Drivers                                                                             │  
+  │       -> Character devices                                                                        │  
+  │         -> Serial drivers                                                                         │  
+  │ (1)       -> SuperH SCI(F) serial port support (SERIAL_SH_SCI [=y])                               │  
+  │   Defined at drivers/tty/serial/Kconfig:744                                                       │  
+  │   Depends on: TTY [=y] && HAS_IOMEM [=y] && SERIAL_SH_SCI [=y] && SH_DMAE [=y]                    │
+  
+  
+CONFIG_RCAR_DMAC = y		(default)
+  │ Symbol: RCAR_DMAC [=y]                                                                            │  
+  │ Type  : tristate                                                                                  │  
+  │ Prompt: Renesas R-Car Gen2 DMA Controller                                                         │  
+  │   Location:                                                                                       │  
+  │     -> Device Drivers                                                                             │  
+  │ (1)   -> DMA Engine support (DMADEVICES [=y])                                                     │  
+  │   Defined at drivers/dma/sh/Kconfig:54                                                            │  
+  │   Depends on: DMADEVICES [=y] && (ARCH_SHMOBILE [=y] || COMPILE_TEST [=n])                        │  
+  │   Selects: RENESAS_DMA [=y]                                                                       │
+  
+  

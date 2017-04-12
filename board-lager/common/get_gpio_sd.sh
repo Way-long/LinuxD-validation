@@ -1,0 +1,1 @@
+cat /proc/interrupts | grep -i .sd | grep -o -E -m 1 "[a-zA-Z0-9]+.gpio"

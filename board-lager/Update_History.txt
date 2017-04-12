@@ -1,0 +1,11 @@
+1. Scripts-lager_20160728.zip
+	- 新規作成
+
+2. Scripts-Lager_20160729_update.zip:
+・QSPI:
+	- 要らないScriptを削除する
+	- PCLの通りにScriptsのファイル名にテスト項目番号をつける。
+・USB-HOST:
+	- 要らないScriptを削除する
+	- PCLの通りにScriptsのファイル名にテスト項目番号をつける。
+
