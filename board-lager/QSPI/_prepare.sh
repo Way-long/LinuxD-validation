@@ -1,1 +1,0 @@
-mkfs.ext3 /dev/mtdblock2
