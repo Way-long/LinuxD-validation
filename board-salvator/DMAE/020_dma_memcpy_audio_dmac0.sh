@@ -13,9 +13,9 @@ if ! modprobe dmatest;then
 fi	
 
 if $(dirname $0)/mem_copy_dma.sh "$AUDMAC0_INTERRUPT";then
-	eval $FAIL_MEG
+	eval $PASS_MEG
 else
-	eval $PASS_MEG	
+	eval $FAIL_MEG	
 fi	
 
 rmmod dmatest
