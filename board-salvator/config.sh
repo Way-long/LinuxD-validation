@@ -1,29 +1,10 @@
 #!/bin/sh
 
-echo "start"
-
-REQUIRE_FILE=`find /root/* -name "SalvatorX*" -print`
-
-if [ -f $REQUIRE_FILE ]; then
-	
-	IPBOARD=`cat $REQUIRE_FILE | grep IPADDR | cut -d "\"" -f2`   # ipaddress of board
-	IPSERVER=`cat $REQUIRE_FILE | grep SRV_IP | cut -d "\"" -f2`  # ipaddress of host pc
-	GATEWAY=`echo $IPBOARD`										  # gateway internet
-
-else
-	REQUIRE_FILE=`find /root/* -name "Common*" -print`
-
-	if [ -f $REQUIRE_FILE ]; then
-		
-		IPBOARD=`cat $REQUIRE_FILE | grep IPADDR | cut -d "\"" -f2`   # ipaddress of board
-		IPSERVER=`cat $REQUIRE_FILE | grep SRV_IP | cut -d "\"" -f2`  # ipaddress of host pc
-		GATEWAY=`echo $IPBOARD`										  # gateway internet
-
-	fi
-fi
-
 #**************************Change config below for each user ***********************
 # config environment for test
+IPBOARD="192.168.1.215"     				# ipaddress of board
+IPSERVER="192.168.1.205"   					# ipaddress of host pc
+GATEWAY="192.168.1.1"						# gateway internet
 NETMASK="255.255.255.0"						# netmask internet
 PCNAME="*******"        					# name of host pc 
 PCPASSWORD="*********"      				# password of host pc
