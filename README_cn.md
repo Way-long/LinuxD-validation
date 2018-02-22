@@ -3,7 +3,6 @@
 	现在，Jinzai-Solution可以使用一些Shell Scripts并配合手动的方式来进行Linux功能和性能的评价。
 	那些Shell Scripts主要面向的是GEN2的LAGER和KOELSCH开发板，以及GEN3的SALVATOR-X(H3)开发板。
 	除了以上的板子外，这些测试应该也可以被用在其他板子上，但是其测试结果的正确性等还不能被保证。
-	元々LAGERボード担当の人とKOELSCHボード担当する人がそれぞれに自分のボードでScriptsの構成が少し違います。
 	以前LAGER和KOELSCH板子的维护者，各自做了少量的面向自己板子的脚本。后来在GEN2代码的基础上，
 	又添加对GEN3板子的支持。现在已经投稿的Scripts已经被确认可以在板子上正常测试。
 	现在不支持一些功能和驱动，也会在以后继续加进来。
@@ -62,6 +61,5 @@
 
 注意：
 目前，PCL中灰色输出和未Script化的项目还未被支持。
-USB-HOSTやDisplay-UnitなどのScriptsを実行する前にテストする用のデバイスやケーブルを挿入してから実行します。
 对于USB-HOST和Display-Unit，在测试前需要插入必要的设备和接线。
 
