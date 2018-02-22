@@ -4,15 +4,15 @@
 set -a
 #set -x
 
-. $(dirname $0)/../config.sh
+. $(dirname $0)/../../boards-conf/def_configs
 
 # config driver ethernet shell script
-DRIVER="ravb"								# ethernet driver name of renesas
-ETH_INTERRUPT="e6800000.ethernet"			# interrupt of ethernet
-INTERFACE="eth0"     						# interface of ethernet on board
-DRIVER_PATH="ETHERNET"						# path driver for run test		
-GOOGLE="google.co.jp"						# google site link
-LOGFILE="ether_log.txt"						# log file name
+#DRIVER="ravb"								# ethernet driver name of renesas
+#ETH_INTERRUPT="e6800000.ethernet"			# interrupt of ethernet
+#INTERFACE="eth0"     						# interface of ethernet on board
+#DRIVER_PATH="ETHERNET"						# path driver for run test		
+#GOOGLE="google.co.jp"						# google site link
+#LOGFILE="ether_log.txt"						# log file name
 
 # # install tool on board for test 
 # if ! pwd | grep "tftpboot" > /dev/null ;then

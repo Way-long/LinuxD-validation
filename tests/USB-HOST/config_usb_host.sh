@@ -4,16 +4,16 @@
 set -a
 #set -x
 
-. $(dirname $0)/../config.sh
+. $(dirname $0)/../../boards-conf/def_configs
 
 # config driver usb host shell script
-DRIVER="ehci-platform"						# USB2.0 driver name of renesas
-USB2_CH1_INTERRUPT="ee0a0100.usb"			# interrupt of usb2.0 chanel 1
-USB2_CH2_INTERRUPT="ee0c0100.usb"			# interrupt of usb2.0 chanel 2 H3
+#DRIVER="ehci-platform"						# USB2.0 driver name of renesas
+#USB2_CH1_INTERRUPT="ee0a0100.usb"			# interrupt of usb2.0 chanel 1
+#USB2_CH2_INTERRUPT="ee0c0100.usb"			# interrupt of usb2.0 chanel 2 H3
 #USB2_CH2_INTERRUPT="ee080100.usb"			# interrupt of usb2.0 chanel 2 M3
-USB3_INTERRUPT="ee000000.usb"				# interrupt of usb3.0	
-DRIVER_PATH="USB-HOST"						# path driver for run test
-LOGFILE="usb-log.txt"
+#USB3_INTERRUPT="ee000000.usb"				# interrupt of usb3.0	
+#DRIVER_PATH="USB-HOST"						# path driver for run test
+#LOGFILE="usb-log.txt"
 ############################################################
 # get device dev
 
