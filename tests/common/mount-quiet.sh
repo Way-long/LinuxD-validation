@@ -16,20 +16,20 @@ DEV_TYPE="$3"
 DEV_SECOND="$4"
 
 if [ "$DEV_SECOND" = "1" ];then
-	DEVICE_PATH=`find /sys/devices/platform/soc/${DEV_INT}/* -name "${DEV_TYPE}" | sed -n 3p`
+	DEVICE_PATH=`find /sys/devices/platform/${DEV_INT}/* -name "${DEV_TYPE}" | sed -n 3p`
 else
-	DEVICE_PATH=`find /sys/devices/platform/soc/${DEV_INT}/* -name "${DEV_TYPE}" | sed -n 2p`
+	DEVICE_PATH=`find /sys/devices/platform/${DEV_INT}/* -name "${DEV_TYPE}" | sed -n 2p`
 fi
 
 if ! echo $DEVICE_PATH | grep "${DEV_TYPE}" > /dev/null;then
-	echo "Please connect device."
+	echo "Please connect device: $DEVICE_PATH ${DEV_TYPE}"
 	exit 1
 fi
 
 DEVICE_NAME=`echo $DEVICE_PATH | tr '/' '\n' | tail -1`
 
 if ! echo $DEVICE_NAME | grep "${DEV_TYPE}" > /dev/null;then
-	echo "Please connect device."
+	echo "Please connect device: $DEVICE_PATH ${DEV_TYPE}"
 	exit 1
 fi
 

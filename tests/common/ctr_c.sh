@@ -18,6 +18,7 @@ PATTERN="[0-9]:[0-9][0-9]\+ \+$1"
 FILE="ctr_c.txt"
 
 ps -aux | grep "$PATTERN" > $FILE
+cat $FILE
 
 NUM=0
 PARAMETER="`cat $FILE`"
