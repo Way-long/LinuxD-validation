@@ -1,0 +1,217 @@
+Isuue 01:
+- Tests: suspend -> resume -> do tests
+- Failed step: resume
+- Cause & reproduce steps:
+  1) set bootargs: add "no_console_suspend", then we can check those drivers outputs
+     with serial console when we suspend the system.
+  2) suspend preparation: enable the funtion that wakeup the system with serial interrupt
+     $ echo enabled > /sys/devices/platform/e6e60000.serial/tty/ttySC0/power/wakeup 
+  3) suspend the system:
+     $ echo 'mem' > /sys/power/state
+  ... error occurred in some drivers suspend process, e.g. pci[1].
+  4) resume the system in HOST pc with serial interrupt:
+     $ echo 'resume' > /dev/ttyUSB0
+
+  -- 
+     Remove the PCIe ethernet card, then we can suspend and resume the system successfully.
+     But some error logs were still printed when run "echo mem > /sys/power/state"[2].
+
+  [1] error message: kernel panic?
+    root@porter:~# echo 'mem' > /sys/power/state
+    [  135.003893] PM: suspend entry (deep)
+    [  135.014607] PM: Syncing filesystems ... done.
+    [  135.054594] Freezing user space processes ... (elapsed 0.009 seconds) done.
+    [  135.084692] OOM killer disabled.
+    [  135.094369] Freezing remaining freezable tasks ... (elapsed 0.039 seconds) done.
+    [  135.159845] sd 0:0:0:0: [sda] Synchronizing SCSI cache
+    [  135.175545] sd 0:0:0:0: [sda] Stopping disk
+    [  135.293823] ------------[ cut here ]------------
+    [  135.307656] WARNING: CPU: 1 PID: 1969 at drivers/clk/clk.c:594 clk_core_disable+0x1dc/0x1f4
+    [  135.332666] Modules linked in: r8169
+    [  135.343370] CPU: 1 PID: 1969 Comm: sh Not tainted 4.14.7 #16
+    [  135.360312] Hardware name: Generic R8A7791 (Flattened Device Tree)
+    [  135.378815] Backtrace: 
+    [  135.386139] [<c010b890>] (dump_backtrace) from [<c010bb4c>] (show_stack+0x18/0x1c)
+    [  135.408809]  r6:00000009 r5:600f0093 r4:00000000 r3:80404100
+    [  135.425756] [<c010bb34>] (show_stack) from [<c077dbd0>] (dump_stack+0x84/0xa4)
+    [  135.447388] [<c077db4c>] (dump_stack) from [<c011fb34>] (__warn+0xdc/0x10c)
+    [  135.468234]  r5:00000000 r4:00000000
+    [  135.478931] [<c011fa58>] (__warn) from [<c011fc1c>] (warn_slowpath_null+0x28/0x30)
+    [  135.501601]  r9:c0c58bc4 r8:c098ea15 r7:00000002 r6:00000200 r5:eb025980 r4:eb025980
+    [  135.524792] [<c011fbf4>] (warn_slowpath_null) from [<c04113a0>] (clk_core_disable+0x1dc/0x1f4)
+    [  135.550586] [<c04111c4>] (clk_core_disable) from [<c04116ac>] (clk_core_disable_lock+0x20/0x2c)
+    [  135.576638]  r6:00000200 r5:eb025980 r4:800f0013 r3:00000001
+    [  135.593581] [<c041168c>] (clk_core_disable_lock) from [<c04116dc>] (clk_disable+0x24/0x28)
+    [  135.618330]  r5:00000600 r4:eb3a3000
+    [  135.629027] [<c04116b8>] (clk_disable) from [<c0520294>] (rcar_can_suspend+0x88/0x90)
+    [  135.652479] [<c052020c>] (rcar_can_suspend) from [<c04a6a4c>] (dpm_run_callback+0x80/0x15c)
+    [  135.677489]  r6:eb251c10 r5:c052020c r4:eb251c10 r3:00000000
+    [  135.694433] [<c04a69cc>] (dpm_run_callback) from [<c04a76dc>] (__device_suspend+0x1d0/0x318)
+    [  135.719706]  r8:c0c8dbd8 r7:eb251c44 r6:c0cd53ec r5:00000002 r4:eb251c10 r3:c098ea15
+    [  135.742896] [<c04a750c>] (__device_suspend) from [<c04a8fc4>] (dpm_suspend+0x100/0x320)
+    [  135.766867]  r10:eb251c88 r9:c0c58bc4 r8:c0c8dbd8 r7:00000002 r6:eb251c10 r5:00000000
+    [  135.790315]  r4:c0cd53ec r3:eb389200
+    [  135.801011] [<c04a8ec4>] (dpm_suspend) from [<c04a9708>] (dpm_suspend_start+0x64/0x6c)
+    [  135.824721]  r10:00000000 r9:c09587e1 r8:c09587e1 r7:00000003 r6:00000000 r5:00000003
+    [  135.848168]  r4:00000002
+    [  135.855743] [<c04a96a4>] (dpm_suspend_start) from [<c0161f80>] (suspend_devices_and_enter+0x80/0x7d0)
+    [  135.883356]  r4:c0c9a398 r3:00000001
+    [  135.894053] [<c0161f00>] (suspend_devices_and_enter) from [<c0162b58>] (pm_suspend+0x488/0x558)
+    [  135.920106]  r10:00000000 r9:c09587e1 r8:c09587e1 r7:c09587f2 r6:c0c8dbd8 r5:00000003
+    [  135.943553]  r4:00000000
+    [  135.951125] [<c01626d0>] (pm_suspend) from [<c0160f9c>] (state_store+0xb4/0xd4)
+    [  135.973014]  r9:c0c9a3ac r8:c09542c1 r7:e9d56980 r6:00000004 r5:00000003 r4:00000003
+    [  135.996207] [<c0160ee8>] (state_store) from [<c07817a8>] (kobj_attr_store+0x1c/0x28)
+    [  136.019396]  r9:00000051 r8:eb259a10 r7:e9cddf80 r6:e9d56980 r5:eb259a00 r4:e9d56980
+    [  136.042589] [<c078178c>] (kobj_attr_store) from [<c0293c98>] (sysfs_kf_write+0x44/0x50)
+    [  136.066561] [<c0293c54>] (sysfs_kf_write) from [<c0293114>] (kernfs_fop_write+0x17c/0x1b8)
+    [  136.091311]  r4:00000004 r3:c0293c54
+    [  136.102008] [<c0292f98>] (kernfs_fop_write) from [<c022ce1c>] (__vfs_write+0x34/0x128)
+    [  136.125719]  r9:e9cdc000 r8:00000004 r7:e9cddf80 r6:00112e88 r5:c0292f98 r4:e9fc7180
+    [  136.148909] [<c022cde8>] (__vfs_write) from [<c022d09c>] (vfs_write+0xc4/0x150)
+    [  136.170797]  r8:c0107524 r7:e9cddf80 r6:00112e88 r5:e9fc7180 r4:00000004
+    [  136.190864] [<c022cfd8>] (vfs_write) from [<c022d244>] (SyS_write+0x50/0x90)
+    [  136.211972]  r9:e9cdc000 r8:c0107524 r7:00112e88 r6:00000004 r5:e9fc7180 r4:e9fc7180
+    [  136.235163] [<c022d1f4>] (SyS_write) from [<c0107340>] (ret_fast_syscall+0x0/0x54)
+    [  136.257830]  r7:00000004 r6:b6f3ad58 r5:00112e88 r4:00000004
+    [  136.274771] ---[ end trace 2c812e5662448708 ]---
+    [  136.393705] Unhandled fault: imprecise external abort (0x1406) at 0x00000000
+    [  136.414815] pgd = c0004000
+    [  136.422904] [00000000] *pgd=00000000
+    [  136.433605] Internal error: : 1406 [#1] SMP ARM
+    [  136.447163] Modules linked in: r8169
+    [  136.457866] CPU: 1 PID: 1980 Comm: kworker/u4:4 Tainted: G        W       4.14.7 #16
+    [  136.481053] Hardware name: Generic R8A7791 (Flattened Device Tree)
+    [  136.499561] Workqueue: events_unbound async_run_entry_fn
+    [  136.515463] task: eb30e0c0 task.stack: e9ce2000
+    [  136.529026] PC is at rcar_pcie_config_access+0x148/0x17c
+    [  136.544926] LR is at rcar_pci_write_reg+0x20/0x30
+    [  136.559003] pc : [<c03f867c>]    lr : [<c03f722c>]    psr: 600f0093
+    [  136.577766] sp : e9ce3d48  ip : e9ce3d28  fp : e9ce3d74
+    [  136.593403] r10: 00000000  r9 : 00000000  r8 : eb2f5400
+    [  136.609042] r7 : e9ce3dac  r6 : 00000000  r5 : 01000044  r4 : eb2f5e00
+    [  136.628586] r3 : 00000000  r2 : f0880018  r1 : 80000000  r0 : eb2f5e00
+    [  136.648133] Flags: nZCv  IRQs off  FIQs on  Mode SVC_32  ISA ARM  Segment none
+    [  136.669759] Control: 10c5387d  Table: 6990806a  DAC: 00000051
+    [  136.686961] Process kworker/u4:4 (pid: 1980, stack limit = 0xe9ce2210)
+    [  136.706505] Stack: (0xe9ce3d48 to 0xe9ce4000)
+    [  136.719543] 3d40:                   00000000 00000044 e9ce3dac 00000002 e9ce3dee 00000000
+    [  136.744035] 3d60: c0c8d494 00000000 e9ce3d9c e9ce3d78 c03f87ac c03f8540 00000044 e9ce3dac
+    [  136.768526] 3d80: eb30e0c0 00000044 eb2f5400 600f0013 e9ce3dd4 e9ce3da0 c03de850 c03f877c
+    [  136.793018] 3da0: e9ce3dac 00000000 e9ce3dc4 00000000 c0795b18 eb3a3800 00000003 00000000
+    [  136.817510] 3dc0: bf00c61c c098e95c e9ce3de4 e9ce3dd8 c03df894 c03de7f8 e9ce3e0c e9ce3de8
+    [  136.842001] 3de0: c03e429c c03df85c e9ce3e04 000b3df8 c03e55a0 00000003 eb3a3800 00000003
+    [  136.866493] 3e00: e9ce3e2c e9ce3e10 c03e62f4 c03e4130 00000000 00000000 eb3a3800 00000003
+    [  136.890985] 3e20: e9ce3e4c e9ce3e30 c03e637c c03e6218 00000000 eb3a3868 c03e9fdc eb3a3800
+    [  136.915477] 3e40: e9ce3e74 e9ce3e50 c03ea198 c03e632c 00000000 eb3a3868 c03e9fdc eb3a3868
+    [  136.939968] 3e60: 00000002 c098e95c e9ce3e9c e9ce3e78 c04a6a4c c03e9fe8 c098e95c eb3a3868
+    [  136.964460] 3e80: 00000002 c0cd53ec 00000000 c0cd53ec e9ce3ec4 e9ce3ea0 c04a721c c04a69d8
+    [  136.988952] 3ea0: 00000000 c0cd53ec eb3a3868 e9db3ec0 00000000 eb00c000 e9ce3ee4 e9ce3ec8
+    [  137.013443] 3ec0: c04a7278 c04a70f4 e9db3ed0 c0c97be0 e9db3ec0 00000000 e9ce3f04 e9ce3ee8
+    [  137.037935] 3ee0: c01408c8 c04a7264 ea7bd880 e9db3ed0 eb007400 00000000 e9ce3f44 e9ce3f08
+    [  137.062427] 3f00: c0138a7c c0140888 eb007400 eb007400 c0c02d00 c0c02d00 eb007418 ea7bd880
+    [  137.086918] 3f20: eb007400 eb007400 c0c02d00 c0c02d00 eb007418 ea7bd898 e9ce3f7c e9ce3f48
+    [  137.111410] 3f40: c01392c8 c0138854 ea7bd880 c0138fc0 eb0a7ea0 e9e554c0 e9e55bc0 00000000
+    [  137.135902] 3f60: ea7bd880 c0138fc0 eb0a7ea0 e9e554dc e9ce3fac e9ce3f80 c013da2c c0138fcc
+    [  137.160393] 3f80: e9ce2000 e9e55bc0 c013d8ec 00000000 00000000 00000000 00000000 00000000
+    [  137.184885] 3fa0: 00000000 e9ce3fb0 c0107428 c013d8f8 00000000 00000000 00000000 00000000
+    [  137.209377] 3fc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+    [  137.233867] 3fe0: 00000000 00000000 00000000 00000000 00000013 00000000 00000000 00000000
+    [  137.258354] Backtrace: 
+    [  137.265671] [<c03f8534>] (rcar_pcie_config_access) from [<c03f87ac>] (rcar_pcie_read_conf+0x3c/0x94)
+    [  137.293025]  r10:00000000 r9:c0c8d494 r8:00000000 r7:e9ce3dee r6:00000002 r5:e9ce3dac
+    [  137.316473]  r4:00000044 r3:00000000
+    [  137.327173] [<c03f8770>] (rcar_pcie_read_conf) from [<c03de850>] (pci_bus_read_config_word+0x64/0x8c)
+    [  137.354786]  r6:600f0013 r5:eb2f5400 r4:00000044
+    [  137.368607] [<c03de7ec>] (pci_bus_read_config_word) from [<c03df894>] (pci_read_config_word+0x44/0x48)
+    [  137.396482]  r8:c098e95c r7:bf00c61c r6:00000000 r5:00000003 r4:eb3a3800
+    [  137.416551] [<c03df850>] (pci_read_config_word) from [<c03e429c>] (pci_raw_set_power_state+0x178/0x1fc)
+    [  137.444689] [<c03e4124>] (pci_raw_set_power_state) from [<c03e62f4>] (pci_set_power_state+0xe8/0x114)
+    [  137.472302]  r6:00000003 r5:eb3a3800 r4:00000003
+    [  137.486121] [<c03e620c>] (pci_set_power_state) from [<c03e637c>] (pci_prepare_to_sleep+0x5c/0x88)
+    [  137.512692]  r6:00000003 r5:eb3a3800 r4:00000000 r3:00000000
+    [  137.529636] [<c03e6320>] (pci_prepare_to_sleep) from [<c03ea198>] (pci_pm_suspend_noirq+0x1bc/0x224)
+    [  137.556990]  r6:eb3a3800 r5:c03e9fdc r4:eb3a3868 r3:00000000
+    [  137.573935] [<c03e9fdc>] (pci_pm_suspend_noirq) from [<c04a6a4c>] (dpm_run_callback+0x80/0x15c)
+    [  137.599987]  r8:c098e95c r7:00000002 r6:eb3a3868 r5:c03e9fdc r4:eb3a3868 r3:00000000
+    [  137.623178] [<c04a69cc>] (dpm_run_callback) from [<c04a721c>] (__device_suspend_noirq+0x134/0x170)
+    [  137.650012]  r8:c0cd53ec r7:00000000 r6:c0cd53ec r5:00000002 r4:eb3a3868 r3:c098e95c
+    [  137.673201] [<c04a70e8>] (__device_suspend_noirq) from [<c04a7278>] (async_suspend_noirq+0x20/0x98)
+    [  137.700295]  r8:eb00c000 r7:00000000 r6:e9db3ec0 r5:eb3a3868 r4:c0cd53ec r3:00000000
+    [  137.723485] [<c04a7258>] (async_suspend_noirq) from [<c01408c8>] (async_run_entry_fn+0x4c/0x108)
+    [  137.749797]  r7:00000000 r6:e9db3ec0 r5:c0c97be0 r4:e9db3ed0
+    [  137.766742] [<c014087c>] (async_run_entry_fn) from [<c0138a7c>] (process_one_work+0x234/0x41c)
+    [  137.792533]  r7:00000000 r6:eb007400 r5:e9db3ed0 r4:ea7bd880
+    [  137.809477] [<c0138848>] (process_one_work) from [<c01392c8>] (worker_thread+0x308/0x464)
+    [  137.833968]  r10:ea7bd898 r9:eb007418 r8:c0c02d00 r7:c0c02d00 r6:eb007400 r5:eb007400
+    [  137.857415]  r4:ea7bd880
+    [  137.864989] [<c0138fc0>] (worker_thread) from [<c013da2c>] (kthread+0x140/0x15c)
+    [  137.887136]  r10:e9e554dc r9:eb0a7ea0 r8:c0138fc0 r7:ea7bd880 r6:00000000 r5:e9e55bc0
+    [  137.910583]  r4:e9e554c0
+    [  137.918156] [<c013d8ec>] (kthread) from [<c0107428>] (ret_from_fork+0x14/0x2c)
+    [  137.939784]  r10:00000000 r9:00000000 r8:00000000 r7:00000000 r6:00000000 r5:c013d8ec
+    [  137.963230]  r4:e9e55bc0 r3:e9ce2000
+    [  137.973926] Code: 1a000004 e5943004 e5933020 f57ff04f (e5873000) 
+    [  137.992172] ---[ end trace 2c812e5662448709 ]---
+
+  [2] Suspend error log when running "echo mem > /sys/power/state" after removed PCIe card.
+      Although error message printed as below, we can suspend and resume the system successfully.
+    [  180.533770] PM: suspend entry (deep)
+    [  180.544535] PM: Syncing filesystems ... done.
+    [  180.596237] Freezing user space processes ... (elapsed 0.007 seconds) done.
+    [  180.624579] OOM killer disabled.
+    [  180.634251] Freezing remaining freezable tasks ... (elapsed 0.099 seconds) done.
+    [  180.755798] Suspending console(s) (use no_console_suspend to debug)
+    [  180.778632] sd 0:0:0:0: [sda] Synchronizing SCSI cache
+    [  180.778842] sd 0:0:0:0: [sda] Stopping disk
+    [  180.893708] ------------[ cut here ]------------
+    [  180.893725] WARNING: CPU: 0 PID: 1950 at drivers/clk/clk.c:594 clk_core_disable+0x1dc/0x1f4
+    [  180.893728] Modules linked in:
+    [  180.893739] CPU: 0 PID: 1950 Comm: sh Not tainted 4.14.7 #16
+    [  180.893742] Hardware name: Generic R8A7791 (Flattened Device Tree)
+    [  180.893746] Backtrace: 
+    [  180.893763] [<c010b890>] (dump_backtrace) from [<c010bb4c>] (show_stack+0x18/0x1c)
+    [  180.893768]  r6:00000009 r5:600f0093 r4:00000000 r3:80404100
+    [  180.893778] [<c010bb34>] (show_stack) from [<c077dbd0>] (dump_stack+0x84/0xa4)
+    [  180.893786] [<c077db4c>] (dump_stack) from [<c011fb34>] (__warn+0xdc/0x10c)
+    [  180.893790]  r5:00000000 r4:00000000
+    [  180.893797] [<c011fa58>] (__warn) from [<c011fc1c>] (warn_slowpath_null+0x28/0x30)
+    [  180.893803]  r9:c0c58bc4 r8:c098ea15 r7:00000002 r6:00000200 r5:eb025980 r4:eb025980
+    [  180.893809] [<c011fbf4>] (warn_slowpath_null) from [<c04113a0>] (clk_core_disable+0x1dc/0x1f4)
+    [  180.893815] [<c04111c4>] (clk_core_disable) from [<c04116ac>] (clk_core_disable_lock+0x20/0x2c)
+    [  180.893819]  r6:00000200 r5:eb025980 r4:800f0013 r3:00000001
+    [  180.893825] [<c041168c>] (clk_core_disable_lock) from [<c04116dc>] (clk_disable+0x24/0x28)
+    [  180.893828]  r5:00000600 r4:eb280000
+    [  180.893836] [<c04116b8>] (clk_disable) from [<c0520294>] (rcar_can_suspend+0x88/0x90)
+    [  180.893843] [<c052020c>] (rcar_can_suspend) from [<c04a6a4c>] (dpm_run_callback+0x80/0x15c)
+    [  180.893848]  r6:eb251c10 r5:c052020c r4:eb251c10 r3:00000000
+    [  180.893855] [<c04a69cc>] (dpm_run_callback) from [<c04a76dc>] (__device_suspend+0x1d0/0x318)
+    [  180.893860]  r8:c0c8dbd8 r7:eb251c44 r6:c0cd53ec r5:00000002 r4:eb251c10 r3:c098ea15
+    [  180.893866] [<c04a750c>] (__device_suspend) from [<c04a8fc4>] (dpm_suspend+0x100/0x320)
+    [  180.893871]  r10:eb251c88 r9:c0c58bc4 r8:c0c8dbd8 r7:00000002 r6:eb251c10 r5:00000000
+    [  180.893874]  r4:c0cd53ec r3:eb284080
+    [  180.893880] [<c04a8ec4>] (dpm_suspend) from [<c04a9708>] (dpm_suspend_start+0x64/0x6c)
+    [  180.893885]  r10:00000000 r9:c09587e1 r8:c09587e1 r7:00000003 r6:00000000 r5:00000003
+    [  180.893888]  r4:00000002
+    [  180.893897] [<c04a96a4>] (dpm_suspend_start) from [<c0161f80>] (suspend_devices_and_enter+0x80/0x7d0)
+    [  180.893900]  r4:c0c9a398 r3:00000001
+    [  180.893907] [<c0161f00>] (suspend_devices_and_enter) from [<c0162b58>] (pm_suspend+0x488/0x558)
+    [  180.893912]  r10:00000000 r9:c09587e1 r8:c09587e1 r7:c09587f2 r6:c0c8dbd8 r5:00000003
+    [  180.893914]  r4:00000000
+    [  180.893921] [<c01626d0>] (pm_suspend) from [<c0160f9c>] (state_store+0xb4/0xd4)
+    [  180.893926]  r9:c0c9a3ac r8:c09542c1 r7:ea8cf7c0 r6:00000004 r5:00000003 r4:00000003
+    [  180.893934] [<c0160ee8>] (state_store) from [<c07817a8>] (kobj_attr_store+0x1c/0x28)
+    [  180.893939]  r9:00000051 r8:e9d08210 r7:ea963f80 r6:ea8cf7c0 r5:e9d08200 r4:ea8cf7c0
+    [  180.893949] [<c078178c>] (kobj_attr_store) from [<c0293c98>] (sysfs_kf_write+0x44/0x50)
+    [  180.893956] [<c0293c54>] (sysfs_kf_write) from [<c0293114>] (kernfs_fop_write+0x17c/0x1b8)
+    [  180.893959]  r4:00000004 r3:c0293c54
+    [  180.893968] [<c0292f98>] (kernfs_fop_write) from [<c022ce1c>] (__vfs_write+0x34/0x128)
+    [  180.893973]  r9:ea962000 r8:00000004 r7:ea963f80 r6:00113728 r5:c0292f98 r4:e9ca5540
+    [  180.893980] [<c022cde8>] (__vfs_write) from [<c022d09c>] (vfs_write+0xc4/0x150)
+    [  180.893985]  r8:c0107524 r7:ea963f80 r6:00113728 r5:e9ca5540 r4:00000004
+    [  180.893992] [<c022cfd8>] (vfs_write) from [<c022d244>] (SyS_write+0x50/0x90)
+    [  180.893997]  r9:ea962000 r8:c0107524 r7:00113728 r6:00000004 r5:e9ca5540 r4:e9ca5540
+    [  180.894005] [<c022d1f4>] (SyS_write) from [<c0107340>] (ret_fast_syscall+0x0/0x54)
+    [  180.894009]  r7:00000004 r6:b6f10d58 r5:00113728 r4:00000004
+    [  180.894013] ---[ end trace 136da373e324d097 ]---
+
