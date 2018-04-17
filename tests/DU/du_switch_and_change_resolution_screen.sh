@@ -16,7 +16,7 @@ eval $RESET_COMMAND
 
 sleep 3
 
-for resolution in "640x480" "720x400" "800x600" "1024x768" "1152x864" "1280x1024" "1600x900" "1920x1080"; do
+for resolution in "640x480" "720x400" "800x600" "1024x768" "1152x864" "1280x1024" "1920x1080"; do
 
     cmd="modetest -M rcar-du -s ${DISPLAY_MONITOR}@${DU_MONITOR}:${resolution}@AR24 >> $LOGFILE 2>&1"
     echo $cmd

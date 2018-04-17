@@ -34,10 +34,10 @@ rm -rf $LOG_DRM
 
 for offset in "20" "80" "160" "240" "320" "400" "460"; do
 
-    cmd="modetest -M rcar-du -P $du_id:200x200+${offset}+${offset}@AR24"
+    cmd="modetest -M rcar-du -P @$du_id:200x200+${offset}+${offset}@AR24"
 	echo $cmd
-
-	if ! $(dirname $0)/du_restore.sh & eval $cmd;then
+	$(dirname $0)/du_restore.sh &
+	if ! eval $cmd;then
 		echo "Can not set offset x=${offset} y=${offset}"
 		eval $FAIL_MEG
 		exit 1

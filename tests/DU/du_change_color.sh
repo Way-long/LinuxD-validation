@@ -20,7 +20,7 @@ sleep 3
 #depth 16
 for color in "5,6,5,0" "5,5,5,1"; do
 
-    cmd="fbset -depth 16 -rgba $color"
+    cmd="fbset -depth 32 -rgba $color"
     echo $cmd
 
     if ! $cmd;then

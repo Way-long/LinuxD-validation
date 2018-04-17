@@ -6,6 +6,6 @@ set -e
 
 echo "\n**********************CHANGE RESOLUTION ${HDMI_NAME0}*******************\n"
 
-$(dirname $0)/du_change_resolution.sh $HDMI_NAME0
+$(dirname $0)/du_change_resolution.sh $HDMI_NAME0 0
 
 echo "\n************************************************************************\n"

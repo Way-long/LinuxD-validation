@@ -34,10 +34,11 @@ rm -rf $LOG_DRM
 
 for format in "RG16" "AR15" "XR24" "AR24" "UYVY" "YUYV" "NV12" "NV21" "NV16"; do
 
-    cmd="modetest -M rcar-du -P $du_id:800x600+20+20@${format}"
+    cmd="modetest -M rcar-du -P @$du_id:800x600+20+20@${format}"
 	echo $cmd
 
-	if ! $(dirname $0)/du_restore.sh & eval $cmd;then
+	$(dirname $0)/du_restore.sh &
+	if ! eval $cmd;then
 		echo "Can not set $format"
 		eval $FAIL_MEG
 		exit 1

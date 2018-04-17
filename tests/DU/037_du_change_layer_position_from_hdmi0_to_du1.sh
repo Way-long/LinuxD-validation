@@ -15,9 +15,9 @@ fi
 if [ -f $LOG_DRM ]
 then
 
-hdmi_id=`grep HDMI-A-1 $LOG_DRM | cut -c-3  | sed 's/[[:space:]]//g'` 
+hdmi_id=`grep HDMI-A-1 $LOG_DRM | cut -c-3  | sed 's/[[:space:]]//g'`
 
-du_id=`grep CRTCs: -A 5 $LOG_DRM | tail -n 1 | cut -c-3  | sed 's/[[:space:]]//g'` 
+du_id=`grep CRTCs: -A 2 $LOG_DRM | tail -n 1 | cut -c-3  | sed 's/[[:space:]]//g'`
 
 fi
 
