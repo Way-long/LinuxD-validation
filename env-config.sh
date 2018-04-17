@@ -2,20 +2,24 @@
 
 #***********************************************************************************
 #**************************Change config below for each user ***********************
-IPBOARD="set_board_ip_here"    			# ipaddress of board
-IPSERVER="set_pc_ip_here"   			# ipaddress of host pc
-GATEWAY="192.168.1.1"				# gateway internet
+IPBOARD="192.168.10.53"    			# ipaddress of board
+IPBOARD_PCIE="192.168.100.53"
+IPSERVER="192.168.10.75"   			# ipaddress of host pc
+IPSERVER_PCIE="192.168.100.75"
+L_INTERFACE_PCIE="enx004c00002787"		# PCIE interface on server
+R_INTERFACE_PCIE="enP2p1s0"			# PCIE interface on board
+GATEWAY="192.168.10.1"				# gateway internet
 NETMASK="255.255.255.0"				# netmask internet
-PCNAME="*******"        			# name of host pc 
-PCPASSWORD="*********"      			# password of host pc
-PC_FOLDER="/home/duclm/host_pc"			# folder for tests which need to copy data
-CPU_NUMBER=4					# number of cpu
+PCNAME="ubuntu"   	     			# name of host pc 
+PCPASSWORD="root"      				# password of host pc
+PC_FOLDER="/home/ubuntu"			# folder for tests which need to copy data
+CPU_NUMBER=1					# number of cpu
 # location shell script on board
-SHELL_SOURCE_CODE="/root/SALVATOR_SHELL/board-salvator"
+SHELL_SOURCE_CODE="/opt/SALVATOR_HW_TEST/tests/"
 # ssh command
 CMD_SSH="ssh root@$IPBOARD"
 # suspend command					
-PREPARE_SUSPEND="echo enabled > /sys/devices/platform/soc/e6e88000.serial/tty/ttySC0/power/wakeup"
+PREPARE_SUSPEND="echo enabled > /sys/devices/platform/e6e60000.serial/tty/ttySC0/power/wakeup"
 CMD_SUSPEND="echo 'mem' > /sys/power/state"
 #resume command
 CMD_RESUME="echo 'resume' > /dev/ttyUSB0"
