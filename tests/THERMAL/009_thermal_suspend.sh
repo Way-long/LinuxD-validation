@@ -21,7 +21,7 @@ eval $CMD_RESUME
 
 $CMD_SSH <<ENDSSH
 
-exec $SHELL_SOURCE_CODE/$DRIVER_PATH/$(dirname $0)/exec_thermal.sh 005_thermal_temperature_sensors.sh
+exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_thermal.sh 005_thermal_temperature_sensors.sh
 
 ENDSSH
 
