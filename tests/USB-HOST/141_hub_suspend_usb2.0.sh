@@ -19,6 +19,6 @@ eval $CMD_RESUME
 
 $CMD_SSH <<ENDSSH
 
-exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_ethernet.sh 013_usb2.0_write-RAM-to-USB_have_data_100MB.sh
+exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_usb.sh 013_usb2.0_write-RAM-to-USB_have_data_100MB.sh
 
 ENDSSH

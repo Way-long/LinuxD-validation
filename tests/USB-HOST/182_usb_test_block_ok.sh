@@ -13,12 +13,11 @@ fil=$LOGFILE
 if [ -f $fil ]; then
 
 #get sector device 
-seek=`grep total $fil | tail -1 | cut -d , -f4| cut -d l -f2 | cut -d s -f1`
-
-xbs=`grep Units $fil | tail -1 | cut -d = -f3 | cut -d = -f2 |cut -d b -f1 | tr -d ' '`
-
+seek=`grep Disk $fil | tail -1 | cut -d ' '  -f5`
+xbs=`grep Units $fil | tail -1 | cut -d ' '  -f8`
 fi
 
+seek=`expr $seek / $xbs`
 seek_ok=$(($seek - 1))
 
 cmd="dd if=/dev/zero of=/dev/${DEVICE_USB2C1}1 bs=$xbs count=1 seek=${seek_ok}"

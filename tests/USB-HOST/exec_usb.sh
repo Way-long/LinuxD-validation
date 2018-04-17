@@ -15,8 +15,7 @@ NUMBER=`echo "$SHELL_SCRIPT_FILE" | cut -f1 -d"_"`
 echo "$NUMBER)"
 
 # check source code run from HOST PC
-if pwd | grep "tftpboot" > /dev/null ;then 
-
+if ifconfig | grep -i $IPSERVER > /dev/null; then
 if [ "$ONLY_RUN_FROM_PC" = "1" ];then
 	
 	$(dirname $0)/$SHELL_SCRIPT_FILE

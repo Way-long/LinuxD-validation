@@ -551,7 +551,7 @@ sleep 3
 ;;
 
 160)
-$(dirname $0)/exec_usb.sh 160_hdd_suspend.sh
+$(dirname $0)/exec_usb.sh 160_hdd_suspend.sh 1
 sleep 3
 ;;
 
