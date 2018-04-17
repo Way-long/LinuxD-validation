@@ -1,8 +1,6 @@
 #!/bin/sh
 # sdhi device driver autotest shell-script
 
-. $(dirname $0)/../config_sdhi.sh
-
 set -a
 #set -x
 

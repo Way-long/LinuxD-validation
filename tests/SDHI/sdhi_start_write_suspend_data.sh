@@ -17,3 +17,11 @@ dd if=/dev/urandom of=${RAM_DIR}/file-350mb bs=1M count=50
 ls ${RAM_DIR}
 
 cp ${RAM_DIR}/file-350mb $SD1_DIR & eval $CMD_SUSPEND
+
+sleep 5
+
+if cmp ${RAM_DIR}/file-350mb $SD1_DIR/file-350mb; then
+	eval $PASS_MEG
+else
+	eval $FAIL_MEG
+fi
