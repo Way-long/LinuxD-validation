@@ -21,10 +21,18 @@ ENDSSH
 
 sleep 5
 
-echo $PCPASSWORD | sudo chown ${PCNAME}:${PCNAME} /media/${PCNAME}/storage > /dev/null 2>&1
+if ! test -e $STORAGE_DEVICE_PC; then
+        echo "$STORAGE_DEVICE_PC not exist on your PC(HOST) side."
+        eval $FAIL_MEG
+        exit 1
+fi
 
+sudo mount $STORAGE_DEVICE_PC $STORAGE_FOLDER
+
+echo "preparing 500M test data on PC(HOST) side."
 dd if=/dev/urandom of=$PC_FOLDER/file-500m bs=1M count=500
 
+echo "copy 500M data to the target board."
 cp $PC_FOLDER/file-500m $STORAGE_FOLDER > $LOGFILE 2>&1
 
 LOG=`cat $LOGFILE`
@@ -35,9 +43,11 @@ if ! echo $LOG | grep "No space left on device";then
 	eval $FAIL_MEG
 fi
 
+echo "copy failed as expected."
 eval $PASS_MEG
 
 sleep 2
+umount $STORAGE_DEVICE_PC
 
 #rmmod device
 $CMD_SSH <<ENDSSH

@@ -19,26 +19,20 @@ ENDSSH
 
 sleep 5
 
-MOUNT=`df | tail -n1`
-SD_DIR=`echo "${MOUNT##* }"`
-
-#check device existed.
-if ! [ -d $SD_DIR ];then
-	echo "SD card not found"
-	eval $FAIL_MEG
-	exit 1
+if ! test -e $STORAGE_DEVICE_PC; then
+        echo "$STORAGE_DEVICE_PC not exist on your PC(HOST) side."
+        eval $FAIL_MEG
+        exit 1
 fi
 
-echo $PCPASSWORD | sudo chmod 777 $SD_DIR > /dev/null 2>&1
+sudo mount $STORAGE_DEVICE_PC $STORAGE_FOLDER
 
-$(dirname $0)/usbfs_copy_data.sh $SD_DIR $PC_FOLDER 500
+$(dirname $0)/usbfs_copy_data.sh $STORAGE_FOLDER $PC_FOLDER 500
 
 sleep 2
 
-rm -rf $SD_DIR/*
-
 sync
-
+sudo umount $STORAGE_DEVICE_PC
 #rmmod device
 $CMD_SSH <<ENDSSH
 

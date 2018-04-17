@@ -22,14 +22,15 @@ eval $cmd
 
 ENDSSH
 
-echo $PCPASSWORD | sudo chown ${PCNAME}:${PCNAME} /dev/ttyACM0 > /dev/null 2>&1
-
+# we need 2 seconds to get the serial device for our virtural machine(HOST)
+sleep 2
 # write file to log
-cat /dev/ttyACM0 >> $LOGFILE
+cat /dev/ttyACM0 >> $LOGFILE &
 
 sleep 5
 
 LOG=`cat $LOGFILE`
+echo $LOG
 
 rm -rf $LOGFILE
 

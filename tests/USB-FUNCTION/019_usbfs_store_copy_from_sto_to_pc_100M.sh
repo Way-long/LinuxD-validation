@@ -21,16 +21,18 @@ ENDSSH
 
 sleep 5
 
-if ! ls /media/${PCNAME}/ | grep "storage";then
-	eval $FAIL_MEG
-	exit 1
+if ! test -e $STORAGE_DEVICE_PC; then
+        echo "$STORAGE_DEVICE_PC not exist on your PC(HOST) side."
+        eval $FAIL_MEG
+        exit 1
 fi
 
-echo $PCPASSWORD | sudo chown ${PCNAME}:${PCNAME} /media/${PCNAME}/storage > /dev/null 2>&1
+sudo mount $STORAGE_DEVICE_PC $STORAGE_FOLDER
 
 $(dirname $0)/usbfs_copy_data.sh $STORAGE_FOLDER $PC_FOLDER 100
 
 sleep 2
+umount $STORAGE_DEVICE_PC
 
 #rmmod device
 $CMD_SSH <<ENDSSH

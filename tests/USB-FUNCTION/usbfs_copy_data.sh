@@ -23,7 +23,7 @@ if [ "$HAS_DATA" = "1" ];then
 fi
 
 # Prepare data for test
-cmd="dd if=/dev/urandom of='$SRC_DIR/file-${FILE_SIZE}mb' bs=1M count=${FILE_SIZE}"
+cmd="sudo dd if=/dev/urandom of='$SRC_DIR/file-${FILE_SIZE}mb' bs=1M count=${FILE_SIZE}"
 echo $cmd
 
 if ! eval $cmd ;then
@@ -35,7 +35,7 @@ fi
 # Copy data
 echo "copying ${FILE_SIZE}M file from ${SRC_DIR} to ${DST_DIR}"
 
-cmd="cp $SRC_DIR/file-${FILE_SIZE}mb $DST_DIR"
+cmd="sudo cp $SRC_DIR/file-${FILE_SIZE}mb $DST_DIR"
 echo $cmd
 
 if ! eval $cmd ;then
@@ -44,10 +44,12 @@ if ! eval $cmd ;then
 	exit 1
 fi
 
+echo "copy data: done"
+sleep 2
 sync
 
 # Compare data after copy
-cmd="cmp $SRC_DIR/file-${FILE_SIZE}mb $DST_DIR/file-${FILE_SIZE}mb"
+cmd="sudo cmp $SRC_DIR/file-${FILE_SIZE}mb $DST_DIR/file-${FILE_SIZE}mb"
 echo $cmd
 
 if ! eval $cmd ;then
@@ -57,4 +59,3 @@ if ! eval $cmd ;then
 fi
 
 eval $PASS_MEG
-	

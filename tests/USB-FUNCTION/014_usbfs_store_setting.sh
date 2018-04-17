@@ -20,8 +20,7 @@ $SHELL_SOURCE_CODE/$DRIVER_PATH/usbfs_modprobe.sh g_mass_storage file=/tmp/tmp.i
 ENDSSH
 
 sleep 5
-
-if ! ls /media/${PCNAME}/ | grep "storage";then
+if ! test -e $STORAGE_DEVICE_PC; then
 	eval $FAIL_MEG
 	exit 1
 fi	

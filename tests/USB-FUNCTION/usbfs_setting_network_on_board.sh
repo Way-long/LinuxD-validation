@@ -10,4 +10,5 @@ if ! eval $cmd;then
 	echo "setting ip address for Board error"
 	eval $FAIL_MEG
 	exit 1
-fi	
+fi
+

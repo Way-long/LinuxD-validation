@@ -23,7 +23,7 @@ ENDSSH
 
 sleep 2
 
-if ! sudo ifconfig usb0 $IP_ADDRESS_PC broadcast $USBFS_BROAD_CAST up;then
+if ! sudo ifconfig $USBFS_ETHER_INTERFACE_PC $IP_ADDRESS_PC broadcast $USBFS_BROAD_CAST up;then
 	echo "setting ip address for PC error"
 	eval $FAIL_MEG
 	exit 1

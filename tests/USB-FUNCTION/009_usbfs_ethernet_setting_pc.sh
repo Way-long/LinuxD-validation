@@ -17,7 +17,7 @@ sleep 5
 
 echo "ON PC:"
 
-if ifconfig -a | grep $USBFS_ETHER_INTERFACE;then
+if ifconfig -a | grep $USBFS_ETHER_INTERFACE_PC;then
 	eval $PASS_MEG
 else	
     eval $FAIL_MEG
