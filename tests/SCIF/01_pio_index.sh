@@ -3,7 +3,7 @@
 set -a
 #set -x
 
-. ./config_scif.sh
+. $(dirname $0)/config_scif.sh
 
 echo "================================================================================="
 echo "|                               TEST SCIF DRIVER                                |"
@@ -57,12 +57,4 @@ sleep 3
 
 echo "21)*********************transfers file with baudrate 460800 **********************"
 $(dirname $0)/serial_transfers.sh 460800 pio
-sleep 3
-
-echo "42)******************************** smp scif test ********************************"
-$(dirname $0)/smp-test-multi-cpu.sh
-sleep 3
-
-echo "43)******************************stress scif test ********************************"
-$(dirname $0)/stress-cpu.sh
 sleep 3

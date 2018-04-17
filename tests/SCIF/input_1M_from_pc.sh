@@ -5,4 +5,4 @@ set -e
 
 sleep 2
 
-cat file_1mb.dat > $PC_PORT1
+cat ./tests/SCIF/file_1mb.dat > $PC_PORT1

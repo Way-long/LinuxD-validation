@@ -11,10 +11,10 @@ DEVFILE_RX="/dev/ttySC0"
 rm -f ${TESTDATA}_bbb
 rm -f ${TESTDATA}_ccc
 
+cat ${DEVFILE_RX} > ${TESTDATA}_bbb &
+
 while :
 do
-	cat ${DEVFILE_RX} > ${TESTDATA}_bbb &&
-	printf "r" &&
 	touch ${TESTDATA}_ccc || exit
 
 	while :
@@ -22,11 +22,13 @@ do
 		read GET_SRT < ${TESTDATA}_ccc
 		if [ "${GET_SRT}" == "go" ]
 		then
+			rm ${TESTDATA}_ccc
 			break
 		fi
 		if [ "${GET_SRT}" == "fin" ]
 		then
 			echo ""
+			rm ${TESTDATA}_ccc
 			exit
 		fi
 	done

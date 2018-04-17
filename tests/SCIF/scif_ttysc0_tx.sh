@@ -15,32 +15,41 @@ else
 fi
 COUNT=1
 # Make testdata as text file
-echo "0123456789ABCDEFG" > ${TESTDATA}
-cp ${TESTDATA} ${TESTDATA}_aaa
+echo " $KEY_WORDS " > ${TESTDATA}
+echo "Test dir: $(pwd)"
 while :
 do
     printf "t(${COUNT})"
-    cat ${TESTDATA}_aaa > ${DEVFILE_TX} &&
-    sleep 5
-    cat EOF > ${DEVFILE_TX}
-    sleep 1
 
-    until [ -f ${TESTDATA}_bbb -a -f ${TESTDATA}_ccc ]
-    do
-        :
+    KEY_WORDS="0123456789ABCDEFG_$COUNT"
+    echo " $KEY_WORDS " > ${DEVFILE_TX}
+
+    echo ""
+    echo "Send data done, now sleep 10s"
+    sleep 10
+
+    while [ ! -f ${TESTDATA}_bbb -a ! -f ${TESTDATA}_ccc ]; do
+        sleep 1
+        echo "waiting until file ${TESTDATA}_bbb and ${TESTDATA}_ccc generated."
+        if [ -f ${TESTDATA}_bbb -a -f ${TESTDATA}_ccc ]; then
+            ls
+            break
+        fi
     done
-    TEST_STR=`cat ${TESTDATA}_bbb | tr -d '\012'`
-    echo ${TEST_STR} > ${TESTDATA}_aaa
- 
-    if ! cmp ${TESTDATA} ${TESTDATA}_aaa
+
+    echo "Send data: $KEY_WORDS "
+    echo "Recv data: "
+    cat ${TESTDATA}_bbb
+
+    if ! grep "$KEY_WORDS" ${TESTDATA}_bbb > /dev/null
     then
         echo ""
         echo "SCIF loopback test failed."
         echo "fin" > ${TESTDATA}_ccc
         exit
     fi
-    rm -f ${TESTDATA}_bbb
- 
+    echo "" > ${TESTDATA}_bbb
+
     GET_TIME=`date +%s`
     TEST_TIME=`expr ${GET_TIME} - ${START_TIME}`
     if [ ${TEST_TIME} -lt ${END_TIME} ]
@@ -50,17 +59,9 @@ do
         echo "fin" > ${TESTDATA}_ccc
         break
     fi
- 
-    ELAPS_MS=0
-    read START_MS dummy < /proc/uptime
-    while [ ${ELAPS_MS} -lt 100 ]
-    do
-        read GET_MS dummy < /proc/uptime
-        ELAPS_MS=`expr ${GET_MS/./}0 - ${START_MS/./}0`
-    done
-    rm -f ${TESTDATA}_ccc
+
     COUNT=`expr ${COUNT} + 1`
 done
- 
+
 echo ""
 echo "SCIF loopback test passed."

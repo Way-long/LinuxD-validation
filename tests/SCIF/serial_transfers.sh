@@ -5,6 +5,11 @@ set -e
 
 echo "Driver SERIAL TEST"
 
+if [ -z $PORT1 ]; then
+	echo "The SCIF1 is not specified."
+	exit 0
+fi
+
 stty -F $PC_PORT1 $1 cs8 -cstopb
 
 sshpass -p $PASSWD_BOARD ssh -o StrictHostKeyChecking=no root@$IP_BOARD <<ENDSSH
@@ -19,6 +24,7 @@ $(dirname $0)/listen_from_board.sh & $(dirname $0)/input_1M_from_pc.sh
 
 sshpass -p $PASSWD_BOARD ssh -o StrictHostKeyChecking=no root@$IP_BOARD <<ENDSSH
 
+mkdir /root/log_tranfer_file/
 mv log.txt /root/log_tranfer_file/$1_$2_serial.txt
 
 ENDSSH

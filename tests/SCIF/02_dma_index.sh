@@ -3,7 +3,7 @@
 set -a
 #set -x
 
-. ./config_scif.sh
+. $(dirname $0)/config_scif.sh
 
 echo "================================================================================="
 echo "|                               TEST SCIF DRIVER                                |"

@@ -67,3 +67,5 @@ do
         TEST_TIME=`expr ${GET_TIME} - ${START_TIME}`
 
 done
+
+echo "ttySC send successfully."
