@@ -16,9 +16,9 @@ DEV_TYPE="$3"
 DEV_SECOND="$4"
 
 if [ "$DEV_SECOND" = "1" ];then
-	DEVICE_PATH=`find /sys/devices/platform/soc/${DEV_INT}/* -name "${DEV_TYPE}" | sed -n 3p`
+	DEVICE_PATH=`find /sys/devices/platform/${DEV_INT}/* -name "${DEV_TYPE}" | sed -n 3p`
 else
-	DEVICE_PATH=`find /sys/devices/platform/soc/${DEV_INT}/* -name "${DEV_TYPE}" | sed -n 2p`
+	DEVICE_PATH=`find /sys/devices/platform/${DEV_INT}/* -name "${DEV_TYPE}" | sed -n 2p`
 fi
 
 if ! echo $DEVICE_PATH | grep "${DEV_TYPE}" > /dev/null;then
