@@ -1,23 +1,23 @@
 #!/bin/sh
 
 # test env configurations
-. $(dirname $0)/../env-config.sh
+. $(dirname $0)/../../env-config.sh
 
 ################################################
 # i2c device driver info
 DRIVER="i2c-rcar"
 DRIVER_PATH="IIC"
 #i2c interrupt
-I2C_INTERRUPT_1="e6510000.i2c"
-I2C_INTERRUPT_2="e66d8000.i2c"
+I2C_INTERRUPT_1="e6530000.i2c"
+I2C_INTERRUPT_2="e6530000.i2c"
 #device i2c use
-AK4643_NAME="ak4613"
-AK4643_DEVICE="2-0010"
-CS2000_NAME="cs2000-cp"
-CS2000_DEVICE="2-004f"
+AK4643_NAME="ak4642"
+AK4643_DEVICE="2-0012"
+CS2000_NAME="ak4642"
+CS2000_DEVICE="2-0012"
 #device node
 I2C_DEVICE_1="/dev/i2c-2"
-I2C_DEVICE_2="/dev/i2c-4"
+I2C_DEVICE_2="/dev/i2c-2"
 LOG_FILE="i2c.txt"
 
 ################################################
@@ -47,17 +47,27 @@ DRIVER_PATH="ARCH-TIME"				# path driver for run test
 
 ################################################
 # dma device driver info
+# check "/sys/bus/platform/drivers"
 DMAC_SYS_DRIVER="rcar-dmac"
 DMAC_USB_DRIVER="usb-dmac"
 DRIVER_PATH="DMAE"
 #dma interrupt
+# check "/sys/bus/platform/drivers/"
 SYSDMAC0_INTERRUPT="e6700000.dma"
-SYSDMAC1_INTERRUPT="e7300000.dma"
-SYSDMAC2_INTERRUPT="e7310000.dma"
+DMA0CHAN="14"
+SYSDMAC1_INTERRUPT="e6720000.dma"
+DMA1CHAN="14"
+SYSDMAC2_INTERRUPT="e6700000.dma"
+
 AUDMAC0_INTERRUPT="ec700000.dma"
+DMA2CHAN="12"
 AUDMAC1_INTERRUPT="ec720000.dma"
+DMA3CHAN="12"
+# check "/sys/bus/platform/drivers/usb-dmac/"
 USBDMAC0_INTERRUPT="e65a0000.dma"
+DMA4CHAN="1"
 USBDMAC1_INTERRUPT="e65b0000.dma"
+DMA5CHAN="1"
 #LOGFILE="dma.txt"
 
 ################################################
@@ -72,21 +82,22 @@ DRIVER_PATH="SDHI"				# path driver for run test
 # gpio device driver info
 DRIVER="gpio_rcar"
 #GPIO INTTERRUPT ARRAY
+# INTERRUPT: GP7 GP6 GP5 GP4 GP3 GP2 GP1 GP0
 GPIO_INTERRUPT="e6055800.gpio e6055400.gpio e6055000.gpio e6054000.gpio e6053000.gpio e6052000.gpio e6051000.gpio e6050000.gpio"
-#rcar H3
 #GPIOCHIP ARRAY
-GPIOCHIP="357 361 393 419 437 453 468 496"
+#         GP7 GP6 GP5 GP4 GP3 GP2 GP1 GP0
+GPIOCHIP="780 806 838 870 902 934 966 992"
 #NGPIO ARRAY
-NGPIO="4 32 26 18 16 15 28 16"
+NGPIO="26 32 32 32 32 32 26 32"
 GPIO_INTERRUPT_SD1="ee100000.sd"
-GPIO_INTERRUPT_SD2="ee140000.sd"
+GPIO_INTERRUPT_SD2="ee160000.sd"
 DRIVER_PATH="GPIO"
 LIB_GPIO="gpiolib"
-LEFT_BOUNDARY_PORT="357"
-RIGHT_BOUNDARY_PORT="511"
+LEFT_BOUNDARY_PORT="780"   #GP7_0
+RIGHT_BOUNDARY_PORT="1023" #GP0_31
 #LOGFILE="gpio.txt"
-GPIO_PORT_1="398"
-GPIO_PORT_2="399"
+GPIO_PORT_1="780"   # GP7_0
+GPIO_PORT_2="781"   # GP7_1
 #rcar M3
 #GPIOCHIP ARRAY
 # GPIOCHIP="356 360 392 418 436 452 467 496"
@@ -109,7 +120,7 @@ DRIVER="rcar_sound"				# rcar sound driver name of renesas
 SOUND_INTERRUPT="ec500000.sound"    		# interrupt of rcar sound
 DRIVER_PATH="RCAR_SOUND"			# path driver for run test						
 #LOGFILE="dma.txt"				# log file
-APLAY_WAV_FILE="./data/test.wav"    		# file test aplay 
+APLAY_WAV_FILE="$SHELL_SOURCE_CODE/RCAR_SOUND/data/test.wav"    		# file test aplay 
 RECORD_WAV_FILE="/home/record.wav"  		# file test record
 # grep command to kill process
 APLAY_CMD="aplay -f cd"			    
@@ -129,10 +140,10 @@ BR_48000="48000"
 DRIVER="rcar-pcie"				# pciec driver name of renesas
 PCIEC_INTERRUPT="fe000000.pcie"			# interrupt of pciec
 INTERFACE="eth0"     				# interface of pciec on board
-INTEL_PCI_DRIVER="e1000"			# intel pci driver name
-INTEL_PCI_BUS_INFO="0000:01:00.0"		# intel pci bus info
+PCI_DRIVER="r8169"				# intel pci driver name
+PCI_BUS_INFO="0002:01:00.0"			# intel pci bus info
 DRIVER_PATH="PCIEC"				# path driver for run test		
-GOOGLE="google.co.jp"				# google site link
+#GOOGLE="google.co.jp"				# google site link
 #LOGFILE="pciec_log.txt"				# log file name
 # suport command
 MOUNT_RAM="mount -t tmpfs -o size=400m tmpfs /tmp"
@@ -145,15 +156,16 @@ SATA_INTERRUPT="ee300000.sata"			# interrupt of sata
 DRIVER_PATH="SATA"				# path driver for run test		
 #LOGFILE="sata_log.txt"				# log file name
 SATA_DEVICE="/dev/sda"				# sata device for connected
+DEVICE_SATA="/dev/sda"
 
 ################################################
 # usb device driver info
 # config driver usb host shell script
-DRIVER="ehci-platform"				# USB2.0 driver name of renesas
-USB2_CH1_INTERRUPT="ee0a0100.usb"		# interrupt of usb2.0 chanel 1
-USB2_CH2_INTERRUPT="ee0c0100.usb"		# interrupt of usb2.0 chanel 2 H3
+DRIVER="ehci-pci"				# USB2.0 driver name of renesas
+USB2_CH1_INTERRUPT="ee090000.pci"		# interrupt of usb2.0 chanel 1
+USB2_CH2_INTERRUPT="ee0d0000.pci"		# interrupt of usb2.0 chanel 2 H3
 #USB2_CH2_INTERRUPT="ee080100.usb"		# interrupt of usb2.0 chanel 2 M3
-USB3_INTERRUPT="ee000000.usb"			# interrupt of usb3.0	
+USB3_INTERRUPT="ee0d0000.pci"			# interrupt of usb3.0	
 DRIVER_PATH="USB-HOST"				# path driver for run test
 #LOGFILE="usb-log.txt"
 
@@ -165,33 +177,36 @@ DRIVER_PATH="USB-FUNCTION"			# path driver for run test
 #LOGFILE="usbfs.txt"			 	# log file name
 #usb ethernet
 USBFS_ETHER_INTERFACE="usb0"			# interface ethernet of usb function
+USBFS_ETHER_INTERFACE_PC="enp0s6u4"
 IP_ADDRESS_PC="192.168.0.2"			# ip adress for setting PC
 IP_ADDRESS_BOARD="192.168.0.1"			# ip adress for setting board
 USBFS_BROAD_CAST="192.168.1.255"		# broadcast for seting ethernet
 #usb storage
-STORAGE_FOLDER="/media/${PCNAME}/storage"
+STORAGE_DEVICE_PC="/dev/sdb"
+STORAGE_FOLDER="/nfs2"
 
 ################################################
 # ethernet device driver info
-DRIVER="ravb"					# ethernet driver name of renesas
-ETH_INTERRUPT="e6800000.ethernet"		# interrupt of ethernet
+DRIVER="sh-eth"					# ethernet driver name of renesas
+# check "/sys/bus/platform/devices/"
+ETH_INTERRUPT="ee700000.ethernet"		# interrupt of ethernet
 INTERFACE="eth0"     				# interface of ethernet on board
 DRIVER_PATH="ETHERNET"				# path driver for run test		
-GOOGLE="google.co.jp"				# google site link
+GOOGLE="192.168.10.51"				# google site link
 #LOGFILE="ether_log.txt"				# log file name
 
 ################################################
 # thermal device info
 THERMAL_DEVICE_FOLDER="/sys/class/thermal"		# folder which contain device of thermal 
-THERMAL_DRIVER="rcar_gen3_thermal"			# name driver of thermal
-THERMAL_INTERRUPT1="e6198000.thermal"	  		# interrupt of thermal 1
-THERMAL_INTERRUPT2="e61a0000.thermal"	  		# interrupt of thermal 2
-THERMAL_INTERRUPT3="e61a8000.thermal"	  		# interrupt of thermal 3
+THERMAL_DRIVER="rcar_thermal"				# name driver of thermal
+THERMAL_INTERRUPT1="e61f0000.thermal"	  		# interrupt of thermal 1
+THERMAL_INTERRUPT2="e61f0000.thermal"	  		# interrupt of thermal 2
+THERMAL_INTERRUPT3="e61f0000.thermal"	  		# interrupt of thermal 3
 THERMAL_ZONE0="thermal_zone0"				# device of thermal 1
-THERMAL_ZONE1="thermal_zone1"				# device of thermal 2
-THERMAL_ZONE2="thermal_zone2"				# device of thermal 3
+THERMAL_ZONE1="thermal_zone0"				# device of thermal 2
+THERMAL_ZONE2="thermal_zone0"				# device of thermal 3
 TEMP_TRIP_NAME="trip_point_0_temp"			# name for get trip_point_0_temp
-TEMP_TRIP_VALUE="120000"				# value of trip_point_0_temp
+TEMP_TRIP_VALUE="115000"				# value of trip_point_0_temp
 POINT_TRIP_NAME="trip_point_0_type"			# name for get trip_point_0_type
 POINT_TRIP_VALUE="critical"				# value of trip_point_0_type
 THERMAL2_IS_SUPPORT="false"				# thermal 2 support status
@@ -202,13 +217,14 @@ DRIVER_PATH="THERMAL"					# path driver for run test
 ################################################
 # SCIF device info
 SCIF_INTERRUPT_01="e6e60000.serial"
-SCIF_INTERRUPT_02="e6c50000.serial"
-CPU_NUMBER=4
+#SCIF_INTERRUPT_02="e6c50000.serial"
+CPU_NUMBER=2
 DRIVER="rcar_sound"
 SLEEPTIME=10
 PORT="/dev/ttySC0"
 PC_PORT="/dev/ttyUSB0"
-PORT1="/dev/ttySC1"
-PC_PORT1="/dev/ttyUSB1"
-IP_BOARD="172.16.1.215"
+#PORT1="/dev/ttySC0"
+#PC_PORT1="/dev/ttyUSB0"
+IP_BOARD="192.168.10.53"
 PASSWD_BOARD="123456"
+DRIVER_PATH="SCIF"
