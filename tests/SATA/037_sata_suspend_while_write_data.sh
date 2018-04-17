@@ -31,7 +31,11 @@ echo mem > /sys/power/state
 
 sync 
 
-cmp ${RAM_DIR}/${FILE_NAME} ${HDD_DIR}/${FILE_NAME}
+if cmp ${RAM_DIR}/${FILE_NAME} ${HDD_DIR}/${FILE_NAME}; then
+	eval $PASS_MEG
+else
+	eval $FAIL_MEG
+fi
 
 # Umount src_dir and dst_dir
 $(dirname $0)/../common/umount-device.sh $RAM_DIR
@@ -39,3 +43,4 @@ $(dirname $0)/../common/umount-device.sh $HDD_DIR
 
 rm -rf $RAM_DIR/
 rm -rf $HDD_DIR/
+fi

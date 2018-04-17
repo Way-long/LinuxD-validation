@@ -218,13 +218,13 @@ sleep 3
 
 37)
 echo "37)"
-$(dirname $0)/exec_sata.sh 037_sata_suspend_while_write_data.sh 1
+$(dirname $0)/exec_sata.sh 037_sata_suspend_while_write_data.sh
 sleep 3
 ;;
 
 38)
 echo "38)"
-$(dirname $0)/exec_sata.sh 038_sata_suspend_while_read_data.sh 1
+$(dirname $0)/exec_sata.sh 038_sata_suspend_while_read_data.sh
 sleep 3
 ;;
 

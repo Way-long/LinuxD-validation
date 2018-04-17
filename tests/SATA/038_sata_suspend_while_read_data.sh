@@ -9,7 +9,9 @@ FILE_NAME="file-$FILESIZE$UNIT"
 
 echo "`date` SDHI driver autotest start"
 
-echo enabled > /sys/devices/platform/e6e60000.serial/tty/ttySC0/power/wakeup
+if ! echo enabled > /sys/devices/platform/e6e60000.serial/tty/ttySC0/power/wakeup; then
+	exit 1
+fi
 
 mkdir -p $RAM_DIR
 mkdir -p $HDD_DIR
@@ -30,7 +32,11 @@ echo mem > /sys/power/state
 
 sync 
 
-cmp ${RAM_DIR}/${FILE_NAME} ${HDD_DIR}/${FILE_NAME}
+if cmp ${RAM_DIR}/${FILE_NAME} ${HDD_DIR}/${FILE_NAME}; then
+	eval $PASS_MEG
+else
+	eval $FAIL_MEG
+fi
 
 # Umount src_dir and dst_dir
 $(dirname $0)/../common/umount-device.sh $RAM_DIR

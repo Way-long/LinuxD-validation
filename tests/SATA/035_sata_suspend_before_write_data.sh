@@ -6,16 +6,13 @@ set -e
 
 echo "\n*************************SUSPEND INSIDE COPY DATA***********************\n"
 
-if ! eval $PREPARE_SUSPEND;then
-	exit 1
-else
-
 $CMD_SSH <<ENDSSH
 
-	$(dirname $0)/exec_sata.sh sata_write_ram_to_sata_100MB.sh
+	$SHELL_SOURCE_CODE/$DRIVER_PATH/exec_sata.sh 011_sata_write_ram_to_sata_100MB.sh
 
 	sleep 1
 
+	eval $PREPARE_SUSPEND
 	eval $CMD_SUSPEND &
 
 ENDSSH
@@ -26,8 +23,8 @@ eval $CMD_RESUME
 
 $CMD_SSH <<ENDSSH
 
-	$(dirname $0)/exec_sata.sh sata_write_ram_to_sata_100MB.sh
-	
+	$SHELL_SOURCE_CODE/$DRIVER_PATH/exec_sata.sh 011_sata_write_ram_to_sata_100MB.sh
+
 ENDSSH
 
 echo "\n************************************************************************\n"
