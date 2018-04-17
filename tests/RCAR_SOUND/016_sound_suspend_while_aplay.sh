@@ -20,7 +20,7 @@ eval $CMD_RESUME
 
 $CMD_SSH <<ENDSSH
 
-exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_du.sh 004_sound_aplay_file.sh
+exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_sound.sh 004_sound_aplay_file.sh
 
 ENDSSH
 

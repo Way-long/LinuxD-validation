@@ -17,7 +17,7 @@ eval $cmd &
 
 sleep 20
 
-exec $(dirname $0)/../common/ctr_c.sh "$APLAY_CMD"
+$(dirname $0)/../common/ctr_c.sh "$APLAY_CMD"
 
 echo "after ctr_c command implement"
 sleep 5

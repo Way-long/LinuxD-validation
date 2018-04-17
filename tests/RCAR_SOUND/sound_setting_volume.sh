@@ -4,7 +4,7 @@
 set -a
 #set -x
 
-amixer set 'DVC Out Mute' off ;
-amixer set 'DVC In Mute' off;
-amixer set "DVC Out" 20%;
-amixer set "DVC In" 20%;
+amixer set 'LINEOUT Mixer DACL' off ;
+amixer set 'LINEOUT Mixer DACL' off;
+amixer set "Digital" 20%;
+amixer set "Digital" 20%;

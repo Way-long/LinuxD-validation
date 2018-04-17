@@ -19,7 +19,7 @@ for volume in "200" "100" "50" "10" "0" "10" "50" "100" "200"; do
 
 	sleep 5
 
-    cmd="amixer set 'DVC Out' ${volume}%"
+    cmd="amixer set 'Digital' ${volume}%"
 	echo $cmd
 
 	if ! eval $cmd;then

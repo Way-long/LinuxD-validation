@@ -17,7 +17,7 @@ eval $cmd &
 
 sleep 20
 
-exec $(dirname $0)/../common/ctr_c.sh "$RECORD_CMD"
+$(dirname $0)/../common/ctr_c.sh "$RECORD_CMD"
 
 echo "after ctr_c command implement"
 sleep 5
