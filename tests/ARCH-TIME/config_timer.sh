@@ -3,9 +3,7 @@
 
 . $(dirname $0)/../../boards-conf/def_configs
 
-#tmp file
-#DRIVER="arch_timer"							# timer driver name of renesas
-#INTERRUPT="arch_timer"						# timer driver interrupt
+DRIVER="arch_timer"						# timer driver name of renesas
+INTERRUPT="arch_timer"						# timer driver interrupt
 
-#DRIVER_PATH="ARCH-TIME"						# path driver for run test	
-#LOGFILE="timer.txt"
+DRIVER_PATH="ARCH-TIME"						# path driver for run test

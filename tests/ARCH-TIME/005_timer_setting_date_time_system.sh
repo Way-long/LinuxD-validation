@@ -17,8 +17,7 @@ echo "prepare date is $year/$month/$date $hour:$minutes"
 
 #setup date
 echo "setup date"
-date -s $year/$month/$date
-date -s $hour:$minutes
+busybox date $month$date$hour$minutes$year
 sleep 5
 #check date
 tmpYear=`date +'%Y/%m/%d' | cut -c1-4`

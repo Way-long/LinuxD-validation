@@ -12,22 +12,16 @@ ONLY_RUN_FROM_PC="$2"
 echo -e "\n ${BEGIN_TIMER} \n"
 
 # check source code run from HOST PC
-if pwd | grep "tftpboot" > /dev/null ;then 
+if ifconfig | grep -i $IPSERVER > /dev/null; then
+	if [ "$ONLY_RUN_FROM_PC" = "1" ]; then
+		$(dirname $0)/$SHELL_SCRIPT_FILE
+	else
 
-if [ "$ONLY_RUN_FROM_PC" = "1" ];then
-	
-	$(dirname $0)/$SHELL_SCRIPT_FILE
-
-else	
-
-$CMD_SSH <<ENDSSH
-	
-	exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_timer.sh $SHELL_SCRIPT_FILE
-
+	$CMD_SSH <<ENDSSH
+		exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_timer.sh $SHELL_SCRIPT_FILE
 ENDSSH
 
 fi
-
 # check source code run from board
 else
 	if [ "$ONLY_RUN_FROM_PC" = "1" ];then

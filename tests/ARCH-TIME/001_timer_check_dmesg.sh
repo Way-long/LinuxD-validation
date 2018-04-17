@@ -6,6 +6,6 @@ set -e
 
 echo "\n************************CHECK DMESG AFTER START THE BOARD***************\n"
 
-$(dirname $0)/../common/dmesg-multiple.sh "Architected cp15 timer(s) running at"
+$(dirname $0)/../common/dmesg-multiple.sh "cp15 timer(s) running at"
 
 echo "\n************************************************************************\n"

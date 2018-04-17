@@ -16,6 +16,7 @@ get_counter_interrupt () {
 # CMT interrupt test
 INT_1=$( get_counter_interrupt )
 echo "before interrupt: $INT_1"
+echo "Now, this test needs sleep 300s..."
 sleep 300
 INT_2=$( get_counter_interrupt )
 echo "after interrupt: $INT_2"

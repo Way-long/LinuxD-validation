@@ -19,6 +19,6 @@ eval $CMD_RESUME
 
 $CMD_SSH <<ENDSSH
 
-exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_ethernet.sh 003_timer_interrupt_counter_5s.sh
+exec $SHELL_SOURCE_CODE/$DRIVER_PATH/exec_timer.sh 003_timer_interrupt_counter_5s.sh
 
 ENDSSH
