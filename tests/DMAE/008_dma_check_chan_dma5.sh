@@ -6,7 +6,7 @@ set -e
 
 echo "\n************************DMAE CHECK DMA CHAN TEST************************\n"
 
-for a in $(seq 0 1);
+for a in $(seq 0 $DMA5CHAN);
 do
 	if ! ls /sys/class/dma | grep dma5chan$a; then
 		echo "missing dma0chan$a"

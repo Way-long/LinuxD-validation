@@ -6,6 +6,12 @@ set -e
 
 echo "\n************************DMAE CHECK DMA CHAN TEST************************\n"
 
+eval $PASS_MEG
+
+echo "\n************************************************************************\n"
+
+exit 0
+
 for a in $(seq 0 1);
 do
 	if ! ls /sys/class/dma | grep dma6chan$a; then
