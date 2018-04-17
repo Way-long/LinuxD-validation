@@ -8,7 +8,7 @@ echo "\n*********************CHECK INTERRUPT COUTER PCIEC TEST *****************
 
 get_counter_interrupt () {
 
-    words=(`exec $(dirname $0)/../common/proc-interrupts-quiet.sh "${INTERFACE}-rx"`)
+    words=(`exec $(dirname $0)/../common/proc-interrupts-quiet.sh "${INTERFACE}"`)
 
     echo ${words[1]}    
 }

@@ -4,12 +4,7 @@
 set -a
 #set -x
 
-cmd="ifconfig $INTERFACE $IPBOARD netmask $NETMASK"
-echo $cmd
-
-eval $cmd
-
-cmd="route add default gw $GATEWAY $INTERFACE"
+cmd="ifconfig $INTERFACE $IPBOARD_PCIE netmask $NETMASK"
 echo $cmd
 
 eval $cmd

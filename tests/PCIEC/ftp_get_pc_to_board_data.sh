@@ -19,7 +19,7 @@ fi
 
 echo "login server PC and tranfer data file"
 
-ftp -inv $IPSERVER > $LOGFILE 2>&1 <<END_SCRIPT
+ftp -inv $IPSERVER_PCIE > $LOGFILE 2>&1 <<END_SCRIPT
 
 	quote USER $PCNAME
 	quote PASS $PCPASSWORD

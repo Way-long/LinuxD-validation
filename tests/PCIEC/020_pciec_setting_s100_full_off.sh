@@ -6,7 +6,7 @@ set -e
 
 echo "\n**********************ETHTOOLS SETING PARAMETER TEST********************\n"
 
-if ! $(dirname $0)/ethtool_change_parameter.sh 10 half;then
+if ! $(dirname $0)/ethtool_change_parameter.sh 100 half;then
 	eval $FAIL_MEG
 	exit 1
 fi

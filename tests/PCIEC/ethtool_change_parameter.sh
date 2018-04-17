@@ -10,7 +10,7 @@ if [ $# -lt 2 ]; then
     exit 1
 fi
 
-PARAMS=`echo "$(echo "$2" | sed 's/.*/\u&/')"`
+PARAMS=$2
 
 if [ -z "$3" ];then
     cmd="ethtool -s $INTERFACE speed $1 duplex $2"
@@ -25,20 +25,20 @@ eval $cmd
 #wating 5s for system setting
 sleep 5
 
-ethtool eth0
+ethtool $INTERFACE
 
-if ! ethtool eth0 | grep "Speed: ${1}Mb/s" > /dev/null ; then
+if ! ethtool $INTERFACE | grep "Speed: ${1}Mb/s" > /dev/null ; then
     echo "Speed change failed"
     exit 1
 fi
 
-if ! ethtool eth0 | grep "Duplex: $PARAMS" > /dev/null; then
+if ! ethtool $INTERFACE | grep -i "Duplex: $PARAMS" > /dev/null; then
     echo "Duplex change failed"
     exit 1 
 fi
 
 if ! [ -z "$3" ];then
-    if ! ethtool eth0 | grep "Auto-negotiation: $3" > /dev/null; then
+    if ! ethtool $INTERFACE | grep "Auto-negotiation: $3" > /dev/null; then
         echo "Autoneg change failed"
         exit 1 
     fi
