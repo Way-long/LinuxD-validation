@@ -5,7 +5,7 @@ set -e
 #set -x
 
 . $(dirname $0)/config_ether.sh
-. $(dirname $0)/../config.sh
+. $(dirname $0)/../../boards-conf/def_configs
 
 echo "UDP check tranfers rate"
 

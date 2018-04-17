@@ -33,11 +33,12 @@ fi
 
 echo "Interface $INTERFACE up:"
 if ifconfig $INTERFACE up > /dev/null; then
-	
+
+	sleep 1
 	# reset ipadress of board
 	ifconfig $INTERFACE $IPBOARD netmask 255.255.255.0
-	route add default gw 192.168.1.1 $INTERFACE
 
+	sleep 1
 	if ping -c 10 -I $INTERFACE $GOOGLE; then
 	    echo "\n ping OK \n"
 	    eval $PASS_MEG

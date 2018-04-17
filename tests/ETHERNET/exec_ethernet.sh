@@ -8,14 +8,17 @@ set -a
 
 SHELL_SCRIPT_FILE="$1"
 ONLY_RUN_FROM_PC="$2"
+RUNNING_FROM_PC=0
 
 echo -e "\n ${BEGIN_TIMER} \n"
 
 # check source code run from HOST PC
-if pwd | grep "tftpboot" > /dev/null ;then 
+if ifconfig | grep -i $IPSERVER > /dev/null; then
+
+RUNNING_FROM_PC=1
 
 if [ "$ONLY_RUN_FROM_PC" = "1" ];then
-	
+
 	$(dirname $0)/$SHELL_SCRIPT_FILE
 
 else	

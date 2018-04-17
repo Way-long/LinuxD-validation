@@ -166,6 +166,19 @@ sleep 3
 
 28)
 echo "28)"
+. $(dirname $0)/config_ether.sh
+echo "preparing data for test..."
+SIZE_DATA=30
+CPU_NUM=0
+while [ "$CPU_NUM" -lt "$CPU_NUMBER" ]
+do
+    if [ ! -f "${PC_FOLDER}/file-${SIZE_DATA}mb" ]; then
+        echo "please wait during creating file $SIZE_DATA(MB) on HOST PC for fisrt time"
+        dd if=/dev/urandom of=${PC_FOLDER}/file-${SIZE_DATA}mb bs=1M count=${SIZE_DATA} > /dev/null
+    fi
+    SIZE_DATA=$(($SIZE_DATA+10))
+    CPU_NUM=$(($CPU_NUM+1))
+done
 $(dirname $0)/exec_ethernet.sh 028_ether_smp_mutilple_cpu.sh
 sleep 3
 ;;
